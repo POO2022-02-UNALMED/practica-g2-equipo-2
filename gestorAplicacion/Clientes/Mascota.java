@@ -1,4 +1,4 @@
-package proyecto;
+package gestorAplicacion.Clientes;
 
 public class Mascota {
 

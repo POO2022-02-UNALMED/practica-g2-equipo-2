@@ -1,4 +1,7 @@
-package proyecto;
+package gestorAplicacion.Veterinaria;
+
+import gestorAplicacion.Clientes.Cliente;
+import gestorAplicacion.Clientes.Mascota;
 
 public class Turno {
 

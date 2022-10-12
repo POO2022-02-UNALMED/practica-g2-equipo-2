@@ -1,4 +1,4 @@
-package proyecto;
+package gestorAplicacion.Veterinaria;
 
 public class Personal {
 
