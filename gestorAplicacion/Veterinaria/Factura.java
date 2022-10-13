@@ -7,17 +7,21 @@ public class Factura {
     public Personal vendedor;
     public Personal medico;
     public Cliente cliente;
-    public int totalaPagar;
+    public float total;
     public boolean cancelado;
-    
+    public Medicamento medicamento;
+    public Turno turno;
+     
     public Factura(ArrayList<Medicamento> medicamentos, Personal vendedor, Personal medico, Cliente cliente,
-            int totalaPagar, boolean cancelado) {
+            float total, boolean cancelado, Medicamento medicamento, Turno turno) {
         this.medicamentos = medicamentos;
         this.vendedor = vendedor;
         this.medico = medico;
         this.cliente = cliente;
-        this.totalaPagar = totalaPagar;
+        this.total=total;
         this.cancelado = cancelado;
+        this.medicamento = medicamento;
+        this.turno = turno;
     }
     public ArrayList<Medicamento> getMedicamentos() {
         return medicamentos;
@@ -43,16 +47,32 @@ public class Factura {
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
-    public int getTotalaPagar() {
-        return totalaPagar;
+    public float getTotal() {
+        return total;
     }
-    public void setTotalaPagar(int totalaPagar) {
-        this.totalaPagar = totalaPagar;
+    public void setTotal(float total) {
+        this.total = total;
     }
     public boolean isCancelado() {
         return cancelado;
     }
     public void setCancelado(boolean cancelado) {
         this.cancelado = cancelado;
+    }
+    public Medicamento getMedicamento() {
+        return medicamento;
+    }
+    public void setMedicamento(Medicamento medicamento) {
+        this.medicamento = medicamento;
+    }
+    public Turno getTurno() {
+        return turno;
+    }
+    public void setTurno(Turno turno) {
+        this.turno = turno;
+    }
+    void ingresarProductos(Medicamento medicamento){
+    }
+    void ingresarServicio(Turno turno){
     }
 }
