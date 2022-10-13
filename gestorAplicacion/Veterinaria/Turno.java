@@ -1,4 +1,7 @@
-package proyecto;
+package Veterinaria;
+
+import Clientes.Cliente;
+import Clientes.Mascota;
 
 public class Turno {
 

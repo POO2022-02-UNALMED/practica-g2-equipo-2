@@ -1,4 +1,4 @@
-package proyecto;
+package Veterinaria;
 
 public class Personal {
 
