@@ -1,44 +1,35 @@
-package gestorAplicacion.Veterinaria;
-import java.util.ArrayList;
-import gestorAplicacion.Clientes.Cliente;
+package Veterinaria;
+import Clientes.Cliente;
+import java.util.Scanner;
 
 public class Factura {
-    public ArrayList<Medicamento> medicamentos = new ArrayList<Medicamento>();
-    public Personal vendedor;
-    public Personal medico;
+    public Medico medico;
     public Cliente cliente;
-    public float total;
-    public boolean cancelado;
     public Medicamento medicamento;
-    public Turno turno;
-     
-    public Factura(ArrayList<Medicamento> medicamentos, Personal vendedor, Personal medico, Cliente cliente,
-            float total, boolean cancelado, Medicamento medicamento, Turno turno) {
-        this.medicamentos = medicamentos;
-        this.vendedor = vendedor;
+    public Turno turno; //horario de la cita
+    private double valorTurno; //dependiendo de la hora, el valor
+    private static short cantidadMedicamento; //tableta mg
+    private double valorMedico; //general o especialista
+    public double totalFactura;
+    public boolean cancelado;
+
+      
+    public Factura(Medico medico, Cliente cliente, Medicamento medicamento, Turno turno, double valorTurno,
+            short cantidadMedicamento, double valorMedico,double totalFactura, boolean cancelado) {
         this.medico = medico;
         this.cliente = cliente;
-        this.total=total;
-        this.cancelado = cancelado;
         this.medicamento = medicamento;
         this.turno = turno;
+        this.valorTurno = valorTurno;
+        Factura.cantidadMedicamento = cantidadMedicamento;
+        this.valorMedico = valorMedico;
+        this.totalFactura = totalFactura;
+        this.cancelado = cancelado;
     }
-    public ArrayList<Medicamento> getMedicamentos() {
-        return medicamentos;
-    }
-    public void setMedicamentos(ArrayList<Medicamento> medicamentos) {
-        this.medicamentos = medicamentos;
-    }
-    public Personal getVendedor() {
-        return vendedor;
-    }
-    public void setVendedor(Personal vendedor) {
-        this.vendedor = vendedor;
-    }
-    public Personal getMedico() {
+    public Medico getMedico() {
         return medico;
     }
-    public void setMedico(Personal medico) {
+    public void setMedico(Medico medico) {
         this.medico = medico;
     }
     public Cliente getCliente() {
@@ -46,18 +37,6 @@ public class Factura {
     }
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
-    }
-    public float getTotal() {
-        return total;
-    }
-    public void setTotal(float total) {
-        this.total = total;
-    }
-    public boolean isCancelado() {
-        return cancelado;
-    }
-    public void setCancelado(boolean cancelado) {
-        this.cancelado = cancelado;
     }
     public Medicamento getMedicamento() {
         return medicamento;
@@ -71,8 +50,47 @@ public class Factura {
     public void setTurno(Turno turno) {
         this.turno = turno;
     }
-    void ingresarProductos(Medicamento medicamento){
+    public short getCantidadMedicamento() {
+        return cantidadMedicamento;
     }
-    void ingresarServicio(Turno turno){
+    public static void setCantidadMedicamento(short cantidadMedicamento) {
+        Factura.cantidadMedicamento = cantidadMedicamento;
     }
+    public double getValorMedico(Medico medico) {
+        if (Medico.getTipoMedico()== "Especialista")
+            return valorMedico = 80.000;
+        else    
+            return valorMedico = 40.000;
+    }
+    public void setValorMedico(double valorMedico) {
+        this.valorMedico = valorMedico;
+    }
+    public double getValorTurno(Turno turno) {
+        if (Turno.getHoraInicio() >= 18 && Turno.getHoraInicio() < 8) //condicion para valor cita según horario atención, cómo se veran las horas?
+            return valorTurno = 40.000;
+        else     
+            return valorTurno = 25.000;
+    }
+    public void setValorTurno(double valorTurno) {
+        this.valorTurno = valorTurno;
+    } 
+    public boolean isCancelado() {
+        return cancelado;
+    }
+    public void setCancelado(boolean cancelado) {
+        this.cancelado = cancelado;
+    }
+    public double getTotalFactura() {
+        double calculoValorTotal;
+        double calculoTotalMedicamento;
+        double calculoTotalTurno;
+        calculoTotalMedicamento = cantidadMedicamento * Medicamento.getPrecio();
+        calculoTotalTurno = valorTurno + valorMedico;
+        calculoValorTotal = calculoTotalMedicamento + calculoTotalTurno;
+        return calculoValorTotal;
+    }
+    public void setTotalFactura(double totalFactura){
+        this.totalFactura = totalFactura;
+    }
+
 }
