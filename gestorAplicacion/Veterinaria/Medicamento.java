@@ -1,18 +1,14 @@
 package gestorAplicacion.Veterinaria;
-
 public class Medicamento {
     private int idMed;
     public String nombre;
     public String presentacion;
-    public float concentracion;
-    public float cantidad;
+    public int cantidad;
     public float precio;
-
-    public Medicamento(int idMed, String nombre, String presentacion, float concentracion, float cantidad, float precio) {
+    public Medicamento(int idMed, String nombre, String presentacion, int cantidad, float precio) {
         this.idMed = idMed;
         this.nombre = nombre;
         this.presentacion = presentacion;
-        this.concentracion = concentracion;
         this.cantidad = cantidad;
         this.precio = precio;
     }
@@ -34,16 +30,10 @@ public class Medicamento {
     public void setPresentacion(String presentacion) {
         this.presentacion = presentacion;
     }
-    public float getConcentracion() {
-        return concentracion;
-    }
-    public void setConcentracion(float concentracion) {
-        this.concentracion = concentracion;
-    }
-    public float getCantidad() {
+    public int getCantidad() {
         return cantidad;
     }
-    public void setCantidad(float cantidad) {
+    public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
     public float getPrecio() {
@@ -52,13 +42,6 @@ public class Medicamento {
     public void setPrecio(float precio) {
         this.precio = precio;
     }
-    public void guardarMedicamento(int idMed, String nombre, String presentacion, float concentracion, float cantidad, float precio){
-        this.idMed = idMed;
-        this.nombre = nombre;
-        this.presentacion = presentacion;
-        this.concentracion = concentracion;
-        this.cantidad = cantidad;
-        this.precio = precio;
-    }
+
   	
 }
