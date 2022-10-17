@@ -1,8 +1,8 @@
-package veterinaria;
+package Veterinaria;
 
 import java.util.ArrayList;
-import clientes.Mascota;
-import clientes.Cliente;
+import Clientes.Mascota;
+import Clientes.Cliente;
 
 public class Diagnostico extends Mascota{
 	private String fecha;

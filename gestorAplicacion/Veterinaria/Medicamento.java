@@ -1,4 +1,4 @@
-package gestorAplicacion.Veterinaria;
+package Veterinaria;
 public class Medicamento {
     private int idMed;
     public String nombre;
