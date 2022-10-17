@@ -91,5 +91,11 @@ public class Factura {
     public void setTotalFactura(double totalFactura){
         this.totalFactura = totalFactura;
     }
-    // falta descuento cliente frecuente y cómo pedirle al admin la cantidadMedicamento
+    // falta descuento cliente frecuente
+    public static void main(String[] args){ //pedirle al admin la cantidadMedicamento
+        Scanner cantMed = new Scanner(System.in);
+        System.out.println("Ingrese la cantidad (en tabletas) del medicamento: ");
+            short cantidadMedicamento = cantMed.nextShort();
+            Factura.setCantidadMedicamento(cantidadMedicamento);
+    }
 }

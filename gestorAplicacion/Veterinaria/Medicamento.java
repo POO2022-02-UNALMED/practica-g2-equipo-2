@@ -4,13 +4,13 @@ public class Medicamento {
     public String nombre;
     public String presentacion;
     public int cantidad;
-    public float precio;
+    public static float precio;
     public Medicamento(int idMed, String nombre, String presentacion, int cantidad, float precio) {
         this.idMed = idMed;
         this.nombre = nombre;
         this.presentacion = presentacion;
         this.cantidad = cantidad;
-        this.precio = precio;
+        Medicamento.precio = precio;
     }
     public int getIdMed() {
         return idMed;
@@ -36,11 +36,11 @@ public class Medicamento {
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
-    public float getPrecio() {
+    public static float getPrecio() {
         return precio;
     }
     public void setPrecio(float precio) {
-        this.precio = precio;
+        Medicamento.precio = precio;
     }
 
   	
