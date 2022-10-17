@@ -12,8 +12,7 @@ public class Factura {
     private double valorMedico; //general o especialista
     public double totalFactura;
     public boolean cancelado;
-
-      
+  
     public Factura(Medico medico, Cliente cliente, Medicamento medicamento, Turno turno, double valorTurno,
             short cantidadMedicamento, double valorMedico,double totalFactura, boolean cancelado) {
         this.medico = medico;
@@ -57,7 +56,7 @@ public class Factura {
         Factura.cantidadMedicamento = cantidadMedicamento;
     }
     public double getValorMedico(Medico medico) {
-        if (Medico.getTipoMedico()== "Especialista")
+        if (Medico.getTipoMedico()== "Especialista") //calculo del valor de la cita de acuerdo al tipo de medico
             return valorMedico = 80.000;
         else    
             return valorMedico = 40.000;
@@ -80,7 +79,7 @@ public class Factura {
     public void setCancelado(boolean cancelado) {
         this.cancelado = cancelado;
     }
-    public double getTotalFactura() {
+    public double getTotalFactura() { 
         double calculoValorTotal;
         double calculoTotalMedicamento;
         double calculoTotalTurno;
@@ -92,5 +91,5 @@ public class Factura {
     public void setTotalFactura(double totalFactura){
         this.totalFactura = totalFactura;
     }
-
+    // falta descuento cliente frecuente y cómo pedirle al admin la cantidadMedicamento
 }
