@@ -1,5 +1,8 @@
 package Veterinaria;
+import java.util.ArrayList;
+
 public class Medicamento {
+    private ArrayList<Medicamento> medicamentos = new ArrayList<Medicamento>(); 
     private int idMed;
     public String nombre;
     public String presentacion;
@@ -42,6 +45,11 @@ public class Medicamento {
     public void setPrecio(float precio) {
         Medicamento.precio = precio;
     }
-
-  	
+    public ArrayList<Medicamento> getMedicamentos() {
+        return medicamentos;
+    }
+    public void setMedicamentos(ArrayList<Medicamento> medicamentos) {
+        this.medicamentos = medicamentos;
+    }
+      	
 }

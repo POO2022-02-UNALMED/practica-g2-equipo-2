@@ -11,17 +11,15 @@ public class Factura {
     private static short cantidadMedicamento; //tableta mg
     private double valorMedico; //general o especialista
     public double totalFactura;
+    public double dctoFactura;
+    public double totalFacturaDcto;
     public boolean cancelado;
   
-    public Factura(Medico medico, Cliente cliente, Medicamento medicamento, Turno turno, double valorTurno,
-            short cantidadMedicamento,boolean cancelado) {
+    public Factura(Medico medico, Cliente cliente, Medicamento medicamento, Turno turno) {
         this.medico = medico;
         this.cliente = cliente;
         this.medicamento = medicamento;
         this.turno = turno;
-        this.valorTurno = valorTurno;
-        Factura.cantidadMedicamento = cantidadMedicamento;
-        this.cancelado = cancelado;
     }
     public Medico getMedico() {
         return medico;
@@ -63,7 +61,7 @@ public class Factura {
         this.valorMedico = valorMedico;
     }
     public double getValorTurno(Turno turno) {
-        if (Turno.getHoraInicio() >= 18 && Turno.getHoraInicio() < 8) //condicion para valor cita según horario atención, cómo se veran las horas?
+        if (Turno.getHoraInicio() >= 18 || Turno.getHoraInicio() < 8) //condicion para valor cita según horario atención, cómo se veran las horas?
             return valorTurno = 40.000;
         else     
             return valorTurno = 25.000;
@@ -78,15 +76,27 @@ public class Factura {
         this.cancelado = cancelado;
     }
     public double getTotalFactura() { 
-        double calculoTotalMedicamento= cantidadMedicamento * Medicamento.getPrecio();
-        double calculoTotalTurno= valorTurno + valorMedico;
-        this.totalFactura = calculoTotalMedicamento + calculoTotalTurno;
-        return calculoTotalMedicamento + calculoTotalTurno;
+        double calculoValorTotal;
+        double calculoTotalMedicamento;
+        double calculoTotalTurno;
+        calculoTotalMedicamento = cantidadMedicamento * Medicamento.getPrecio();
+        calculoTotalTurno = valorTurno + valorMedico;
+        calculoValorTotal = calculoTotalMedicamento + calculoTotalTurno;
+        return calculoValorTotal;
     }
     public void setTotalFactura(double totalFactura){
         this.totalFactura = totalFactura;
     }
-    // falta descuento cliente frecuente
+    public double getDctoFactura() {
+        if (Cliente.getFrecuente() == true ) //falta crear método frecuente en clase Cliente
+            dctoFactura=this.totalFactura*0.1;
+            return totalFacturaDcto = totalFactura-dctoFactura;
+        else 
+            return totalFactura;
+    }
+    public void setDctoFactura(double dctoFactura) {
+        this.dctoFactura = dctoFactura;
+    }
     public static void main(String[] args){ //pedirle al admin la cantidadMedicamento
         Scanner cantMed = new Scanner(System.in);
         System.out.println("Ingrese la cantidad (en tabletas) del medicamento: ");
