@@ -81,8 +81,8 @@ public class Factura {
     }
     public double getTotalFactura() { 
         double calculoValorTotal;
-        double calculoTotalMedicamento;
-        double calculoTotalTurno;
+        double calculoTotalMedicamento= cantidadMedicamento * Medicamento.getPrecio();
+        double calculoTotalTurno= valorTurno + valorMedico;
         calculoTotalMedicamento = cantidadMedicamento * Medicamento.getPrecio();
         calculoTotalTurno = valorTurno + valorMedico;
         calculoValorTotal = calculoTotalMedicamento + calculoTotalTurno;
