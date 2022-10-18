@@ -14,15 +14,13 @@ public class Factura {
     public boolean cancelado;
   
     public Factura(Medico medico, Cliente cliente, Medicamento medicamento, Turno turno, double valorTurno,
-            short cantidadMedicamento, double valorMedico,double totalFactura, boolean cancelado) {
+            short cantidadMedicamento,boolean cancelado) {
         this.medico = medico;
         this.cliente = cliente;
         this.medicamento = medicamento;
         this.turno = turno;
         this.valorTurno = valorTurno;
         Factura.cantidadMedicamento = cantidadMedicamento;
-        this.valorMedico = valorMedico;
-        this.totalFactura = totalFactura;
         this.cancelado = cancelado;
     }
     public Medico getMedico() {
@@ -80,13 +78,10 @@ public class Factura {
         this.cancelado = cancelado;
     }
     public double getTotalFactura() { 
-        double calculoValorTotal;
         double calculoTotalMedicamento= cantidadMedicamento * Medicamento.getPrecio();
         double calculoTotalTurno= valorTurno + valorMedico;
-        calculoTotalMedicamento = cantidadMedicamento * Medicamento.getPrecio();
-        calculoTotalTurno = valorTurno + valorMedico;
-        calculoValorTotal = calculoTotalMedicamento + calculoTotalTurno;
-        return calculoValorTotal;
+        this.totalFactura = calculoTotalMedicamento + calculoTotalTurno;
+        return calculoTotalMedicamento + calculoTotalTurno;
     }
     public void setTotalFactura(double totalFactura){
         this.totalFactura = totalFactura;
