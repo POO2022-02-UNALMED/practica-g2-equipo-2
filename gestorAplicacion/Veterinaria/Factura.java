@@ -90,12 +90,19 @@ public class Factura {
     public double getDctoFactura() {
         if (Cliente.getFrecuente() == true ) //falta crear método frecuente en clase Cliente
             dctoFactura=this.totalFactura*0.1;
-            return totalFacturaDcto = totalFactura-dctoFactura;
-        else 
+            totalFacturaDcto = totalFactura-dctoFactura;
+            return totalFacturaDcto;
+        else
             return totalFactura;
     }
     public void setDctoFactura(double dctoFactura) {
         this.dctoFactura = dctoFactura;
+    }
+    public String datosFactura(){
+        if (Cliente.getFrecuente() == true )
+            return "El cliente: " + Cliente.getNombre()+ "debe pagar un total de: $ " + getDctoFactura();
+        else 
+            return "El cliente: " + Cliente.getNombre()+ "debe pagar un total de: $ " + getTotalFactura();
     }
 
     /*public static void main(String[] args){ //pedirle al admin la cantidadMedicamento
