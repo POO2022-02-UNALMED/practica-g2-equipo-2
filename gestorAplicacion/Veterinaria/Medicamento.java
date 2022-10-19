@@ -27,9 +27,6 @@ public class Medicamento {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-    public String getPresentacion() {
-        return presentacion;
-    }
     public void setPresentacion(String presentacion) {
         this.presentacion = presentacion;
     }
@@ -50,6 +47,16 @@ public class Medicamento {
     }
     public void setMedicamentos(ArrayList<Medicamento> medicamentos) {
         this.medicamentos = medicamentos;
+    }
+    enum presentacion{
+        Tableta120mg ("Presentación 1"), Tableta150mg ("Presentación 2"), Tableta250mg ("Presentación 3"), Tableta500mg ("Presentación 4");
+        private presentacion(String presentacion){
+            this.presentacion = presentacion;
+         }
+        public String getPresentacion() {
+            return presentacion;
+        }
+        private String presentacion;
     }
       	
 }
