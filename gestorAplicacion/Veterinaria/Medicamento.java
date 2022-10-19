@@ -5,13 +5,13 @@ public class Medicamento {
     private ArrayList<Medicamento> medicamentos = new ArrayList<Medicamento>(); 
     private int idMed;
     public String nombre;
-    public String presentacion;
+    public static String presentacion;
     public int cantidad;
     public static float precio;
     public Medicamento(int idMed, String nombre, String presentacion, int cantidad, float precio) {
         this.idMed = idMed;
         this.nombre = nombre;
-        this.presentacion = presentacion;
+        Medicamento.presentacion = presentacion;
         this.cantidad = cantidad;
         Medicamento.precio = precio;
     }
@@ -27,8 +27,8 @@ public class Medicamento {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-    public void setPresentacion(String presentacion) {
-        this.presentacion = presentacion;
+    public static void setPresentacion(String presentacion) {
+        Medicamento.presentacion = presentacion;
     }
     public int getCantidad() {
         return cantidad;
@@ -51,12 +51,12 @@ public class Medicamento {
     enum presentacion{
         Tableta120mg ("Presentación 1"), Tableta150mg ("Presentación 2"), Tableta250mg ("Presentación 3"), Tableta500mg ("Presentación 4");
         private presentacion(String presentacion){
-            this.presentacion = presentacion;
+            Veterinaria.Medicamento.presentacion = presentacion;
          }
-        public String getPresentacion() {
+        public static String getPresentacion() {
             return presentacion;
         }
-        private String presentacion;
+        private static String presentacion;
     }
       	
 }

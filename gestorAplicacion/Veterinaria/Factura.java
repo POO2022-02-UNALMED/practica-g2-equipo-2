@@ -97,10 +97,16 @@ public class Factura {
     public void setDctoFactura(double dctoFactura) {
         this.dctoFactura = dctoFactura;
     }
-    public static void main(String[] args){ //pedirle al admin la cantidadMedicamento
+
+    /*public static void main(String[] args){ //pedirle al admin la cantidadMedicamento
         Scanner cantMed = new Scanner(System.in);
         System.out.println("Ingrese la cantidad (en tabletas) del medicamento: ");
             short cantidadMedicamento = cantMed.nextShort();
             Factura.setCantidadMedicamento(cantidadMedicamento);
+        Scanner present= new Scanner(System.in);
+        System.out.println("Ingrese la presentación del medicamento: ");
+            String presentacion = present.nextLine();
+            Medicamento.setPresentacion(presentacion);
     }
+    /* */
 }
