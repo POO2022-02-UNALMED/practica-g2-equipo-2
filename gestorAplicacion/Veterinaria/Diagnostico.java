@@ -1,4 +1,4 @@
-package Veterinaria;
+package gestorAplicacion.Veterinaria;
 
 import java.util.ArrayList;
 import Clientes.Mascota;

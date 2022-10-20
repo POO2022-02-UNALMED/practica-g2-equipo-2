@@ -1,5 +1,5 @@
-package Veterinaria;
-import Clientes.Cliente;
+package gestorAplicacion.Veterinaria;
+import gestorAplicacion.Clientes.Cliente;
 import java.util.Scanner;
 
 public class Factura {
@@ -52,8 +52,9 @@ public class Factura {
         this.cantidadMedicamento = cantidadMedicamento;
     }
     public double getValorMedico(Medico medico) {
-        if (medico.getTipoMedico()== "Especialista") //calculo del valor de la cita de acuerdo al tipo de medico
+        if (medico.getTipoMedico()== "Especialista"){ //calculo del valor de la cita de acuerdo al tipo de medico
             return valorMedico = 80.000;
+        }   
         else    
             return valorMedico = 40.000;
     }
@@ -61,8 +62,9 @@ public class Factura {
         this.valorMedico = valorMedico;
     }
     public double getValorTurno(Turno turno) {
-        if (turno.getHoraInicio() >= 18 || turno.getHoraInicio() < 8) //condicion para valor cita según horario atención, cómo se veran las horas?
+        if (turno.getHoraInicio() >= 18 || turno.getHoraInicio() < 8){ //condicion para valor cita según horario atención, cómo se veran las horas?
             return valorTurno = 40.000;
+        }   
         else     
             return valorTurno = 25.000;
     }
@@ -86,10 +88,11 @@ public class Factura {
         this.totalFactura = totalFactura;
     }
     public double getDctoFactura() {
-        if (cliente.getFrecuente() == true ) //falta crear método frecuente en clase Cliente
+        if (cliente.getFrecuente() == true ){//falta crear método frecuente en clase Cliente
             dctoFactura=this.totalFactura*0.1;
             totalFacturaDcto = totalFactura-dctoFactura;
             return totalFacturaDcto;
+        } 
         else
             return totalFactura;
     }
@@ -97,8 +100,9 @@ public class Factura {
         this.dctoFactura = dctoFactura;
     }
     public String datosFactura(){
-        if (cliente.getFrecuente() == true )
+        if (cliente.getFrecuente() == true ){
             return "El cliente: " + cliente.getNombre()+ "debe pagar un total de: $ " + getDctoFactura();
+        }
         else 
             return "El cliente: " + cliente.getNombre()+ "debe pagar un total de: $ " + getTotalFactura();
     }
