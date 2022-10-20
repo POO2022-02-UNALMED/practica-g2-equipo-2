@@ -1,29 +1,35 @@
-package Veterinaria;
+package gestorAplicacion.Veterinaria;
 
-import Clientes.Cliente;
-import Clientes.Mascota;
+import gestorAplicacion.Clientes.Cliente;
+import gestorAplicacion.Clientes.Mascota;
 
 public class Turno {
-
-	public int horaInicio;
-	private int horaFin;
+	
+	private int horaInicio;
 	private String fecha;
 	private Mascota mascota;
 	private Cliente cliente;
 	private boolean disponibilidad;
 	private Personal veterinario;
 	
+	
+	public Turno(int horaInicio, String fecha, Mascota mascota, Cliente cliente, boolean disponibilidad,
+			Personal veterinario) {
+		super();
+		this.horaInicio = horaInicio;
+		this.fecha = fecha;
+		this.mascota = mascota;
+		this.cliente = cliente;
+		this.disponibilidad = disponibilidad;
+		this.veterinario = veterinario;
+	}
+	
+	
 	public int getHoraInicio() {
 		return horaInicio;
 	}
 	public void setHoraInicio(int horaInicio) {
 		this.horaInicio = horaInicio;
-	}
-	public int getHoraFin() {
-		return horaFin;
-	}
-	public void setHoraFin(int horaFin) {
-		this.horaFin = horaFin;
 	}
 	public String getFecha() {
 		return fecha;

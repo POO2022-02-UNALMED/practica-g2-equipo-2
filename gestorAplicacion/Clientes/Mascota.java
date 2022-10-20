@@ -1,7 +1,7 @@
-package Clientes;
+package gestorAplicacion.Clientes;
+
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
 
 public class Mascota {
 
@@ -72,37 +72,7 @@ public class Mascota {
 		this.id = id;
 	}
 	
-	public static Mascota registrarMascota() {
-		
-		@SuppressWarnings("resource")
-		Scanner entrada=new Scanner(System.in);
-		System.out.print("Ingrese el nombre de la mascota:");
-		String nombre = entrada.nextLine();
-		System.out.print("Ingrese la especie:");
-		String especie = entrada.nextLine();
-		System.out.print("Ingrese la raza:");
-		String raza = entrada.nextLine();
-		System.out.print("Ingrese la edad:");
-		int edad = entrada.nextInt();
-		System.out.print("Ingrese el peso:");
-		int peso = entrada.nextInt();
-		String cedula="";
-		entrada.nextLine();
-		boolean valido=false;
-		while(valido==false) {
-			
-			System.out.print("Ingrese la cedula del dueño de la mascota: ");
-			cedula = entrada.nextLine();
-			if(Cliente.mapaClientes.containsKey(cedula)) {
-				valido=true;
-			}else {
-				System.out.print("La cedula no existe en el sistema, por favor ingrese una valida\n\n");
-			}
-			
-		}
-		Mascota mascota1 = new Mascota(nombre,especie,raza,edad,peso,Cliente.mapaClientes.get(cedula));
-		return mascota1;
-	}
+	
 	
 	public String toString() {
 		return "nombre: " + nombre + "\n" + "especie: " + especie + "\n" + "raza: " + raza + "\n" + "edad: " + edad + "\n" + "peso: " + peso+ "\n" + "dueño:\n" + duenno;
