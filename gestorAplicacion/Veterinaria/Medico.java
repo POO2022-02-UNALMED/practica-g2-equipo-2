@@ -1,13 +1,13 @@
 package Veterinaria;
 
 public class Medico extends Personal {
-    public static String tipoMedico; //general o especialista
+    public String tipoMedico; //general o especialista
 
-    public static String getTipoMedico() {
+    public String getTipoMedico() {
         return tipoMedico;
     }
     public void setTipoMedico(String tipoMedico) {
-        Medico.tipoMedico = tipoMedico;
+        this.tipoMedico = tipoMedico;
     }
 
     

@@ -5,7 +5,7 @@ import Clientes.Mascota;
 
 public class Turno {
 
-	public static int horaInicio;
+	public int horaInicio;
 	private int horaFin;
 	private String fecha;
 	private Mascota mascota;
@@ -13,11 +13,11 @@ public class Turno {
 	private boolean disponibilidad;
 	private Personal veterinario;
 	
-	public static int getHoraInicio() {
+	public int getHoraInicio() {
 		return horaInicio;
 	}
 	public void setHoraInicio(int horaInicio) {
-		Turno.horaInicio = horaInicio;
+		this.horaInicio = horaInicio;
 	}
 	public int getHoraFin() {
 		return horaFin;

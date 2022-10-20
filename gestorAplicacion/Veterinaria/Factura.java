@@ -8,7 +8,7 @@ public class Factura {
     public Medicamento medicamento;
     public Turno turno; //horario de la cita
     private double valorTurno; //dependiendo de la hora, el valor
-    private static short cantidadMedicamento; //tableta mg
+    private short cantidadMedicamento; //tableta mg
     private double valorMedico; //general o especialista
     public double totalFactura;
     public double dctoFactura;
@@ -48,11 +48,11 @@ public class Factura {
     public short getCantidadMedicamento() {
         return cantidadMedicamento;
     }
-    public static void setCantidadMedicamento(short cantidadMedicamento) {
-        Factura.cantidadMedicamento = cantidadMedicamento;
+    public void setCantidadMedicamento(short cantidadMedicamento) {
+        this.cantidadMedicamento = cantidadMedicamento;
     }
     public double getValorMedico(Medico medico) {
-        if (Medico.getTipoMedico()== "Especialista") //calculo del valor de la cita de acuerdo al tipo de medico
+        if (medico.getTipoMedico()== "Especialista") //calculo del valor de la cita de acuerdo al tipo de medico
             return valorMedico = 80.000;
         else    
             return valorMedico = 40.000;
@@ -61,7 +61,7 @@ public class Factura {
         this.valorMedico = valorMedico;
     }
     public double getValorTurno(Turno turno) {
-        if (Turno.getHoraInicio() >= 18 || Turno.getHoraInicio() < 8) //condicion para valor cita según horario atención, cómo se veran las horas?
+        if (turno.getHoraInicio() >= 18 || turno.getHoraInicio() < 8) //condicion para valor cita según horario atención, cómo se veran las horas?
             return valorTurno = 40.000;
         else     
             return valorTurno = 25.000;
@@ -79,7 +79,7 @@ public class Factura {
         double calculoValorTotal;
         double calculoTotalMedicamento;
         double calculoTotalTurno;
-        calculoTotalMedicamento = cantidadMedicamento * Medicamento.getPrecio();
+        calculoTotalMedicamento = cantidadMedicamento * medicamento.getPrecio();
         calculoTotalTurno = valorTurno + valorMedico;
         calculoValorTotal = calculoTotalMedicamento + calculoTotalTurno;
         return calculoValorTotal;
@@ -88,7 +88,7 @@ public class Factura {
         this.totalFactura = totalFactura;
     }
     public double getDctoFactura() {
-        if (Cliente.getFrecuente() == true ) //falta crear método frecuente en clase Cliente
+        if (cliente.getFrecuente() == true ) //falta crear método frecuente en clase Cliente
             dctoFactura=this.totalFactura*0.1;
             totalFacturaDcto = totalFactura-dctoFactura;
             return totalFacturaDcto;
@@ -99,21 +99,21 @@ public class Factura {
         this.dctoFactura = dctoFactura;
     }
     public String datosFactura(){
-        if (Cliente.getFrecuente() == true )
-            return "El cliente: " + Cliente.getNombre()+ "debe pagar un total de: $ " + getDctoFactura();
+        if (cliente.getFrecuente() == true )
+            return "El cliente: " + cliente.getNombre()+ "debe pagar un total de: $ " + getDctoFactura();
         else 
-            return "El cliente: " + Cliente.getNombre()+ "debe pagar un total de: $ " + getTotalFactura();
+            return "El cliente: " + cliente.getNombre()+ "debe pagar un total de: $ " + getTotalFactura();
     }
-
-    /*public static void main(String[] args){ //pedirle al admin la cantidadMedicamento
+/* 
+    public static void main(String[] args){ //pedirle al admin la cantidadMedicamento
         Scanner cantMed = new Scanner(System.in);
         System.out.println("Ingrese la cantidad (en tabletas) del medicamento: ");
             short cantidadMedicamento = cantMed.nextShort();
             Factura.setCantidadMedicamento(cantidadMedicamento);
         Scanner present= new Scanner(System.in);
         System.out.println("Ingrese la presentación del medicamento: ");
-            String presentacion = present.nextLine();
-            Medicamento.setPresentacion(presentacion);
+            String presentacionMed = present.nextLine();
+            Medicamento.setPresentacion(String presentacion);
     }
     /* */
 }

@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class Cliente {
 
-	private static String nombre;
+	private String nombre;
 	private String cedula;
 	private ArrayList<Mascota> mascotas = new ArrayList<Mascota>();
 	private String telefono;
@@ -17,17 +17,17 @@ public class Cliente {
 	
 	public Cliente(String nombre, String cedula, String telefono) {
 		super();
-		Cliente.nombre = nombre;
+		this.nombre = nombre;
 		this.cedula = cedula;
 		this.telefono = telefono;
 		cantidadClientes++;
 	}
 	
-	public static String getNombre() {
+	public String getNombre() {
 		return nombre;
 	}
 	public void setNombre(String nombre) {
-		Cliente.nombre = nombre;
+		this.nombre = nombre;
 	}
 	public String getCedula() {
 		return cedula;

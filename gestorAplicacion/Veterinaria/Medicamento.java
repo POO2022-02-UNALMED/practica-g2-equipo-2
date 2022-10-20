@@ -7,13 +7,13 @@ public class Medicamento {
     public String nombre;
     public static String presentacion;
     public int cantidad;
-    public static float precio;
+    public float precio;
     public Medicamento(int idMed, String nombre, String presentacion, int cantidad, float precio) {
         this.idMed = idMed;
         this.nombre = nombre;
         Medicamento.presentacion = presentacion;
         this.cantidad = cantidad;
-        Medicamento.precio = precio;
+        this.precio = precio;
     }
     public int getIdMed() {
         return idMed;
@@ -36,11 +36,11 @@ public class Medicamento {
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
-    public static float getPrecio() {
+    public float getPrecio() {
         return precio;
     }
     public void setPrecio(float precio) {
-        Medicamento.precio = precio;
+        this.precio = precio;
     }
     public ArrayList<Medicamento> getMedicamentos() {
         return medicamentos;
@@ -51,7 +51,7 @@ public class Medicamento {
     enum presentacion{
         Tableta120mg ("Presentación 1"), Tableta150mg ("Presentación 2"), Tableta250mg ("Presentación 3"), Tableta500mg ("Presentación 4");
         private presentacion(String presentacion){
-            Veterinaria.Medicamento.presentacion = presentacion;
+            Medicamento.presentacion = presentacion;
          }
         public static String getPresentacion() {
             return presentacion;
