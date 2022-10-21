@@ -1,23 +1,20 @@
 package gestorAplicacion.Clientes;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import gestorAplicacion.Veterinaria.Personal;
 
-public class Cliente {
 
-	private String nombre;
-	private String cedula;
-	private String telefono;
+public class Cliente extends Personal{
+
 	public static Map<String, Cliente> mapaClientes = new HashMap<>();
 	public static int cantidadClientes = 0;
 	public static Map<String, ArrayList<Mascota>> mascotas = new HashMap<>();
 	
 	public Cliente(String nombre, String cedula, String telefono) {
-		super();
-		this.nombre = nombre;
-		this.cedula = cedula;
-		this.telefono = telefono;
+		super(nombre, cedula, telefono);
 		cantidadClientes++;
 	}
 	
@@ -40,7 +37,17 @@ public class Cliente {
 		this.telefono = telefono;
 	}
 	
+	public static boolean validarCedula(String cedula) {
+		return Cliente.mapaClientes.containsKey(cedula);
+	}
 	
+	public static String obtenerMascotasCliente(String cedula) {
+		String cadena = "";
+		for (int i=0;i<Cliente.mascotas.get(cedula).size();i++) {
+			cadena = cadena + (i+1) + ". " + Cliente.mascotas.get(cedula).get(i).getNombre()+"\n";      
+		}
+		return cadena;
+	}
 	
 	public String toString() {
 		return "nombre: " + nombre + "\n" + "cedula: " + cedula + "\n" + "telefono: " + telefono;
