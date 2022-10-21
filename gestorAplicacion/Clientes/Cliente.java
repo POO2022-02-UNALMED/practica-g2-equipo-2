@@ -9,6 +9,8 @@ import gestorAplicacion.Veterinaria.Personal;
 
 public class Cliente extends Personal{
 
+	private boolean frecuente = false;
+	private int registroHoras[] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 	public static Map<String, Cliente> mapaClientes = new HashMap<>();
 	public static int cantidadClientes = 0;
 	public static Map<String, ArrayList<Mascota>> mascotas = new HashMap<>();
@@ -36,7 +38,13 @@ public class Cliente extends Personal{
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
-	
+	public boolean isFrecuente() {
+		return frecuente;
+	}
+
+	public void setFrecuente(boolean frecuente) {
+		this.frecuente = frecuente;
+	}
 	public static boolean validarCedula(String cedula) {
 		return Cliente.mapaClientes.containsKey(cedula);
 	}
@@ -51,6 +59,17 @@ public class Cliente extends Personal{
 	
 	public String toString() {
 		return "nombre: " + nombre + "\n" + "cedula: " + cedula + "\n" + "telefono: " + telefono;
+	}
+
+	public void registrarHora(int hora) {
+		this.registroHoras[hora]++;
+	}
+	public int sumaRegistros() {
+		int suma = 0;
+		for(int i=0; i<24; i++) {
+			suma = suma + this.registroHoras[i];
+		}
+		return suma;
 	}
 	
 }

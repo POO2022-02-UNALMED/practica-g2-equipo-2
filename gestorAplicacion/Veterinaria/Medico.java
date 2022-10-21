@@ -14,7 +14,9 @@ public class Medico extends Personal {
         this.tipoMed = tipoMed;
         mapaMedico.put(cedula, this);
     }
-    public tipoMedico getTipoMed() {
+    
+    
+    public tipoMedico getTipoMed(){
         return tipoMed;
     }
     public void setTipoMed(tipoMedico tipoMed) {
@@ -41,8 +43,7 @@ public class Medico extends Personal {
     		}
 	    }
     	return cadena;
-    }
-    
+    }    
     public String obtenerTurnosDisponibles(String fecha) {
     	String cadena = "";
     	for(int i = 0; i<24; i++) {
@@ -61,7 +62,10 @@ public class Medico extends Personal {
     	this.agenda.get(fecha)[turno].setDisponibilidad(false);
 		this.agenda.get(fecha)[turno].setCliente(Cliente.mapaClientes.get(cedulaCliente));
 		this.agenda.get(fecha)[turno].setMascota(Cliente.mascotas.get(cedulaCliente).get(mascota));
-		
+		Cliente.mapaClientes.get(cedulaCliente).registrarHora(turno);
+		if(Cliente.mapaClientes.get(cedulaCliente).sumaRegistros()>3) {
+			Cliente.mapaClientes.get(cedulaCliente).setFrecuente(true);
+		}
     }
     public static boolean validarCedula(String cedula) {
 		return Medico.mapaMedico.containsKey(cedula);
