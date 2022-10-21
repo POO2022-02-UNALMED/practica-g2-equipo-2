@@ -3,9 +3,7 @@ package uiMain;
 
 import java.util.Scanner;
 
-import gestorAplicacion.Clientes.Cliente;
-import gestorAplicacion.Clientes.Mascota;
-import gestorAplicacion.Veterinaria.Personal;
+
 
 public class Sistema {
 
@@ -28,13 +26,13 @@ public class Sistema {
 			entrada.nextLine();
 			
 			if(opc == 1) {
-				Cliente cliente1 = Interaccion.registrarCliente();
+				Interaccion.registrarCliente();
 			}
 			if(opc == 2) {
-				Mascota mascota1 = Interaccion.registrarMascota();
+				Interaccion.registrarMascota();
 			}
 			if(opc == 3) {
-				Personal personal1 = Interaccion.registrarPersonal();
+				Interaccion.registrarMedico();
 			}
 			if(opc == 4) {
 				Interaccion.agendarTurno();
