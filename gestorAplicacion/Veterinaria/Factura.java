@@ -53,7 +53,7 @@ public class Factura {
         this.cantidadMedicamento = cantidadMedicamento;
     }
     public double getValorMedico(Medico medico) {
-        if (medico.getTipoMedico()== "Especialista"){ //calculo del valor de la cita de acuerdo al tipo de medico
+        if (medico.getTipoMed().toString() == "Especialista"){ //calculo del valor de la cita de acuerdo al tipo de medico
             return valorMedico = 80.000;
         }   
         else    
