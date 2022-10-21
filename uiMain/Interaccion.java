@@ -5,7 +5,10 @@ import java.lang.Thread;
 import java.util.Scanner;
 import gestorAplicacion.Clientes.Cliente;
 import gestorAplicacion.Clientes.Mascota;
+import gestorAplicacion.Veterinaria.Factura;
+import gestorAplicacion.Veterinaria.Medicamento;
 import gestorAplicacion.Veterinaria.Medico;
+import gestorAplicacion.Veterinaria.Turno;
 import gestorAplicacion.Veterinaria.tipoMedico;
 
 public class Interaccion {
@@ -142,5 +145,28 @@ public class Interaccion {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	public static Factura generarFactura() {
+		
+		@SuppressWarnings("resource")
+		Scanner entrada=new Scanner(System.in);
+		System.out.print("Ingrese el nombre del cliente:");
+		String nombre = entrada.nextLine();
+		System.out.print("Ingrese el tipo de Médico:");
+		String tipomedico = entrada.nextLine();
+		System.out.print("Ingrese el nombre de Medicamento:");
+		String nombremedi = entrada.nextLine();
+		System.out.print("Ingrese la cantidad (en tabletas) del medicamento: ");
+        short cantidadMedicamento = entrada.nextShort();
+		System.out.print("Ingrese la hora de la cita: ");
+        int horaturno = entrada.nextInt();
+
+		Cliente clientefac = new Cliente(nombre, null, null);
+		Medicamento medicamentofac = new Medicamento(0, nombremedi, null, 0, 0);
+		Medico medicofac = new Medico(null,null,null, tipoMedico.valueOf(tipomedico));
+		Turno turnofac = new Turno (horaturno,null,null,null,false,null);
+		Factura factura1 = new Factura (medicofac,clientefac,medicamentofac,turnofac);
+		factura1.setCantidadMedicamento(cantidadMedicamento);
+		return factura1;
 	}
 }

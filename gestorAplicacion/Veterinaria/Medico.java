@@ -14,8 +14,6 @@ public class Medico extends Personal {
         this.tipoMed = tipoMed;
         mapaMedico.put(cedula, this);
     }
-    
-    
     public tipoMedico getTipoMed() {
         return tipoMed;
     }

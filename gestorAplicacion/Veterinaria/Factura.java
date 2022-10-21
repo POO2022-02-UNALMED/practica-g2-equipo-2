@@ -42,7 +42,6 @@ public class Factura {
     public Turno getTurno() {
         return turno;
     }
-
     public void setTurno(Turno turno) {
         this.turno = turno;
     }
@@ -100,7 +99,7 @@ public class Factura {
     public void setDctoFactura(double dctoFactura) {
         this.dctoFactura = dctoFactura;
     }
-    public String datosFactura(){
+    public String toString(){
         if (cliente.IsFrecuente() == true ){
             return "El cliente: " + cliente.getNombre()+ "debe pagar un total de: $ " + getDctoFactura();
         }
