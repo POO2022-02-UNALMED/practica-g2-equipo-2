@@ -42,6 +42,7 @@ public class Factura {
     public Turno getTurno() {
         return turno;
     }
+
     public void setTurno(Turno turno) {
         this.turno = turno;
     }
@@ -88,7 +89,7 @@ public class Factura {
         this.totalFactura = totalFactura;
     }
     public double getDctoFactura() {
-        if (cliente.getFrecuente() == true ){//falta crear método frecuente en clase Cliente
+        if (cliente.IsFrecuente() == true ){//falta crear método frecuente en clase Cliente
             dctoFactura=this.totalFactura*0.1;
             totalFacturaDcto = totalFactura-dctoFactura;
             return totalFacturaDcto;
@@ -100,22 +101,10 @@ public class Factura {
         this.dctoFactura = dctoFactura;
     }
     public String datosFactura(){
-        if (cliente.getFrecuente() == true ){
+        if (cliente.IsFrecuente() == true ){
             return "El cliente: " + cliente.getNombre()+ "debe pagar un total de: $ " + getDctoFactura();
         }
         else 
             return "El cliente: " + cliente.getNombre()+ "debe pagar un total de: $ " + getTotalFactura();
     }
-/* 
-    public static void main(String[] args){ //pedirle al admin la cantidadMedicamento
-        Scanner cantMed = new Scanner(System.in);
-        System.out.println("Ingrese la cantidad (en tabletas) del medicamento: ");
-            short cantidadMedicamento = cantMed.nextShort();
-            Factura.setCantidadMedicamento(cantidadMedicamento);
-        Scanner present= new Scanner(System.in);
-        System.out.println("Ingrese la presentación del medicamento: ");
-            String presentacionMed = present.nextLine();
-            Medicamento.setPresentacion(String presentacion);
-    }
-    /* */
 }
