@@ -89,7 +89,7 @@ public class Interaccion {
 			
 			System.out.print("Ingrese la cedula del cliente al que se le asignara la cita: ");
 			cedula = entrada.nextLine();
-			if(Cliente.mapaClientes.containsKey(cedula)) {
+			if(Cliente.validarCedula(cedula)) {
 				valido=true;
 			}else {
 				System.out.print("La cedula no existe en el sistema, por favor ingrese una valida\n\n");
@@ -97,11 +97,7 @@ public class Interaccion {
 			
 		}
 		System.out.println("\nLista de mascotas de este cliente");
-		for (int i=0;i<Cliente.mascotas.get(cedula).size();i++) {
-		      
-		      System.out.println((i+1) + ". " + Cliente.mascotas.get(cedula).get(i).getNombre());
-		          
-		}
+		System.out.print(Cliente.obtenerMascotasCliente(cedula));
 		System.out.print("\n");
 		System.out.print("Ingrese la mascota para la cual quiere asignar el turno: ");
 		int opc = entrada.nextInt();
@@ -114,16 +110,16 @@ public class Interaccion {
 		}else {
 			tipoMed = tipoMedico.Especialista;
 		}
-		System.out.println("\nLista de doctores de este tipo");
-		Medico.mapaMedico.forEach((k,v) -> {if(v.getTipoMed().equals(tipoMed)){System.out.println(v.getNombre()+" - Cedula: "+v.getCedula());}});
+		System.out.println("\nLista de medicos de este tipo");
+		System.out.print(Medico.obtenerMedicos(tipoMed));
 		System.out.print("\n");
 		String cedulaDoctor="";
 		valido=false;
 		while(valido==false) {
 			
-			System.out.print("Ingrese la cedula del doctor con el que quiere asignar la cita: ");
+			System.out.print("Ingrese la cedula del medico con el que quiere asignar la cita: ");
 			cedulaDoctor = entrada.nextLine();
-			if(Medico.mapaMedico.containsKey(cedulaDoctor)) {
+			if(Medico.validarCedula(cedulaDoctor)) {
 				valido=true;
 			}else {
 				System.out.print("La cedula no existe en el sistema, por favor ingrese una valida\n\n");
@@ -132,26 +128,13 @@ public class Interaccion {
 		}
 		System.out.print("Ingrese la fecha para agendar el turno (dd-mm-aaaa): ");
 		String fecha = entrada.nextLine();
-		if(!Medico.mapaMedico.get(cedulaDoctor).agenda.containsKey(fecha)) {
-			Medico.mapaMedico.get(cedulaDoctor).crearFecha(fecha);
-		}
+		Medico.mapaMedico.get(cedulaDoctor).crearFecha(fecha);
 		System.out.println("\nLista de turnos disponibles con este doctor");
-		for(int i = 0; i<24; i++) {
-			if(Medico.mapaMedico.get(cedulaDoctor).agenda.get(fecha)[i].isDisponibilidad()) {
-				if(Medico.mapaMedico.get(cedulaDoctor).agenda.get(fecha)[i].getHoraInicio()<13) {
-					System.out.println("Turno "+(i+1)+": "+Medico.mapaMedico.get(cedulaDoctor).agenda.get(fecha)[i].getHoraInicio()+":00 AM");
-				}else {
-					System.out.println("Turno "+(i+1)+": "+Medico.mapaMedico.get(cedulaDoctor).agenda.get(fecha)[i].getHoraInicio()+":00 PM");
-				}
-			}	
-		}
+		System.out.print(Medico.mapaMedico.get(cedulaDoctor).obtenerTurnosDisponibles(fecha));
 		System.out.print("Ingrese el numero del turno seleccionado: ");
 		int turno = entrada.nextInt();
 		entrada.nextLine();
-		Medico.mapaMedico.get(cedulaDoctor).agenda.get(fecha)[turno-1].setDisponibilidad(false);
-		Medico.mapaMedico.get(cedulaDoctor).agenda.get(fecha)[turno-1].setCliente(Cliente.mapaClientes.get(cedula));
-		Medico.mapaMedico.get(cedulaDoctor).agenda.get(fecha)[turno-1].setMascota(Cliente.mascotas.get(cedula).get(opc-1));
-		
+		Medico.mapaMedico.get(cedulaDoctor).asignarTurno(fecha, turno-1, cedula, opc-1);
 		System.out.println("\nEl turno ha sido registrado");
 		try {
 			Thread.sleep(4000);
