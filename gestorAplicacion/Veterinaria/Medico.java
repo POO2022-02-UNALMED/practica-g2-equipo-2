@@ -5,13 +5,12 @@ import java.util.Map;
 public class Medico extends Personal {
     private  Map<String, Turno[]> agenda = new HashMap<>();
 	public static Map<String, Personal> mapaPersonal = new HashMap<>();
-    public String tipoMedico; //general o especialista
+    public tipoMedico tipoMed;//general o especialista
 
-    public Medico(String nombre, String cedula, String telefono, String cargo, Map<String, Turno[]> agenda,
-            String tipoMedico) {
+    public Medico(String nombre, String cedula, String telefono, Map<String, Turno[]> agenda, tipoMedico tipoMed) {
         super(nombre, cedula, telefono);
         this.agenda = agenda;
-        this.tipoMedico = tipoMedico;
+        this.tipoMed = tipoMed;
         mapaPersonal.put(cedula, this);
     }
     public Map<String, Turno[]> getAgenda() {
@@ -26,17 +25,17 @@ public class Medico extends Personal {
     public static void setMapaPersonal(Map<String, Personal> mapaPersonal) {
         Medico.mapaPersonal = mapaPersonal;
     }
-    public String getTipoMedico() {
-        return tipoMedico;
+    public tipoMedico getTipoMed() {
+        return tipoMed;
     }
-    public void setTipoMedico(String tipoMedico) {
-        this.tipoMedico = tipoMedico;
-    }
+    public void setTipoMed(tipoMedico tipoMed) {
+        this.tipoMed = tipoMed;
+    } 
     public void crearFecha(String fecha) {
 		Turno[] turnos = new Turno[24];
 		for(int i = 1; i<25; i++) {
 			turnos[i] = new Turno(i,fecha,null,null,true,this);
 		}
 		this.agenda.put(fecha, turnos);
-	}   
+	}  
 }
