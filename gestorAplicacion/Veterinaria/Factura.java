@@ -20,7 +20,9 @@ public class Factura {
         this.cliente = cliente;
         this.medicamento = medicamento;
         this.turno = turno;
-    }
+        this.valorMedico=getValorMedico(medico);
+        medicamento.ModificarInventario(1);
+    }   
     public Medico getMedico() {
         return medico;
     }
@@ -58,6 +60,9 @@ public class Factura {
         }   
         else    
             return valorMedico = 40.000;
+    }
+    public double getValorMedico(){
+        return this.valorMedico;
     }
     public void setValorMedico(double valorMedico) {
         this.valorMedico = valorMedico;

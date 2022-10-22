@@ -1,12 +1,10 @@
 package gestorAplicacion.Veterinaria;
 
 import java.util.ArrayList;
-import Clientes.Mascota;
-import Clientes.Cliente;
-
+import gestorAplicacion.*;
 public class Diagnostico extends Mascota{
 	private String fecha;
-	private Personal veterinario;
+/* 	private Personal veterinario;
 	private String descripcion = "";
 	private ArrayList<Medicamento> medicamentos = new ArrayList<>();
 	private	Mascota mascota;
@@ -72,3 +70,4 @@ public class Diagnostico extends Mascota{
 		
 	}
 }
+ */

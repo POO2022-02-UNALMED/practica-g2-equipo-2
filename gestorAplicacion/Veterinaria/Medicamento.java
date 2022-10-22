@@ -1,12 +1,13 @@
 package gestorAplicacion.Veterinaria;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Medicamento {
-    private ArrayList<Medicamento> medicamentos = new ArrayList<Medicamento>(); 
+    
     private int idMed;
     public String nombre;
     public String presentacion;
-    public int cantidad;
+    public int cantidad;  
     public float precio;
     public Medicamento(int idMed, String nombre, String presentacion, int cantidad, float precio) {
         this.idMed = idMed;
@@ -14,6 +15,7 @@ public class Medicamento {
         this.presentacion = presentacion;
         this.cantidad = cantidad;
         this.precio = precio;
+        Inventario.setMedicamentos(this);
     }
     public int getIdMed() {
         return idMed;
@@ -45,11 +47,16 @@ public class Medicamento {
     public void setPrecio(float precio) {
         this.precio = precio;
     }
-    public ArrayList<Medicamento> getMedicamentos() {
+    public void ModificarInventario(int sustraendo){
+        int viejo= this.cantidad;
+        this.cantidad= viejo-sustraendo;
+    }
+
+    /*public ArrayList<Medicamento> getMedicamentos() {
         return medicamentos;
     }
     public void setMedicamentos(ArrayList<Medicamento> medicamentos) {
         this.medicamentos = medicamentos;
-    }
+    }*/
          	
 }
