@@ -20,8 +20,8 @@ public class Factura {
         this.cliente = cliente;
         this.medicamento = medicamento;
         this.turno = turno;
-        this.valorMedico=getValorMedico(medico);
-        medicamento.ModificarInventario(1);
+        this.valorMedico=getValorMedico(medico);              //Calcula lo que se le debe pagar al medico y lo pone en su atributo
+        medicamento.ModificarInventario(1);       //Modifica el inventario
     }   
     public Medico getMedico() {
         return medico;

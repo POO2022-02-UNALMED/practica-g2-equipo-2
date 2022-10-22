@@ -47,7 +47,7 @@ public class Medicamento {
     public void setPrecio(float precio) {
         this.precio = precio;
     }
-    public void ModificarInventario(int sustraendo){
+    public void ModificarInventario(int sustraendo){          //modifica el atributo cantidad para llevar un inventario
         int viejo= this.cantidad;
         this.cantidad= viejo-sustraendo;
     }
