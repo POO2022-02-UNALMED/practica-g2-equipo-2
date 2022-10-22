@@ -95,7 +95,7 @@ public class Interaccion {
 			if(Cliente.validarCedula(cedula)) {
 				valido=true;
 			}else {
-				System.out.print("La cedula no existe en el sistema, por favor ingrese una valida\n\n");
+				System.out.print("La cédula no existe en el sistema, por favor ingrese una válida\n\n");
 			}
 			
 		}
@@ -105,7 +105,7 @@ public class Interaccion {
 		System.out.print("Ingrese la mascota para la cual quiere asignar el turno: ");
 		int opc = entrada.nextInt();
 		entrada.nextLine();
-		System.out.print("Ingrese el tipo de medico para agendar el turno (general/especialista): ");
+		System.out.print("Ingrese el tipo de médico para agendar el turno (general/especialista): ");
 		String cargo = entrada.nextLine();
 		tipoMedico tipoMed;
 		if(cargo.equals("general")) {
@@ -113,19 +113,19 @@ public class Interaccion {
 		}else {
 			tipoMed = tipoMedico.Especialista;
 		}
-		System.out.println("\nLista de medicos de este tipo");
+		System.out.println("\nLista de médicos de este tipo");
 		System.out.print(Medico.obtenerMedicos(tipoMed));
 		System.out.print("\n");
 		String cedulaDoctor="";
 		valido=false;
 		while(valido==false) {
 			
-			System.out.print("Ingrese la cedula del medico con el que quiere asignar la cita: ");
+			System.out.print("Ingrese la cédula del médico con el que quiere asignar la cita: ");
 			cedulaDoctor = entrada.nextLine();
 			if(Medico.validarCedula(cedulaDoctor)) {
 				valido=true;
 			}else {
-				System.out.print("La cedula no existe en el sistema, por favor ingrese una valida\n\n");
+				System.out.print("La cédula no existe en el sistema, por favor ingrese una válida\n\n");
 			}
 			
 		}
@@ -150,10 +150,30 @@ public class Interaccion {
 		
 		@SuppressWarnings("resource")
 		Scanner entrada=new Scanner(System.in);
-		System.out.print("Ingrese el nombre del cliente:");
-		String nombre = entrada.nextLine();
-		System.out.print("Ingrese el tipo de Médico:");
-		String tipomedico = entrada.nextLine();
+		boolean valido=false;
+		while(valido==false) {
+			
+			System.out.print("Ingrese la cédula del cliente al que se le generará la factura: ");
+			String cedula = entrada.nextLine();
+			if(Cliente.validarCedula(cedula)) {
+				valido=true;
+			}else {
+				System.out.print("La cédula no existe en el sistema, por favor ingrese una válida\n\n");
+			}
+			
+		}
+		boolean valido2=false;
+		while(valido2==false) {
+			
+			System.out.print("Ingrese la cedula del médico que atendió el turno: ");
+			 String cedula = entrada.nextLine();
+			if(Cliente.validarCedula(cedula)) {
+				valido2=true;
+			}else {
+				System.out.print("La cédula no existe en el sistema, por favor ingrese una válida\n\n");
+			}
+			
+		}
 		System.out.print("Ingrese el nombre de Medicamento:");
 		String nombremedi = entrada.nextLine();
 		System.out.print("Ingrese la cantidad (en tabletas) del medicamento: ");
@@ -161,11 +181,7 @@ public class Interaccion {
 		System.out.print("Ingrese la hora de la cita: ");
         int horaturno = entrada.nextInt();
 
-		Cliente clientefac = new Cliente(nombre, null, null);
-		Medicamento medicamentofac = new Medicamento(0, nombremedi, null, 0, 0);
-		Medico medicofac = new Medico(null,null,null, tipoMedico.valueOf(tipomedico));
-		Turno turnofac = new Turno (horaturno,null,null,null,false,null);
-		Factura factura1 = new Factura (medicofac,clientefac,medicamentofac,turnofac);
+		Factura factura1 = new Factura (medico1,clientefac,medicamentofac,turnofac);
 		factura1.setCantidadMedicamento(cantidadMedicamento);
 		return factura1;
 	}
