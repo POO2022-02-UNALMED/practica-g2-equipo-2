@@ -6,22 +6,20 @@ public class Factura {
     public Medico medico;
     public Cliente cliente;
     public Medicamento medicamento;
-    public Turno turno; //horario de la cita
     private double valorTurno; //dependiendo de la hora, el valor
     private short cantidadMedicamento; //tableta mg
     private double valorMedico; //general o especialista
     public double totalFactura;
   
-    public Factura(Medico medico, Cliente cliente, Medicamento medicamento, Turno turno, short cantidadMedicamento) {
+    public Factura(Medico medico, Cliente cliente, Medicamento medicamento, short cantidadMedicamento) {
         this.medico = medico;
         this.cliente = cliente;
         this.medicamento = medicamento;
-        this.turno = turno;
         this.valorMedico = valorMedico(medico);
-        this.valorTurno = this.valorTurno(); //va con this o sin this
-        this.totalFactura = this.totalFactura();
+        this.valorTurno = this.valorTurno(); 
         this.cantidadMedicamento = cantidadMedicamento;
-        medicamento.ModificarInventario(cantidadMedicamento); //this?
+        this.totalFactura = this.totalFactura();
+        medicamento.ModificarInventario(cantidadMedicamento); 
     }
     
     public Medico getMedico() {

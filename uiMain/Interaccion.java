@@ -6,6 +6,11 @@ import java.lang.Thread;
 import java.util.Scanner;
 import gestorAplicacion.Clientes.Cliente;
 import gestorAplicacion.Clientes.Mascota;
+<<<<<<< Updated upstream
+=======
+import gestorAplicacion.Veterinaria.Factura;
+import gestorAplicacion.Veterinaria.Inventario;
+>>>>>>> Stashed changes
 import gestorAplicacion.Veterinaria.Medico;
 import gestorAplicacion.Veterinaria.tipoMedico;
 
@@ -190,4 +195,51 @@ public class Interaccion {
 			e.printStackTrace();
 		}
 	}
+<<<<<<< Updated upstream
+=======
+	public static String generarFactura() {
+		
+		@SuppressWarnings("resource")
+		Scanner entrada=new Scanner(System.in);
+		String cedula = "";
+		String cedulaDoctor = "";
+		boolean valido=false;
+		while(valido==false) {
+			
+			System.out.print("Ingrese la cédula del cliente al que se le generará la factura: ");
+			cedula = entrada.nextLine();
+			if(Cliente.validarCedula(cedula)) {
+				valido=true;
+			}else {
+				System.out.print("La cédula no existe en el sistema, por favor ingrese una válida\n\n");
+			}
+			
+		}
+		while(valido==false) {
+			
+			System.out.print("Ingrese la cedula del médico que atendió el turno: ");
+			cedulaDoctor = entrada.nextLine();
+			 if(Medico.validarCedula(cedulaDoctor)) {
+				 valido=true;
+			 }else {
+				 System.out.print("La cédula no existe en el sistema, por favor ingrese una válida\n\n");
+			 }
+			
+		}
+		System.out.print("Listado disponible de Medicamentos:\n");
+		for (int i=0;i<Inventario.getMedicamentos().size();i++) {
+			System.out.print ((i+1) + ". " + Inventario.getMedicamentos().get(i).getNombre()+"\n");     
+		}
+		System.out.print("Seleccione el número de Medicamento que desea ordenar:");
+		int nombreMedicamento = entrada.nextInt();
+		entrada.nextLine();
+		System.out.print("Ingrese la cantidad (en tabletas) del medicamento: ");
+        short cantidadMedicamento = entrada.nextShort();
+		entrada.nextLine();
+		Factura factura = new Factura(Medico.mapaMedico.get(cedulaDoctor), Cliente.mapaClientes.get(cedula), Inventario.getMedicamentos().get(nombreMedicamento-1), cantidadMedicamento);
+		return factura.datosFactura();
+	
+	
+	}
+>>>>>>> Stashed changes
 }
