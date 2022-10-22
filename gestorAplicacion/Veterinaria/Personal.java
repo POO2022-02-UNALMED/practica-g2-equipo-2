@@ -1,9 +1,9 @@
 package gestorAplicacion.Veterinaria;
 public class Personal {
 	
-	private String nombre;
-	private String cedula;
-	private String telefono;
+	protected String nombre;
+	protected String cedula;
+	protected String telefono;
 	
 	public Personal(String nombre, String cedula, String telefono) {
 		super();

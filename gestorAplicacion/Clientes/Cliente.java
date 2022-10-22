@@ -1,23 +1,22 @@
 package gestorAplicacion.Clientes;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import gestorAplicacion.Veterinaria.Personal;
 
-public class Cliente {
 
-	private String nombre;
-	private String cedula;
-	private String telefono;
+public class Cliente extends Personal{
+
+	private boolean frecuente = false;
+	private int registroHoras[] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 	public static Map<String, Cliente> mapaClientes = new HashMap<>();
 	public static int cantidadClientes = 0;
 	public static Map<String, ArrayList<Mascota>> mascotas = new HashMap<>();
 	
 	public Cliente(String nombre, String cedula, String telefono) {
-		super();
-		this.nombre = nombre;
-		this.cedula = cedula;
-		this.telefono = telefono;
+		super(nombre, cedula, telefono);
 		cantidadClientes++;
 	}
 	
@@ -39,11 +38,38 @@ public class Cliente {
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
+	public boolean isFrecuente() {
+		return frecuente;
+	}
+
+	public void setFrecuente(boolean frecuente) {
+		this.frecuente = frecuente;
+	}
+	public static boolean validarCedula(String cedula) {
+		return Cliente.mapaClientes.containsKey(cedula);
+	}
 	
-	
+	public static String obtenerMascotasCliente(String cedula) {
+		String cadena = "";
+		for (int i=0;i<Cliente.mascotas.get(cedula).size();i++) {
+			cadena = cadena + (i+1) + ". " + Cliente.mascotas.get(cedula).get(i).getNombre()+"\n";      
+		}
+		return cadena;
+	}
 	
 	public String toString() {
 		return "nombre: " + nombre + "\n" + "cedula: " + cedula + "\n" + "telefono: " + telefono;
+	}
+
+	public void registrarHora(int hora) {
+		this.registroHoras[hora]++;
+	}
+	public int sumaRegistros() {
+		int suma = 0;
+		for(int i=0; i<24; i++) {
+			suma = suma + this.registroHoras[i];
+		}
+		return suma;
 	}
 	
 }
