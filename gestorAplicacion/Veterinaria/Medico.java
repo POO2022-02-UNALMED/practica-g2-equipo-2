@@ -62,10 +62,11 @@ public class Medico extends Personal {
     	this.agenda.get(fecha)[turno].setDisponibilidad(false);
 		this.agenda.get(fecha)[turno].setCliente(Cliente.mapaClientes.get(cedulaCliente));
 		this.agenda.get(fecha)[turno].setMascota(Cliente.mascotas.get(cedulaCliente).get(mascota));
-		Cliente.mapaClientes.get(cedulaCliente).registrarHora(turno);
+		Cliente.mapaClientes.get(cedulaCliente).registrarHora(turno+1);
 		if(Cliente.mapaClientes.get(cedulaCliente).sumaRegistros()>3) {
 			Cliente.mapaClientes.get(cedulaCliente).setFrecuente(true);
 		}
+		Cliente.mapaClientes.get(cedulaCliente).turnosPendientes.add(this.agenda.get(fecha)[turno]);
     }
     public static boolean validarCedula(String cedula) {
 		return Medico.mapaMedico.containsKey(cedula);

@@ -1,16 +1,21 @@
 package gestorAplicacion.Clientes;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
-
+import java.util.Map.Entry;
+import java.util.stream.Collectors;
 import gestorAplicacion.Veterinaria.Personal;
+import gestorAplicacion.Veterinaria.Turno;
 
 
 public class Cliente extends Personal{
 
 	private boolean frecuente = false;
-	private int registroHoras[] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+	public ArrayList<Turno> turnosPendientes = new ArrayList<Turno>();
+	public Map<Integer, Integer> registroHoras = new HashMap<>();
 	public static Map<String, Cliente> mapaClientes = new HashMap<>();
 	public static int cantidadClientes = 0;
 	public static Map<String, ArrayList<Mascota>> mascotas = new HashMap<>();
@@ -18,6 +23,30 @@ public class Cliente extends Personal{
 	public Cliente(String nombre, String cedula, String telefono) {
 		super(nombre, cedula, telefono);
 		cantidadClientes++;
+		this.registroHoras.put(1,0);
+		this.registroHoras.put(2,0);
+		this.registroHoras.put(3,0);
+		this.registroHoras.put(4,0);
+		this.registroHoras.put(5,0);
+		this.registroHoras.put(6,0);
+		this.registroHoras.put(7,0);
+		this.registroHoras.put(8,0);
+		this.registroHoras.put(9,0);
+		this.registroHoras.put(10,0);
+		this.registroHoras.put(11,0);
+		this.registroHoras.put(12,0);
+		this.registroHoras.put(13,0);
+		this.registroHoras.put(14,0);
+		this.registroHoras.put(15,0);
+		this.registroHoras.put(16,0);
+		this.registroHoras.put(17,0);
+		this.registroHoras.put(18,0);
+		this.registroHoras.put(19,0);
+		this.registroHoras.put(20,0);
+		this.registroHoras.put(21,0);
+		this.registroHoras.put(22,0);
+		this.registroHoras.put(23,0);
+		this.registroHoras.put(24,0);
 	}
 	
 	public String getNombre() {
@@ -62,14 +91,34 @@ public class Cliente extends Personal{
 	}
 
 	public void registrarHora(int hora) {
-		this.registroHoras[hora]++;
+		int aumento = this.registroHoras.get(hora) + 1;
+		this.registroHoras.put(hora, aumento);
 	}
 	public int sumaRegistros() {
 		int suma = 0;
-		for(int i=0; i<24; i++) {
-			suma = suma + this.registroHoras[i];
+		for(int i=1; i<25; i++) {
+			suma = suma + this.registroHoras.get(i);
 		}
 		return suma;
 	}
+	
+	public Map<Integer, Integer> obtenerTurnosFrecuentes() {
+		
+		Map<Integer, Integer> result = this.registroHoras.entrySet().stream()
+                .sorted(Entry.comparingByValue(Collections.reverseOrder()))
+                .collect(Collectors.toMap(Entry::getKey, Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
+		Map<Integer, Integer> mayores = new HashMap<>();
+		int i=0;
+		for (Map.Entry<Integer, Integer> entry : result.entrySet()) {
+    		if(i<2) {
+    			mayores.put(entry.getKey(), entry.getValue());
+    			i++;
+    		}
+	    }
+		
+		return mayores;
+	}
+	
+	
 	
 }

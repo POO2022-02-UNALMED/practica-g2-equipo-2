@@ -1,5 +1,10 @@
 package uiMain;
+
+
 import java.util.Scanner;
+
+
+
 public class Sistema {
 
 	public static void main(String args[]) {
@@ -12,9 +17,7 @@ public class Sistema {
 			System.out.println("2. Registrar Mascota");
 			System.out.println("3. Registrar Doctor");
 			System.out.println("4. Turno");
-			System.out.println("5. Generar Factura");
-			System.out.println("0. Salir\n");
-
+			System.out.println("5. Salir\n");
 			System.out.print("Digite una opcion: ");
 			
 			@SuppressWarnings("resource")
@@ -35,9 +38,6 @@ public class Sistema {
 				Interaccion.agendarTurno();
 			}
 			if(opc == 5) {
-				Interaccion.generarFactura();
-			}
-			if(opc == 0) {
 				System.out.println("Salir");
 			}
 			System.out.println("\n\n"); 

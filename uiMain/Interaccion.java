@@ -1,14 +1,12 @@
 package uiMain;
 
 import java.util.ArrayList;
+import java.util.Map;
 import java.lang.Thread;
 import java.util.Scanner;
 import gestorAplicacion.Clientes.Cliente;
 import gestorAplicacion.Clientes.Mascota;
-import gestorAplicacion.Veterinaria.Factura;
-import gestorAplicacion.Veterinaria.Medicamento;
 import gestorAplicacion.Veterinaria.Medico;
-import gestorAplicacion.Veterinaria.Turno;
 import gestorAplicacion.Veterinaria.tipoMedico;
 
 public class Interaccion {
@@ -26,6 +24,13 @@ public class Interaccion {
 		Cliente cliente1 = new Cliente(nombre, cedula, telefono);
 		Cliente.mapaClientes.put(cedula, cliente1);
 		Cliente.mascotas.put(cedula, new ArrayList<Mascota>());
+		System.out.println("\nEl cliente ha sido registrado");
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public static void registrarMedico(){
@@ -48,6 +53,13 @@ public class Interaccion {
 		}
 		Medico medico1 = new Medico(nombre, cedula, telefono, tipoMed);
 		Medico.mapaMedico.put(cedula, medico1);
+		System.out.println("\nEl Medico ha sido registrado");
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public static void registrarMascota() {
@@ -80,6 +92,13 @@ public class Interaccion {
 		}
 		Mascota mascota1 = new Mascota(nombre,especie,raza,edad,peso,Cliente.mapaClientes.get(cedula));
 		Cliente.mascotas.get(cedula).add(mascota1);
+		System.out.println("\nLa mascota ha sido registrada");
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public static void agendarTurno() {
@@ -95,7 +114,7 @@ public class Interaccion {
 			if(Cliente.validarCedula(cedula)) {
 				valido=true;
 			}else {
-				System.out.print("La cédula no existe en el sistema, por favor ingrese una válida\n\n");
+				System.out.print("La cedula no existe en el sistema, por favor ingrese una valida\n\n");
 			}
 			
 		}
@@ -105,7 +124,7 @@ public class Interaccion {
 		System.out.print("Ingrese la mascota para la cual quiere asignar el turno: ");
 		int opc = entrada.nextInt();
 		entrada.nextLine();
-		System.out.print("Ingrese el tipo de médico para agendar el turno (general/especialista): ");
+		System.out.print("Ingrese el tipo de medico para agendar el turno (general/especialista): ");
 		String cargo = entrada.nextLine();
 		tipoMedico tipoMed;
 		if(cargo.equals("general")) {
@@ -113,76 +132,62 @@ public class Interaccion {
 		}else {
 			tipoMed = tipoMedico.Especialista;
 		}
-		System.out.println("\nLista de médicos de este tipo");
+		System.out.println("\nLista de medicos de este tipo");
 		System.out.print(Medico.obtenerMedicos(tipoMed));
 		System.out.print("\n");
 		String cedulaDoctor="";
 		valido=false;
 		while(valido==false) {
 			
-			System.out.print("Ingrese la cédula del médico con el que quiere asignar la cita: ");
+			System.out.print("Ingrese la cedula del medico con el que quiere asignar la cita: ");
 			cedulaDoctor = entrada.nextLine();
 			if(Medico.validarCedula(cedulaDoctor)) {
 				valido=true;
 			}else {
-				System.out.print("La cédula no existe en el sistema, por favor ingrese una válida\n\n");
+				System.out.print("La cedula no existe en el sistema, por favor ingrese una valida\n\n");
 			}
 			
 		}
 		System.out.print("Ingrese la fecha para agendar el turno (dd-mm-aaaa): ");
 		String fecha = entrada.nextLine();
 		Medico.mapaMedico.get(cedulaDoctor).crearFecha(fecha);
-		System.out.println("\nLista de turnos disponibles con este doctor");
-		System.out.print(Medico.mapaMedico.get(cedulaDoctor).obtenerTurnosDisponibles(fecha));
+		if(Cliente.mapaClientes.get(cedula).isFrecuente()) {
+			System.out.println("\nEl cliente ingresado es un cliente frecuente");
+			System.out.println("\nLista de turnos recomendados para este cliente");
+			Map<Integer, Integer> mayores = Cliente.mapaClientes.get(cedula).obtenerTurnosFrecuentes();
+			
+			for (Map.Entry<Integer, Integer> entry : mayores.entrySet()) {
+	    		if(Medico.mapaMedico.get(cedulaDoctor).agenda.get(fecha)[entry.getKey()-1].isDisponibilidad()) {
+	    				
+	    			if(Medico.mapaMedico.get(cedulaDoctor).agenda.get(fecha)[entry.getKey()-1].getHoraInicio()<13) {
+	    				System.out.print("Turno "+(entry.getKey())+": "+Medico.mapaMedico.get(cedulaDoctor).agenda.get(fecha)[entry.getKey()-1].getHoraInicio()+":00 AM\n");
+					}else {
+						System.out.print("Turno "+(entry.getKey())+": "+Medico.mapaMedico.get(cedulaDoctor).agenda.get(fecha)[entry.getKey()-1].getHoraInicio()+":00 PM\n");
+					}
+	    		}
+		    }
+			
+			System.out.print("¿Desea ver la lista completa con los turnos disponibles? (S/N): ");
+			String desc = entrada.nextLine();
+			if(desc.equals("S")) {
+				System.out.println("\nLista de turnos disponibles con este doctor");
+				System.out.print(Medico.mapaMedico.get(cedulaDoctor).obtenerTurnosDisponibles(fecha));
+			}
+			
+		}else {
+			System.out.println("\nLista de turnos disponibles con este doctor");
+			System.out.print(Medico.mapaMedico.get(cedulaDoctor).obtenerTurnosDisponibles(fecha));
+		}
 		System.out.print("Ingrese el numero del turno seleccionado: ");
 		int turno = entrada.nextInt();
 		entrada.nextLine();
 		Medico.mapaMedico.get(cedulaDoctor).asignarTurno(fecha, turno-1, cedula, opc-1);
 		System.out.println("\nEl turno ha sido registrado");
 		try {
-			Thread.sleep(4000);
+			Thread.sleep(2000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-	public static Factura generarFactura() {
-		
-		@SuppressWarnings("resource")
-		Scanner entrada=new Scanner(System.in);
-		boolean valido=false;
-		while(valido==false) {
-			
-			System.out.print("Ingrese la cédula del cliente al que se le generará la factura: ");
-			String cedula = entrada.nextLine();
-			if(Cliente.validarCedula(cedula)) {
-				valido=true;
-			}else {
-				System.out.print("La cédula no existe en el sistema, por favor ingrese una válida\n\n");
-			}
-			
-		}
-		boolean valido2=false;
-		while(valido2==false) {
-			
-			System.out.print("Ingrese la cedula del médico que atendió el turno: ");
-			 String cedula = entrada.nextLine();
-			if(Cliente.validarCedula(cedula)) {
-				valido2=true;
-			}else {
-				System.out.print("La cédula no existe en el sistema, por favor ingrese una válida\n\n");
-			}
-			
-		}
-		System.out.print("Ingrese el nombre de Medicamento:");
-		String nombremedi = entrada.nextLine();
-		System.out.print("Ingrese la cantidad (en tabletas) del medicamento: ");
-        short cantidadMedicamento = entrada.nextShort();
-		System.out.print("Ingrese la hora de la cita: ");
-        int horaturno = entrada.nextInt();
-
-		Factura factura1 = new Factura (medico1,clientefac,medicamentofac,turnofac);
-		factura1.setCantidadMedicamento(cantidadMedicamento);
-		return factura1;
 	}
 }
