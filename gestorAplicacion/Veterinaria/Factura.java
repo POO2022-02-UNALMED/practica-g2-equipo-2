@@ -1,6 +1,5 @@
 package gestorAplicacion.Veterinaria;
 import gestorAplicacion.Clientes.Cliente;
-import gestorAplicacion.Veterinaria.tipoMedico;
 
 
 public class Factura {

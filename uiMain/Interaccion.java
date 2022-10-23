@@ -244,16 +244,6 @@ public class Interaccion {
 		System.out.print("Seleccione el número de turno que desea pagar:");
 		int turnoAPagar = entrada.nextInt();
 		entrada.nextLine();
-		/* 
-		for(String ced: Medico.mapaMedico.keySet()) { //KeySet*
-			System.out.println(ced);
-		}
-		System.out.println(Medico.mapaMedico.get("67890"));
-		System.out.println(Cliente.mapaClientes.get(cedula));
-		System.out.println(Inventario.getMedicamentos().get(nombreMedicamento-1));
-		System.out.println(cantidadMedicamento);
-		System.out.println(Cliente.mapaClientes.get(cedula).turnosPendientes.get(turnoAPagar-1) );
-		*/
 		Factura factura = new Factura(Medico.mapaMedico.get(cedulaDoctor), Cliente.mapaClientes.get(cedula), Inventario.getMedicamentos().get(nombreMedicamento-1), cantidadMedicamento,Cliente.mapaClientes.get(cedula).turnosPendientes.get(turnoAPagar-1) );
 		System.out.println("\nEl cliente: " + Cliente.mapaClientes.get(cedula).getNombre()+ ", debe pagar un total de: $" + factura.calculoTotalFactura());
 		try {
