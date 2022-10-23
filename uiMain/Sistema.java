@@ -16,6 +16,7 @@ public class Sistema {
 			System.out.println("3. Registrar Doctor");
 			System.out.println("4. Turno");
 			System.out.println("5. Generar Factura");
+			System.out.println("6. Datos contables");
 			System.out.println("0. Salir\n");
 
 			System.out.print("Digite una opcion: ");
@@ -39,6 +40,9 @@ public class Sistema {
 			}
 			if(opc == 5) {
 				Interaccion.generarFactura();
+			}
+			if(opc==6){
+				Interaccion.Caja();
 			}
 			if(opc == 0) {
 				System.out.println("Salir");

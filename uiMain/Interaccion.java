@@ -1,18 +1,20 @@
 package uiMain;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 import java.lang.Thread;
 import java.util.Scanner;
+import java.util.Map.Entry;
+
 import gestorAplicacion.Clientes.Cliente;
 import gestorAplicacion.Clientes.Mascota;
-<<<<<<< Updated upstream
-=======
 import gestorAplicacion.Veterinaria.Factura;
 import gestorAplicacion.Veterinaria.Inventario;
->>>>>>> Stashed changes
+import gestorAplicacion.Veterinaria.Medicamento;
 import gestorAplicacion.Veterinaria.Medico;
 import gestorAplicacion.Veterinaria.tipoMedico;
+import gestorAplicacion.Veterinaria.TurnoContab;;
 
 public class Interaccion {
 	
@@ -195,8 +197,6 @@ public class Interaccion {
 			e.printStackTrace();
 		}
 	}
-<<<<<<< Updated upstream
-=======
 	public static String generarFactura() {
 		
 		@SuppressWarnings("resource")
@@ -241,5 +241,105 @@ public class Interaccion {
 	
 	
 	}
->>>>>>> Stashed changes
+	public static void estadoCaja() {
+		System.out.println("En caja debería haber "+ TurnoContab.TotalDiario());
+
+	}
+
+	public static void mostrarDeudaMedicos() {
+		HashMap<String, Integer> deudaMedicos = TurnoContab.TotalMedico(); 
+		for(Entry<String, Integer> e: deudaMedicos.entrySet() ){
+			System.out.println("Al doctor" + e.getKey()+ " se le adeuda "+e.getValue());
+		}
+
+	}
+
+
+	public static void mostrarInventario() {
+		System.out.println("INVENTARIO\n");
+		ArrayList<Medicamento> medicamentos= Inventario.getMedicamentos();
+		for(Medicamento producto:medicamentos){
+			System.out.println(producto.getNombre()+ " "+ producto.getCantidad());
+			if (producto.getCantidad()<10){
+				System.out.println("Bajas unidades de " + producto.getNombre());
+			}
+		}
+	}
+
+
+	public static void cambiarTurno() {
+		@SuppressWarnings("resource")
+		Scanner entrada=new Scanner(System.in);
+		System.out.println("1. Nuevo turno contable sin retiro de la caja");
+		System.out.println("2 Nuevo turno contable con retiro de la caja");
+		int eleccion = entrada.nextInt();
+		entrada.nextLine();
+		if (eleccion==1)
+		{
+			TurnoContab.setInicial(TurnoContab.calcularCaja(0));
+			TurnoContab.facturas.clear();
+			TurnoContab.setTotalmedicosturno(0);
+		}
+		else{
+			System.out.println("Ingrese la cantidad que desea retirar");
+			int retirar = entrada.nextInt();
+			entrada.nextLine();
+			TurnoContab.TotalMedico();
+			TurnoContab.setInicial(TurnoContab.calcularCaja(retirar));
+			TurnoContab.facturas.clear();
+			TurnoContab.setTotalmedicosturno(0);
+		}
+
+	}
+	public static void informeTotal() {
+		estadoCaja();
+		mostrarDeudaMedicos();
+		mostrarInventario();
+
+	}
+
+
+
+	public static void Caja(){
+		int opcc=100;
+	
+		while(opcc != 0) {
+			System.out.println("Administrador Veterinaria\n");
+			System.out.println("1. Mostrar dinero en caja");
+			System.out.println("2. Mostrar deuda medicos");
+			System.out.println("3. Mostrar inventario");
+			System.out.println("4. Cambiar turno");
+			System.out.println("5. Informe Total");
+			System.out.println("0. Salir\n");
+
+			System.out.print("Digite una opcion: ");
+			
+			@SuppressWarnings("resource")
+			Scanner entrada=new Scanner(System.in);
+			opcc = entrada.nextInt();
+			entrada.nextLine();
+			
+			if(opcc == 1) {
+				Interaccion.estadoCaja();
+			}
+			if(opcc == 2) {
+				Interaccion.mostrarDeudaMedicos();
+			}
+			if(opcc == 3) {
+				Interaccion.mostrarInventario();
+			}
+			if(opcc == 4) {
+				Interaccion.cambiarTurno();
+			}
+			if(opcc == 5) {
+				Interaccion.cambiarTurno();
+			}
+			}
+			if(opcc == 0) {
+				System.out.println("Salir");
+			}
+			System.out.println("\n\n"); 
+		}
 }
+
+
