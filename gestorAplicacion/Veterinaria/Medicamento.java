@@ -1,5 +1,4 @@
 package gestorAplicacion.Veterinaria;
-import java.util.ArrayList;
 
 public class Medicamento {
     private int idMed;

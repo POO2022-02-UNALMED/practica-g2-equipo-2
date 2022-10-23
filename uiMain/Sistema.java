@@ -1,15 +1,18 @@
 package uiMain;
 import java.util.Scanner;
+import java.util.Spliterators.AbstractLongSpliterator;
 import gestorAplicacion.Veterinaria.*;
+
 public class Sistema {
 
 	public static void main(String args[]) {
+	
 		Medicamento onsior = new Medicamento(1000001, "Onsior", "Tabletas", 50, 3500);
 		Medicamento amoxicilina = new Medicamento(1000002, "Amoxicilina", "Tabletas", 50, 2800);
 		Medicamento profender = new Medicamento(1000003, "Profender", "Pipeta", 40, 2100);
-		int opc=100;
+		int opc=25;
 		
-		while(opc != 5) {
+		while(opc != 24) {
 			System.out.println("Administrador Veterinaria\n");
 			System.out.println("1. Registrar Cliente");
 			System.out.println("2. Registrar Mascota");
@@ -50,8 +53,7 @@ public class Sistema {
 			System.out.println("\n\n"); 
 		}
 		
-		
-		
+			
 	}
 	
 	

@@ -12,7 +12,7 @@ public class Medico extends Personal {
     public Medico(String nombre, String cedula, String telefono, tipoMedico tipoMed) {
         super(nombre, cedula, telefono);
         this.tipoMed = tipoMed;
-        mapaMedico.put(cedula, this);
+        //mapaMedico.put(cedula, this);
     }
     
     

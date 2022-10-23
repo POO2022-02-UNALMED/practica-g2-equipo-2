@@ -19,9 +19,8 @@ public class Factura {
         this.medicamento = medicamento;
         this.cantidadMedicamento = cantidadMedicamento;
         this.turno = turno;
-        this.valorMedico = valorMedico(medico);
-        this.valorTurno = this.valorTurno(turno); 
-        this.totalFactura = this.totalFactura();
+        this.valorTurno = this.calcularValorTurno(turno); 
+        this.totalFactura = this.calculoTotalFactura();
         medicamento.ModificarInventario(cantidadMedicamento); 
     }
     
@@ -73,52 +72,38 @@ public class Factura {
         this.valorMedico = valorMedico;
     }
 
-    public double valorMedico (Medico medico){
+    public double calcularValorMedico (Medico medico){
         if (medico.getTipoMed() == tipoMedico.Especialista){ //calculo del valor de la cita de acuerdo al tipo de medico
-            return valorMedico = 80.000;
+            return valorMedico = 80000;
         }   
         else    
-            return valorMedico = 40.000;
+            return valorMedico = 40000;
     }
 
-    public double valorTurno(Turno turno){
+    public double calcularValorTurno(Turno turno){
         if (turno.getHoraInicio() >= 18 || turno.getHoraInicio() < 8){ //condicion para valor cita según horario atención, cómo se veran las horas?
-            return valorTurno = 40.000;
+            return valorTurno = 40000;
         }   
         else     
-            return valorTurno = 25.000;
+            return valorTurno = 25000;
     }
 
     public double totalFacturasinDcto(){
         double calculoValorTotal;
         double calculoTotalMedicamento = cantidadMedicamento * medicamento.getPrecio();
-        double calculoTotalTurno = valorTurno(turno) + valorMedico(medico);
+        double calculoTotalTurno = calcularValorTurno(turno) + calcularValorMedico(medico);
         calculoValorTotal = calculoTotalMedicamento + calculoTotalTurno;
         return calculoValorTotal;
     }
 
-    public double totalFactura(){
-        double dctoFactura;
+    public double calculoTotalFactura(){
         double totalFacturaDcto;
         if (cliente.isFrecuente() == true ){
-            dctoFactura = this.totalFacturasinDcto()*0.1;
-            totalFacturaDcto = this.totalFacturasinDcto()-dctoFactura;
+            totalFacturaDcto = this.totalFacturasinDcto()-(this.totalFacturasinDcto()*(0.1));
             return totalFacturaDcto;
         } 
         else
             return this.totalFacturasinDcto();
     }
 
-    public String datosFactura(){
-        return "El cliente: " + cliente.getNombre()+ "debe pagar un total de: $ " + this.totalFactura();
-    
-    }
-    
-    public double getTotalFactura() {
-        return this.totalFactura;
-    }
-
-    public void setTotalFactura(double totalFactura) {
-        this.totalFactura = totalFactura;
-    }
 }
