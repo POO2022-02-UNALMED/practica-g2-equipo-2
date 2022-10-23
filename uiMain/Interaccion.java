@@ -236,9 +236,16 @@ public class Interaccion {
 		System.out.print("Ingrese la cantidad (en tabletas) del medicamento: ");
         short cantidadMedicamento = entrada.nextShort();
 		entrada.nextLine();
-		Factura factura = new Factura(Medico.mapaMedico.get(cedulaDoctor), Cliente.mapaClientes.get(cedula), Inventario.getMedicamentos().get(nombreMedicamento-1), cantidadMedicamento);
+		System.out.print("Listado de turnos pendientes por pagar:\n");
+		for (int i=0;i<Cliente.mapaClientes.get(cedula).turnosPendientes.size();i++) {
+			System.out.print ((i+1) + ". " + Cliente.mapaClientes.get(cedula).turnosPendientes.get(i).getHoraInicio()+":00"+"en la fecha:"+Cliente.mapaClientes.get(cedula).turnosPendientes.get(i).getFecha()+"\n");     
+		}
+		System.out.print("Seleccione el número de turno que desea pagar:");
+		int turnoAPagar = entrada.nextInt();
+		entrada.nextLine();
+
+		Factura factura = new Factura(Medico.mapaMedico.get(cedulaDoctor), Cliente.mapaClientes.get(cedula), Inventario.getMedicamentos().get(nombreMedicamento-1), cantidadMedicamento,Cliente.mapaClientes.get(cedula).turnosPendientes.get(turnoAPagar-1) );
 		return factura.datosFactura();
-	
 	
 	}
 	public static void estadoCaja() {

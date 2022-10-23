@@ -7,7 +7,7 @@ public class Sistema {
 		Medicamento onsior = new Medicamento(1000001, "Onsior", "Tabletas", 50, 3500);
 		Medicamento amoxicilina = new Medicamento(1000002, "Amoxicilina", "Tabletas", 50, 2800);
 		Medicamento profender = new Medicamento(1000003, "Profender", "Pipeta", 40, 2100);
-		int opc=0;
+		int opc=100;
 		
 		while(opc != 5) {
 			System.out.println("Administrador Veterinaria\n");

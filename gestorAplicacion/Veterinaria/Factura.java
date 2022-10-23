@@ -1,24 +1,26 @@
 package gestorAplicacion.Veterinaria;
 import gestorAplicacion.Clientes.Cliente;
-import java.util.Scanner;
+import gestorAplicacion.Veterinaria.tipoMedico;
 
 
 public class Factura {
     public Medico medico;
     public Cliente cliente;
     public Medicamento medicamento;
+    public Turno turno;
     private double valorTurno; //dependiendo de la hora, el valor
     private short cantidadMedicamento; //tableta mg
     private double valorMedico; //general o especialista
     public double totalFactura;
   
-    public Factura(Medico medico, Cliente cliente, Medicamento medicamento, short cantidadMedicamento) {
+    public Factura(Medico medico, Cliente cliente, Medicamento medicamento, short cantidadMedicamento, Turno turno ) {
         this.medico = medico;
         this.cliente = cliente;
         this.medicamento = medicamento;
-        this.valorMedico = valorMedico(medico);
-        this.valorTurno = this.valorTurno(); 
         this.cantidadMedicamento = cantidadMedicamento;
+        this.turno = turno;
+        this.valorMedico = valorMedico(medico);
+        this.valorTurno = this.valorTurno(turno); 
         this.totalFactura = this.totalFactura();
         medicamento.ModificarInventario(cantidadMedicamento); 
     }
@@ -47,14 +49,6 @@ public class Factura {
         this.medicamento = medicamento;
     }
 
-    public Turno getTurno() {
-        return turno;
-    }
-
-    public void setTurno(Turno turno) {
-        this.turno = turno;
-    }
-
     public double getValorTurno() {
         return valorTurno;
     }
@@ -80,14 +74,14 @@ public class Factura {
     }
 
     public double valorMedico (Medico medico){
-        if (medico.getTipoMed().toString() == "Especialista"){ //calculo del valor de la cita de acuerdo al tipo de medico
+        if (medico.getTipoMed() == tipoMedico.Especialista){ //calculo del valor de la cita de acuerdo al tipo de medico
             return valorMedico = 80.000;
         }   
         else    
             return valorMedico = 40.000;
     }
 
-    public double valorTurno(){
+    public double valorTurno(Turno turno){
         if (turno.getHoraInicio() >= 18 || turno.getHoraInicio() < 8){ //condicion para valor cita según horario atención, cómo se veran las horas?
             return valorTurno = 40.000;
         }   
@@ -97,8 +91,8 @@ public class Factura {
 
     public double totalFacturasinDcto(){
         double calculoValorTotal;
-        double calculoTotalMedicamento = this.cantidadMedicamento * medicamento.getPrecio();
-        double calculoTotalTurno = this.valorTurno + this.valorMedico;
+        double calculoTotalMedicamento = cantidadMedicamento * medicamento.getPrecio();
+        double calculoTotalTurno = valorTurno(turno) + valorMedico(medico);
         calculoValorTotal = calculoTotalMedicamento + calculoTotalTurno;
         return calculoValorTotal;
     }
@@ -106,8 +100,8 @@ public class Factura {
     public double totalFactura(){
         double dctoFactura;
         double totalFacturaDcto;
-        if (cliente.IsFrecuente() == true ){//falta crear método frecuente en clase Cliente
-            dctoFactura=this.totalFacturasinDcto()*0.1;
+        if (cliente.isFrecuente() == true ){
+            dctoFactura = this.totalFacturasinDcto()*0.1;
             totalFacturaDcto = this.totalFacturasinDcto()-dctoFactura;
             return totalFacturaDcto;
         } 
@@ -116,12 +110,12 @@ public class Factura {
     }
 
     public String datosFactura(){
-        return "El cliente: " + cliente.getNombre()+ "debe pagar un total de: $ " + totalFactura();
+        return "El cliente: " + cliente.getNombre()+ "debe pagar un total de: $ " + this.totalFactura();
     
     }
     
     public double getTotalFactura() {
-        return totalFactura;
+        return this.totalFactura;
     }
 
     public void setTotalFactura(double totalFactura) {
