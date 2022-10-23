@@ -1,5 +1,6 @@
 package gestorAplicacion.Clientes;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -11,12 +12,16 @@ import gestorAplicacion.Veterinaria.Personal;
 import gestorAplicacion.Veterinaria.Turno;
 
 
-public class Cliente extends Personal{
+public class Cliente extends Personal implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2L;
 	private boolean frecuente = false;
 	public ArrayList<Turno> turnosPendientes = new ArrayList<Turno>();
 	public Map<Integer, Integer> registroHoras = new HashMap<>();
-	public static Map<String, Cliente> mapaClientes = new HashMap<>();
+	public static HashMap<String, Cliente> mapaClientes = new HashMap<>();
 	public static int cantidadClientes = 0;
 	public static Map<String, ArrayList<Mascota>> mascotas = new HashMap<>();
 	
@@ -49,6 +54,8 @@ public class Cliente extends Personal{
 		this.registroHoras.put(24,0);
 	}
 	
+	
+	
 	public String getNombre() {
 		return nombre;
 	}
@@ -80,6 +87,9 @@ public class Cliente extends Personal{
 	
 	public static String obtenerMascotasCliente(String cedula) {
 		String cadena = "";
+		if(Cliente.mascotas.get(cedula)==null) {
+			return "Este cliente no tiene mascotas registradas";
+		}
 		for (int i=0;i<Cliente.mascotas.get(cedula).size();i++) {
 			cadena = cadena + (i+1) + ". " + Cliente.mascotas.get(cedula).get(i).getNombre()+"\n";      
 		}

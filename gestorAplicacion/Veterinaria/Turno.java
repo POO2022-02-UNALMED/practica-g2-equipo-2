@@ -1,10 +1,16 @@
 package gestorAplicacion.Veterinaria;
 
+import java.io.Serializable;
+
 import gestorAplicacion.Clientes.Cliente;
 import gestorAplicacion.Clientes.Mascota;
 
-public class Turno {
+public class Turno implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5L;
 	private int horaInicio;
 	private String fecha;
 	private Mascota mascota;

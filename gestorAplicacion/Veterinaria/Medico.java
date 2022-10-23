@@ -1,24 +1,30 @@
 package gestorAplicacion.Veterinaria;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
 import gestorAplicacion.Clientes.Cliente;
 
-public class Medico extends Personal {
-    public  Map<String, Turno[]> agenda = new HashMap<>();
+public class Medico extends Personal implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 3L;
+	public  Map<String, Turno[]> agenda = new HashMap<>();
 	public static Map<String, Medico> mapaMedico = new HashMap<>();
     public tipoMedico tipoMed;//general o especialista
 
     public Medico(String nombre, String cedula, String telefono, tipoMedico tipoMed) {
         super(nombre, cedula, telefono);
         this.tipoMed = tipoMed;
-        //mapaMedico.put(cedula, this);
+        mapaMedico.put(cedula, this);
     }
     
     
     public tipoMedico getTipoMed(){
         return tipoMed;
     }
+    
     public void setTipoMed(tipoMedico tipoMed) {
         this.tipoMed = tipoMed;
     } 

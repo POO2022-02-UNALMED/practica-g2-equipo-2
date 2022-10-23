@@ -1,6 +1,13 @@
 package gestorAplicacion.Veterinaria;
-public class Personal {
+
+import java.io.Serializable;
+
+public class Personal implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	protected String nombre;
 	protected String cedula;
 	protected String telefono;

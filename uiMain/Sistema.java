@@ -12,7 +12,7 @@ public class Sistema {
 		Medicamento profender = new Medicamento(1000003, "Profender", "Pipeta", 40, 2100);
 		int opc=25;
 		
-		while(opc != 24) {
+		while(opc != 0) {
 			System.out.println("Administrador Veterinaria\n");
 			System.out.println("1. Registrar Cliente");
 			System.out.println("2. Registrar Mascota");
@@ -42,13 +42,13 @@ public class Sistema {
 				Interaccion.agendarTurno();
 			}
 			if(opc == 5) {
-				Interaccion.generarFactura();
+				System.out.println(Interaccion.generarFactura());
 			}
 			if(opc==6){
 				Interaccion.Caja();
 			}
 			if(opc == 0) {
-				System.out.println("Salir");
+				Datos.guardarDatos();
 			}
 			System.out.println("\n\n"); 
 		}

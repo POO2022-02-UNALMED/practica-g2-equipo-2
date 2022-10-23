@@ -1,10 +1,13 @@
 package gestorAplicacion.Clientes;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.io.Serializable;
 
-public class Mascota {
+public class Mascota implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4L;
 	private String nombre;
 	private String especie;
 	private String raza;
@@ -12,7 +15,6 @@ public class Mascota {
 	private int peso;
 	private Cliente duenno;
 	private int id;
-	public static Map<Integer, Mascota> mapaMascotas = new HashMap<>();
 	public static int cantidadMascotas = 0;
 	
 	public Mascota(String nombre, String especie, String raza, int edad, int peso, Cliente duenno) {
@@ -25,7 +27,7 @@ public class Mascota {
 		this.duenno = duenno;
 		this.id = cantidadMascotas;
 		cantidadMascotas++;
-		mapaMascotas.put(this.id, this);
+		//mapaMascotas.put(this.id, this);
 	}
 	
 	

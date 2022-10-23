@@ -1,7 +1,13 @@
 package gestorAplicacion.Veterinaria;
 
-public class Medicamento {
-    private int idMed;
+import java.io.Serializable;
+
+public class Medicamento implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private int idMed;
     public String nombre;
     public String presentacion;
     public int cantidadDisponible;  
