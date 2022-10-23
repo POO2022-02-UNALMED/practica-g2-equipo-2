@@ -352,7 +352,7 @@ public class Interaccion {
 				Interaccion.cambiarTurno();
 			}
 			if(opcc == 5) {
-				Interaccion.cambiarTurno();
+				Interaccion.informeTotal();;
 			}
 			}
 			if(opcc == 0) {
