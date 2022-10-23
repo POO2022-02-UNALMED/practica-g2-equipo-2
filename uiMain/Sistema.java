@@ -7,9 +7,8 @@ public class Sistema {
 
 	public static void main(String args[]) {
 	
-		Medicamento onsior = new Medicamento(1000001, "Onsior", "Tabletas", 50, 3500);
-		Medicamento amoxicilina = new Medicamento(1000002, "Amoxicilina", "Tabletas", 50, 2800);
-		Medicamento profender = new Medicamento(1000003, "Profender", "Pipeta", 40, 2100);
+		Datos.leerDatos();
+		
 		int opc=25;
 		
 		while(opc != 0) {
