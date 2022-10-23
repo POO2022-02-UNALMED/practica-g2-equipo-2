@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
+
 public class Diagnostico extends Mascota{
 	private String fecha;
 	private Personal veterinario;

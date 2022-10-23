@@ -2,6 +2,7 @@ package gestorAplicacion.Veterinaria;
 import gestorAplicacion.Clientes.Cliente;
 import java.util.Scanner;
 
+
 public class Factura {
     public Medico medico;
     public Cliente cliente;
