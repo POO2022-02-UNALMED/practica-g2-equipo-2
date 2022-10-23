@@ -14,6 +14,15 @@ public class TurnoContab {
     public static ArrayList<Factura> facturas= new ArrayList<Factura>();    //Lista de facturas por turno 
 
 
+    public static ArrayList<Factura> getFacturas() {
+        return facturas;
+    }
+    public static void agregarFactura(Factura nueva){
+        TurnoContab.facturas.add(nueva);
+    }
+    public static void setFacturas(ArrayList<Factura> facturas) {
+        TurnoContab.facturas = facturas;
+    }
     public static double getTotalmedicosturno() {
         return totalmedicosturno;
     }

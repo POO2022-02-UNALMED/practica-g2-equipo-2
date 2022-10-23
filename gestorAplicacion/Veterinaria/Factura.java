@@ -12,6 +12,14 @@ public class Factura {
     private double valorMedico; //general o especialista
     public double totalFactura;
   
+    public double getTotalFactura() {
+        return totalFactura;
+    }
+
+    public void setTotalFactura(double totalFactura) {
+        this.totalFactura = totalFactura;
+    }
+
     public Factura(Medico medico, Cliente cliente, Medicamento medicamento, short cantidadMedicamento, Turno turno ) {
         this.medico = medico;
         this.cliente = cliente;
@@ -21,6 +29,7 @@ public class Factura {
         this.valorTurno = this.calcularValorTurno(turno); 
         this.totalFactura = this.calculoTotalFactura();
         medicamento.ModificarInventario(cantidadMedicamento); 
+        TurnoContab.agregarFactura(this);
     }
     
     public Medico getMedico() {

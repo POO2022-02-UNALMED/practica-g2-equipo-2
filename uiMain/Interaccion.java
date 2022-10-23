@@ -308,7 +308,13 @@ public class Interaccion {
 	public static void informeTotal() {
 		estadoCaja();
 		mostrarDeudaMedicos();
-		mostrarInventario();
+		mostrarInventario();	
+		System.out.println("INVENTARIO\n");
+		ArrayList<Medicamento> medicamentos= Inventario.getMedicamentos();
+		for(Medicamento producto:medicamentos){if (producto.getCantidad()<10){
+			System.out.println("Bajas unidades de " + producto.getNombre());
+		}
+	}
 
 	}
 
