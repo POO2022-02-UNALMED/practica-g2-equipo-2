@@ -215,19 +215,18 @@ public class Interaccion {
 			
 		}
 		String cedulaDoctor = "";
-		while(valido==false) {
+		boolean valido2=false;
+		while(valido2==false) {
 			
 			System.out.print("Ingrese la cedula del médico que atendió el turno: ");
 			cedulaDoctor = entrada.nextLine();
 			 if(Medico.validarCedula(cedulaDoctor)) {
-				 valido=true;
+				 valido2=true;
 			 }else {
 				 System.out.print("La cédula no existe en el sistema, por favor ingrese una válida\n\n");
 			 }
 			
 		}
-		String cedDoc = "";
-		cedDoc = cedulaDoctor;
 		System.out.print("Listado disponible de Medicamentos:\n");
 		for (int i=0;i<Inventario.getMedicamentos().size();i++) {
 			System.out.print ((i+1) + ". " + Inventario.getMedicamentos().get(i).getNombre()+"\n");     
@@ -255,7 +254,7 @@ public class Interaccion {
 		System.out.println(cantidadMedicamento);
 		System.out.println(Cliente.mapaClientes.get(cedula).turnosPendientes.get(turnoAPagar-1) );
 		*/
-		Factura factura = new Factura(Medico.mapaMedico.get("67890"), Cliente.mapaClientes.get(cedula), Inventario.getMedicamentos().get(nombreMedicamento-1), cantidadMedicamento,Cliente.mapaClientes.get(cedula).turnosPendientes.get(turnoAPagar-1) );
+		Factura factura = new Factura(Medico.mapaMedico.get(cedulaDoctor), Cliente.mapaClientes.get(cedula), Inventario.getMedicamentos().get(nombreMedicamento-1), cantidadMedicamento,Cliente.mapaClientes.get(cedula).turnosPendientes.get(turnoAPagar-1) );
 		System.out.println("\nEl cliente: " + Cliente.mapaClientes.get(cedula).getNombre()+ ", debe pagar un total de: $" + factura.calculoTotalFactura());
 		try {
 			Thread.sleep(2000);
