@@ -278,8 +278,8 @@ public class Interaccion {
 	}
 
 	public static void mostrarDeudaMedicos() {
-		HashMap<String, Integer> deudaMedicos = TurnoContab.TotalMedico(); 
-		for(Entry<String, Integer> e: deudaMedicos.entrySet() ){
+		HashMap<String, Double> deudaMedicos = TurnoContab.TotalMedico(); 
+		for(Entry<String, Double> e: deudaMedicos.entrySet() ){
 			System.out.println("Al doctor" + e.getKey()+ " se le adeuda "+e.getValue());
 		}
 		try {

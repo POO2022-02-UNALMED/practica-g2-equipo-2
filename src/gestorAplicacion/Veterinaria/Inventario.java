@@ -3,7 +3,7 @@ package gestorAplicacion.Veterinaria;
 import java.util.ArrayList;
 
 public class Inventario {
-    static ArrayList<Medicamento> Medicamentos= new ArrayList<Medicamento>();
+    public static ArrayList<Medicamento> Medicamentos= new ArrayList<Medicamento>();
 
     public static ArrayList<Medicamento> getMedicamentos() {
         return Medicamentos;
