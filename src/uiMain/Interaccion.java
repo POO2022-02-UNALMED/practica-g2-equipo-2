@@ -127,9 +127,10 @@ public static void registrarMascota() {
 			}
 			
 		}
+		
+		if(!Cliente.obtenerMascotasCliente(cedula).equals("Este cliente no tiene mascotas registradas")) {
 		System.out.println("\nLista de mascotas de este cliente");
 		System.out.print(Cliente.obtenerMascotasCliente(cedula));
-		if(!Cliente.obtenerMascotasCliente(cedula).equals("Este cliente no tiene mascotas registradas")) {
 		System.out.print("\n");
 		System.out.print("Ingrese la mascota para la cual quiere asignar el turno: ");
 		int opc = entrada.nextInt();
@@ -193,6 +194,8 @@ public static void registrarMascota() {
 		entrada.nextLine();
 		Medico.mapaMedico.get(cedulaDoctor).asignarTurno(fecha, turno-1, cedula, opc-1);
 		System.out.println("\nEl turno ha sido registrado");
+		}else {
+			System.out.print(Cliente.obtenerMascotasCliente(cedula));
 		}
 		try {
 			Thread.sleep(2000);
