@@ -290,7 +290,7 @@ public static void registrarMascota() {
 		}
 	}
 	public static void estadoCaja() {
-		System.out.println("En caja debería haber "+ TurnoContab.TotalDiario());
+		System.out.println("En caja debería haber $"+ TurnoContab.TotalDiario());
 		try {
 			Thread.sleep(2000);
 		} catch (InterruptedException e) {
@@ -303,7 +303,7 @@ public static void registrarMascota() {
 	public static void mostrarDeudaMedicos() {
 		HashMap<String, Double> deudaMedicos = TurnoContab.TotalMedico(); 
 		for(Entry<String, Double> e: deudaMedicos.entrySet() ){
-			System.out.println("Al doctor" + e.getKey()+ " se le adeuda "+e.getValue());
+			System.out.println("Al doctor  " + e.getKey()+ " se le adeuda  $"+e.getValue());
 		}
 		try {
 			Thread.sleep(2000);
@@ -319,11 +319,12 @@ public static void registrarMascota() {
 		System.out.println("INVENTARIO\n");
 		ArrayList<Medicamento> medicamentos= Inventario.getMedicamentos();
 		for(Medicamento producto:medicamentos){
-			System.out.println(producto.getNombre()+ " "+ producto.getCantidad());
+			System.out.print("\n"+ producto.getNombre()+ " "+ producto.getCantidad());
 			if (producto.getCantidad()<10){
-				System.out.println("Bajas unidades de " + producto.getNombre());
+				System.out.print("             Bajas unidades de " + producto.getNombre());
 			}
 		}
+		System.out.println("\n-");
 		try {
 			Thread.sleep(2000);
 		} catch (InterruptedException e) {
@@ -336,8 +337,9 @@ public static void registrarMascota() {
 	public static void cambiarTurno() {
 		@SuppressWarnings("resource")
 		Scanner entrada=new Scanner(System.in);
-		System.out.println("1. Nuevo turno contable sin retiro de la caja");
-		System.out.println("2. Nuevo turno contable con retiro de la caja");
+		System.out.println("Elija la opcion que desee.");
+		System.out.println("1. Nuevo turno contable sin retiro de la caja.");
+		System.out.println("2. Nuevo turno contable con retiro de la caja.");
 		int eleccion = entrada.nextInt();
 		entrada.nextLine();
 		if (eleccion==1)
@@ -355,6 +357,7 @@ public static void registrarMascota() {
 			TurnoContab.facturas.clear();
 			TurnoContab.setTotalmedicosturno(0);
 		}
+		System.out.println("Cambio de turno realizado");
 		try {
 			Thread.sleep(2000);
 		} catch (InterruptedException e) {
@@ -367,18 +370,14 @@ public static void registrarMascota() {
 		estadoCaja();
 		mostrarDeudaMedicos();
 		mostrarInventario();	
-		System.out.println("INVENTARIO\n");
-		ArrayList<Medicamento> medicamentos= Inventario.getMedicamentos();
-		for(Medicamento producto:medicamentos){if (producto.getCantidad()<10){
-			System.out.println("Bajas unidades de " + producto.getNombre());
-		}
+		
 		try {
 			Thread.sleep(4000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
+	
 
 	}
 	public static void Caja(){
