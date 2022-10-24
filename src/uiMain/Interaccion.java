@@ -265,7 +265,7 @@ public class Interaccion {
 		int nombreMedicamento = entrada.nextInt();
 		entrada.nextLine();
 		System.out.print("Ingrese la cantidad (en unidades) del medicamento: ");
-        short cantidadMedicamento = entrada.nextShort();
+        	int cantidadMedicamento = entrada.nextInt();
 		entrada.nextLine();
 		System.out.print("Listado de turnos pendientes por pagar:\n");
 		for (int i=0;i<Cliente.mapaClientes.get(cedula).turnosPendientes.size();i++) {
