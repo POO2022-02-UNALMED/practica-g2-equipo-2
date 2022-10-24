@@ -81,11 +81,11 @@ public class Factura implements Serializable{
         this.valorTurno = valorTurno;
     }
 
-    public short getCantidadMedicamento() {
+    public int getCantidadMedicamento() {
         return cantidadMedicamento;
     }
 
-    public void setCantidadMedicamento(short cantidadMedicamento) {
+    public void setCantidadMedicamento(int cantidadMedicamento) {
         this.cantidadMedicamento = cantidadMedicamento;
     }
 
