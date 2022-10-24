@@ -257,6 +257,12 @@ public class Interaccion {
 	}
 	public static void estadoCaja() {
 		System.out.println("En caja debería haber "+ TurnoContab.TotalDiario());
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 
@@ -264,6 +270,12 @@ public class Interaccion {
 		HashMap<String, Integer> deudaMedicos = TurnoContab.TotalMedico(); 
 		for(Entry<String, Integer> e: deudaMedicos.entrySet() ){
 			System.out.println("Al doctor" + e.getKey()+ " se le adeuda "+e.getValue());
+		}
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 	}
@@ -277,6 +289,12 @@ public class Interaccion {
 			if (producto.getCantidad()<10){
 				System.out.println("Bajas unidades de " + producto.getNombre());
 			}
+		}
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
@@ -303,6 +321,12 @@ public class Interaccion {
 			TurnoContab.facturas.clear();
 			TurnoContab.setTotalmedicosturno(0);
 		}
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 	public static void informeTotal() {
@@ -313,6 +337,12 @@ public class Interaccion {
 		ArrayList<Medicamento> medicamentos= Inventario.getMedicamentos();
 		for(Medicamento producto:medicamentos){if (producto.getCantidad()<10){
 			System.out.println("Bajas unidades de " + producto.getNombre());
+		}
+		try {
+			Thread.sleep(4000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
