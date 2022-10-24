@@ -9,7 +9,7 @@ public class Factura {
     public Turno turno;
     private static final double DESCUENTO = 0.1;
     private double valorTurno; //dependiendo de la hora, el valor
-    private short cantidadMedicamento; //tableta mg
+    private int cantidadMedicamento; //tableta mg
     private double valorMedico; //general o especialista
     public double totalFactura;
   
@@ -21,7 +21,7 @@ public class Factura {
         this.totalFactura = totalFactura;
     }
 
-    public Factura(Medico medico, Cliente cliente, Medicamento medicamento, short cantidadMedicamento, Turno turno ) {
+    public Factura(Medico medico, Cliente cliente, Medicamento medicamento, int cantidadMedicamento, Turno turno ) {
         this.medico = medico;
         this.cliente = cliente;
         this.medicamento = medicamento;
