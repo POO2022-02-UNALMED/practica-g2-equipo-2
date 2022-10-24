@@ -2,7 +2,7 @@ package gestorAplicacion.Veterinaria;
 
 import java.io.Serializable;
 
-public class Personal implements Serializable{
+public class Persona implements Serializable{
 	
 	/**
 	 * 
@@ -12,7 +12,7 @@ public class Personal implements Serializable{
 	protected String cedula;
 	protected String telefono;
 	
-	public Personal(String nombre, String cedula, String telefono) {
+	public Persona(String nombre, String cedula, String telefono) {
 		super();
 		this.nombre = nombre;
 		this.cedula = cedula;

@@ -75,11 +75,11 @@ public class TurnoContab {
     }
     
     
-    public static HashMap<String, Integer> TotalMedico(){      // Calcular cuanto es el total que se le debe pagar a los medicos
+    public static HashMap<String, Double> TotalMedico(){      // Calcular cuanto es el total que se le debe pagar a los medicos
         double totalmeds=0;                                                    //Se usara para calcular el total que se debe pagar a todos los medicos
         double auxiliar=0;                                                    //solo sirve para tener una variable double con valor cero
         ArrayList<String> medicost= new ArrayList<String>();                    //Array de todos los medicos que estuvieron en el turno
-        HashMap<String, Integer> medicos = new HashMap<String, Integer>();    //HashMap para calcular lo que se le debe pagar al medico
+        HashMap<String, Double> medicos = new HashMap<String, Double>();    //HashMap para calcular lo que se le debe pagar al medico
         for (int i=0;i<TurnoContab.facturas.size(); i++){                                        //recorre array de todas las facturas
             double cont=0;                                                                           // Es una variable para las operaciones
             if (medicos.containsKey(TurnoContab.facturas.get(i).getMedico().getNombre())){                           //Verifica que no esté el medico en en hashmap para agregarlo
@@ -99,6 +99,7 @@ public class TurnoContab {
             return medicos;
         } 
     }
+
 
 
 

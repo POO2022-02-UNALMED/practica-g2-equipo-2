@@ -8,11 +8,11 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
-import gestorAplicacion.Veterinaria.Personal;
+import gestorAplicacion.Veterinaria.Persona;
 import gestorAplicacion.Veterinaria.Turno;
 
 
-public class Cliente extends Personal implements Serializable{
+public class Cliente extends Persona implements Serializable{
 
 	/**
 	 * 
@@ -91,7 +91,7 @@ public class Cliente extends Personal implements Serializable{
 			return "Este cliente no tiene mascotas registradas";
 		}
 		for (int i=0;i<Cliente.mascotas.get(cedula).size();i++) {
-			cadena = cadena + (i+1) + ". " + Cliente.mascotas.get(cedula).get(i).getNombre()+"\n";      
+			cadena = cadena + (i+1) + ". " + Cliente.mascotas.get(cedula).get(i).getNombreMascota()+"\n";        
 		}
 		return cadena;
 	}
