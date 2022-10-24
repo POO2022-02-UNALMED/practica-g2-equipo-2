@@ -35,6 +35,19 @@ public class Mascota extends Animal implements Serializable{
 		cantidadMascotas++;
 		//mapaMascotas.put(this.id, this);
 	}
+	public Mascota(String nombreMascota, String especie, String raza, String sexo, int edad, int peso) {
+		super();
+		this.nombreMascota = nombreMascota;
+		this.especie = especie;
+		this.raza = raza;
+		this.setSexo(sexo);
+		this.edad = edad;
+		this.peso = peso;
+		this.duenno = Cliente.mapaClientes.get("0000");
+		this.id = cantidadMascotas;
+		cantidadMascotas++;
+		Cliente.mascotas.get("0000").add(this);
+	}
 	
 	
 	public String getNombreMascota() {
