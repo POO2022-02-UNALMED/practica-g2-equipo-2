@@ -9,6 +9,7 @@ import java.util.Map.Entry;
 
 import gestorAplicacion.Clientes.Cliente;
 import gestorAplicacion.Clientes.Mascota;
+import gestorAplicacion.Veterinaria.Diagnostico;
 import gestorAplicacion.Veterinaria.Factura;
 import gestorAplicacion.Veterinaria.Inventario;
 import gestorAplicacion.Veterinaria.Medicamento;
@@ -201,6 +202,30 @@ public class Interaccion {
 			e.printStackTrace();
 		}
 	}
+	
+	public static void generarDiagnostico() {
+	
+		@SuppressWarnings("resource")
+		Scanner entrada=new Scanner(System.in);
+		System.out.print("Ingrese la fecha de hoy (DD/MM/AAAA):");
+		String date = entrada.nextLine();
+		System.out.print("Ingrese el diagnóstico:");
+		String Justificacion = entrada.nextLine();
+		
+        //Diagnostico Diagnostico1 = new Diagnostico(date, Medico1, Cliente1, Mascota1, Justificacion);
+        //Diagnostico1.Diagnos();
+        //Diagnostico1.recomendarMedicamentos();
+        //Diagnostico1.generarFormulaMedica();
+        //System.out.println(Diagnostico1);
+			
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	public static void generarFactura() {
 		
 		@SuppressWarnings("resource")
