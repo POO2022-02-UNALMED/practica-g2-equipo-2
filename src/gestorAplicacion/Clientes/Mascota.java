@@ -16,11 +16,10 @@ public class Mascota implements Serializable{
 	private int edad;
 	private int peso;
 	private Cliente duenno;
-	private Medico veterinario;
 	private int id;
 	public static int cantidadMascotas = 0;
 	
-	public Mascota(String nombreMascota, String especie, String raza, String sexo, int edad, int peso, Cliente duenno, Medico veterinario) {
+	public Mascota(String nombreMascota, String especie, String raza, String sexo, int edad, int peso, Cliente duenno) {
 		super();
 		this.nombreMascota = nombreMascota;
 		this.especie = especie;
@@ -33,7 +32,6 @@ public class Mascota implements Serializable{
 		cantidadMascotas++;
 		//mapaMascotas.put(this.id, this);
 	}
-	
 	
 	public String getNombreMascota() {
 		return nombreMascota;
@@ -53,6 +51,12 @@ public class Mascota implements Serializable{
 	public void setRaza(String raza) {
 		this.raza = raza;
 	}
+	public String getSexo() {
+		return sexo;
+	}
+	public void setSexo(String se) {
+		this.sexo = se;
+	}
 	public int getEdad() {
 		return edad;
 	}
@@ -70,14 +74,6 @@ public class Mascota implements Serializable{
 	}
 	public void setDuenno(Cliente duenno) {
 		this.duenno = duenno;
-	}
-	
-	public Medico getVeterinario() {
-		return this.veterinario;
-	}
-	
-	public void setVeterinario(Medico vet) {
-		this.veterinario = vet;
 	}
 	
 	public int getId() {

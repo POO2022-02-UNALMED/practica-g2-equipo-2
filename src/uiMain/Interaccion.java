@@ -79,6 +79,8 @@ public class Interaccion {
 		String especie = entrada.nextLine();
 		System.out.print("Ingrese la raza:");
 		String raza = entrada.nextLine();
+		System.out.print("Ingrese el sexo:");
+		String sexo = entrada.nextLine();
 		System.out.print("Ingrese la edad (años):");
 		int edad = entrada.nextInt();
 		System.out.print("Ingrese el peso (kg):");
@@ -97,7 +99,7 @@ public class Interaccion {
 			}
 			
 		}
-		Mascota mascota1 = new Mascota(nombre,especie,raza,edad,peso,Cliente.mapaClientes.get(cedula));
+		Mascota mascota1 = new Mascota(nombre,especie,raza,sexo,edad,peso,Cliente.mapaClientes.get(cedula));
 		Cliente.mascotas.get(cedula).add(mascota1);
 		System.out.println("\nLa mascota ha sido registrada");
 		try {

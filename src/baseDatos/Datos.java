@@ -1,4 +1,4 @@
-package serializacion;
+package baseDatos;
 
 import java.io.EOFException;
 import java.io.FileInputStream;
