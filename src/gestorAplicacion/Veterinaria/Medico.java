@@ -5,7 +5,7 @@ import java.util.Map;
 
 import gestorAplicacion.Clientes.Cliente;
 
-public class Medico extends Personal implements Serializable{
+public class Medico extends Persona implements Serializable{
     /**
 	 * 
 	 */

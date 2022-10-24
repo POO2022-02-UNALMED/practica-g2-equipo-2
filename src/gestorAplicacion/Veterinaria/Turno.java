@@ -16,11 +16,11 @@ public class Turno implements Serializable{
 	private Mascota mascota;
 	private Cliente cliente;
 	private boolean disponibilidad;
-	private Personal veterinario;
+	private Persona veterinario;
 	
 	
 	public Turno(int horaInicio, String fecha, Mascota mascota, Cliente cliente, boolean disponibilidad,
-			Personal veterinario) {
+			Persona veterinario) {
 		super();
 		this.horaInicio = horaInicio;
 		this.fecha = fecha;
@@ -61,10 +61,10 @@ public class Turno implements Serializable{
 	public void setDisponibilidad(boolean disponibilidad) {
 		this.disponibilidad = disponibilidad;
 	}
-	public Personal getVeterinario() {
+	public Persona getVeterinario() {
 		return veterinario;
 	}
-	public void setVeterinario(Personal veterinario) {
+	public void setVeterinario(Persona veterinario) {
 		this.veterinario = veterinario;
 	}
 	
