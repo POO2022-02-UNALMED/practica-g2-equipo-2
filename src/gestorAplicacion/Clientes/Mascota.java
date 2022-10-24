@@ -12,6 +12,7 @@ public class Mascota implements Serializable{
 	private String nombreMascota;
 	private String especie;
 	private String raza;
+	private String sexo;
 	private int edad;
 	private int peso;
 	private Cliente duenno;
@@ -19,11 +20,12 @@ public class Mascota implements Serializable{
 	private int id;
 	public static int cantidadMascotas = 0;
 	
-	public Mascota(String nombreMascota, String especie, String raza, int edad, int peso, Cliente duenno, Medico veterinario) {
+	public Mascota(String nombreMascota, String especie, String raza, String sexo, int edad, int peso, Cliente duenno, Medico veterinario) {
 		super();
 		this.nombreMascota = nombreMascota;
 		this.especie = especie;
 		this.raza = raza;
+		this.sexo = sexo;
 		this.edad = edad;
 		this.peso = peso;
 		this.duenno = duenno;

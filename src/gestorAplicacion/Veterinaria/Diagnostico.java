@@ -8,15 +8,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
-public class Diagnostico extends Mascota implements Serializable{
+public class Diagnostico implements Serializable{
 	private static final long serialVersionUID = 8L;
-	public Stock stock = new Stock();
+	private Medico veterinario;
+	private Cliente duenno;
+	private Mascota mascota;
 	private String fecha;
 	private String justificacion = "";
+	public Stock stock = new Stock();
 	private String recomendacion = "Medicamento y Prescripción \n Se recomienda al cliente suministrar a la mascota los siguientes medicamentos según la dósis especificada: \n";
 	private String diagnostico = "";
 	private ArrayList<Medicamento> medicamentos = new ArrayList<>();
-	private	Mascota mascota;
 	private String sintomasLista[] = {"dolor", "inflama", "parasito", "parásito"};
 	private String sintomasDeterminados[] = {};
 	int numeroSintomas = 0;
@@ -27,8 +29,10 @@ public class Diagnostico extends Mascota implements Serializable{
 	int numeroMedicinasRecomendadas = 0;
 	private HashMap<String, String> medicinaAComercial;
 		
-	public Diagnostico(String date, Medico veterinario, Cliente duenno, String nombreMascota, String especie, String raza, int edad, int peso, String Justificacion) {
-		super(nombreMascota, especie, raza, edad, peso, duenno, veterinario);
+	public Diagnostico(String date, Medico vete, Cliente due, Mascota mas, String Justificacion) {
+		this.veterinario = vete;
+		this.duenno = due;
+		this.mascota = mas;
 		this.fecha = date;
 		this.justificacion = Justificacion;
 	}
@@ -48,15 +52,7 @@ public class Diagnostico extends Mascota implements Serializable{
 	public void setMedicamentos(ArrayList<Medicamento> med) {
 		this.medicamentos = med;
 	}
-	
-	public Mascota getMascota() {
-		return this.mascota;
-	}
-
-	public void setMascota(Mascota peti) {
-		this.mascota = peti;
-	}
-	
+		
 	public String getJustificacion() {
 		return this.justificacion;
 	}
@@ -127,7 +123,7 @@ public class Diagnostico extends Mascota implements Serializable{
 				this.recomendacion = this.recomendacion + entry.getKey() + ", " + entry.getValue() + "\n";
 		}
 		
-		this.diagnostico = "Fecha: " + fecha + "\n" + "\nDatos del Prestador" + "\nVeterio: " + getVeterinario().getNombre() + "\n" + "\nDatos del Paciente" + "\nCliente: " + getDuenno().getNombre() + "\nNombreMascota: " + getNombreMascota() + "\nEdad: " + getEdad()+ "\nPeso: "+ getPeso() + "\nEspecie: " + getEspecie()+ "\nRaza: " + getRaza() + "\n" + "\n" +"Diagnostico" +"\nJustificación: " + justificacion + "\n" + "\nDiagnóstico(s): " + recomendacion;
+		this.diagnostico = "Fecha: " + fecha + "\n" + "\nDatos del Prestador" + "\nVeterio: " + this.veterinario.getNombre() + "\n" + "\nDatos del Paciente" + "\nCliente: " + this.duenno.getNombre() + "\nNombreMascota: " + this.mascota.getNombreMascota() + "\nEdad: " + this.mascota.getEdad()+ "\nPeso: "+ this.mascota.getPeso() + "\nEspecie: " + this.mascota.getEspecie()+ "\nRaza: " + this.mascota.getRaza() + "\n" + "\n" +"Diagnostico" +"\nJustificación: " + justificacion + "\n" + "\nDiagnóstico(s): " + recomendacion;
 		
 		return diagnostico;
 	}
