@@ -230,6 +230,7 @@ public class Interaccion {
 			
 		}
 		System.out.print("Listado disponible de Medicamentos:\n");
+		System.out.println("0. Ninguno");
 		for (int i=0;i<Inventario.getMedicamentos().size();i++) {
 			System.out.print ((i+1) + ". " + Inventario.getMedicamentos().get(i).getNombre()+"\n");     
 		}
@@ -246,8 +247,16 @@ public class Interaccion {
 		System.out.print("Seleccione el número de turno que desea pagar:");
 		int turnoAPagar = entrada.nextInt();
 		entrada.nextLine();
-		Factura factura = new Factura(Medico.mapaMedico.get(cedulaDoctor), Cliente.mapaClientes.get(cedula), Inventario.getMedicamentos().get(nombreMedicamento-1), cantidadMedicamento,Cliente.mapaClientes.get(cedula).turnosPendientes.get(turnoAPagar-1) );
-		System.out.println("\nEl cliente: " + Cliente.mapaClientes.get(cedula).getNombre()+ ", debe pagar un total de: $" + factura.calculoTotalFactura());
+		if (nombreMedicamento == 0){
+			Factura facturaSinMedicamento= new Factura(Medico.mapaMedico.get(cedulaDoctor), Cliente.mapaClientes.get(cedula), 0, Cliente.mapaClientes.get(cedula).turnosPendientes.get(turnoAPagar-1) );
+			Cliente.mapaClientes.get(cedula).turnosPendientes.remove(turnoAPagar-1);
+			System.out.println("\nEl cliente: " + Cliente.mapaClientes.get(cedula).getNombre()+ ", debe pagar un total de: $" + facturaSinMedicamento.calculoTotalFactura());
+		}
+		else {
+			Factura factura = new Factura(Medico.mapaMedico.get(cedulaDoctor), Cliente.mapaClientes.get(cedula), Inventario.getMedicamentos().get(nombreMedicamento-1), cantidadMedicamento,Cliente.mapaClientes.get(cedula).turnosPendientes.get(turnoAPagar-1) );
+			Cliente.mapaClientes.get(cedula).turnosPendientes.remove(turnoAPagar-1);
+			System.out.println("\nEl cliente: " + Cliente.mapaClientes.get(cedula).getNombre()+ ", debe pagar un total de: $" + factura.calculoTotalFactura());
+		}
 		try {
 			Thread.sleep(2000);
 		} catch (InterruptedException e) {

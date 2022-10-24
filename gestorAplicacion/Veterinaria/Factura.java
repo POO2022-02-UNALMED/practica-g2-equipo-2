@@ -7,6 +7,7 @@ public class Factura {
     public Cliente cliente;
     public Medicamento medicamento;
     public Turno turno;
+    private static final double DESCUENTO = 0.1;
     private double valorTurno; //dependiendo de la hora, el valor
     private short cantidadMedicamento; //tableta mg
     private double valorMedico; //general o especialista
@@ -31,7 +32,17 @@ public class Factura {
         medicamento.ModificarInventario(cantidadMedicamento); 
         TurnoContab.agregarFactura(this);
     }
-    
+       
+    public Factura(Medico medico, Cliente cliente, int cantidadMedicamento, Turno turno) {
+        this.medico = medico;
+        this.cliente = cliente;
+        this.turno = turno;
+        this.cantidadMedicamento = 0;
+        this.valorTurno = this.calcularValorTurno(turno); 
+        this.totalFactura = this.calculoTotalFactura();
+        TurnoContab.agregarFactura(this);
+    }
+
     public Medico getMedico() {
         return medico;
     }
@@ -98,16 +109,22 @@ public class Factura {
 
     public double totalFacturasinDcto(){
         double calculoValorTotal;
-        double calculoTotalMedicamento = cantidadMedicamento * medicamento.getPrecio();
-        double calculoTotalTurno = calcularValorTurno(turno) + calcularValorMedico(medico);
-        calculoValorTotal = calculoTotalMedicamento + calculoTotalTurno;
-        return calculoValorTotal;
+        if (cantidadMedicamento == 0){
+            return  calculoValorTotal = calcularValorTurno(turno) + calcularValorMedico(medico);
+        }
+        else{
+            double calculoTotalMedicamento = cantidadMedicamento * medicamento.getPrecio();
+            double calculoTotalTurno = calcularValorTurno(turno) + calcularValorMedico(medico);
+            calculoValorTotal = calculoTotalMedicamento + calculoTotalTurno;
+            return calculoValorTotal;
+        }
+    
     }
 
     public double calculoTotalFactura(){
         double totalFacturaDcto;
         if (cliente.isFrecuente() == true ){
-            totalFacturaDcto = this.totalFacturasinDcto()-(this.totalFacturasinDcto()*(0.1));
+            totalFacturaDcto = this.totalFacturasinDcto()-(this.totalFacturasinDcto()*DESCUENTO);
             return totalFacturaDcto;
         } 
         else

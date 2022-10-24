@@ -1,7 +1,6 @@
 package uiMain;
 import java.util.Scanner;
 import java.util.Spliterators.AbstractLongSpliterator;
-import gestorAplicacion.Veterinaria.*;
 
 public class Sistema {
 
@@ -41,7 +40,7 @@ public class Sistema {
 				Interaccion.agendarTurno();
 			}
 			if(opc == 5) {
-				System.out.println(Interaccion.generarFactura());
+				Interaccion.generarFactura();
 			}
 			if(opc==6){
 				Interaccion.Caja();
