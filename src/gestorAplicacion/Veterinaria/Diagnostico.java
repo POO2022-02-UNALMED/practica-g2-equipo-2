@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
-public class Diagnostico extends Mascota{
+public class Diagnostico extends Mascota implements Serializable{
 	private static final long serialVersionUID = 8L;
 	public Stock stock = new Stock();
 	private String fecha;
@@ -127,7 +127,7 @@ public class Diagnostico extends Mascota{
 				this.recomendacion = this.recomendacion + entry.getKey() + ", " + entry.getValue() + "\n";
 		}
 		
-		this.diagnostico = "Fecha: " + fecha + "\n" + "\nDatos del Prestador" + "\nVeterio: " + getVeterinario().getNombre() + "\n" + "\nDatos del Paciente" + "\nCliente: " + getDuenno().getNombre() + "\nNombreMascota: " + getNombreMascota() + "\nEdad: " + getEdad()+ "\nPeso: "+ getPeso() + "\nEspecie: " + getEspecie()+ "\nRaza: " + getRaza() + "\n" + "\n" +"Diagnostico" +"\nJustificación: " + justificacion + "\n" + "\nDiagnóstico(s): " + recomendacion;;
+		this.diagnostico = "Fecha: " + fecha + "\n" + "\nDatos del Prestador" + "\nVeterio: " + getVeterinario().getNombre() + "\n" + "\nDatos del Paciente" + "\nCliente: " + getDuenno().getNombre() + "\nNombreMascota: " + getNombreMascota() + "\nEdad: " + getEdad()+ "\nPeso: "+ getPeso() + "\nEspecie: " + getEspecie()+ "\nRaza: " + getRaza() + "\n" + "\n" +"Diagnostico" +"\nJustificación: " + justificacion + "\n" + "\nDiagnóstico(s): " + recomendacion;
 		
 		return diagnostico;
 	}

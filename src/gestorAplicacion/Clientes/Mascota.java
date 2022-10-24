@@ -1,6 +1,7 @@
 package gestorAplicacion.Clientes;
 
 import java.io.Serializable;
+import gestorAplicacion.Veterinaria.Medico;
 
 public class Mascota implements Serializable{
 
@@ -8,18 +9,19 @@ public class Mascota implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 4L;
-	private String nombre;
+	private String nombreMascota;
 	private String especie;
 	private String raza;
 	private int edad;
 	private int peso;
 	private Cliente duenno;
+	private Medico veterinario;
 	private int id;
 	public static int cantidadMascotas = 0;
 	
-	public Mascota(String nombre, String especie, String raza, int edad, int peso, Cliente duenno) {
+	public Mascota(String nombreMascota, String especie, String raza, int edad, int peso, Cliente duenno, Medico veterinario) {
 		super();
-		this.nombre = nombre;
+		this.nombreMascota = nombreMascota;
 		this.especie = especie;
 		this.raza = raza;
 		this.edad = edad;
@@ -31,11 +33,11 @@ public class Mascota implements Serializable{
 	}
 	
 	
-	public String getNombre() {
-		return nombre;
+	public String getNombreMascota() {
+		return nombreMascota;
 	}
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setNombre(String nombreMascota) {
+		this.nombreMascota = nombreMascota;
 	}
 	public String getEspecie() {
 		return especie;
@@ -67,6 +69,15 @@ public class Mascota implements Serializable{
 	public void setDuenno(Cliente duenno) {
 		this.duenno = duenno;
 	}
+	
+	public Medico getVeterinario() {
+		return this.veterinario;
+	}
+	
+	public void setVeterinario(Medico vet) {
+		this.veterinario = vet;
+	}
+	
 	public int getId() {
 		return id;
 	}
@@ -77,7 +88,7 @@ public class Mascota implements Serializable{
 	
 	
 	public String toString() {
-		return "nombre: " + nombre + "\n" + "especie: " + especie + "\n" + "raza: " + raza + "\n" + "edad: " + edad + "\n" + "peso: " + peso+ "\n" + "dueño:\n" + duenno;
+		return "nombre: " + nombreMascota + "\n" + "especie: " + especie + "\n" + "raza: " + raza + "\n" + "edad: " + edad + "\n" + "peso: " + peso+ "\n" + "dueño:\n" + duenno;
 	}
 	
 }
