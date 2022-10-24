@@ -9,12 +9,13 @@ import java.util.Map.Entry;
 
 import gestorAplicacion.Clientes.Cliente;
 import gestorAplicacion.Clientes.Mascota;
+import gestorAplicacion.Veterinaria.Diagnostico;
 import gestorAplicacion.Veterinaria.Factura;
 import gestorAplicacion.Veterinaria.Inventario;
 import gestorAplicacion.Veterinaria.Medicamento;
 import gestorAplicacion.Veterinaria.Medico;
 import gestorAplicacion.Veterinaria.tipoMedico;
-import gestorAplicacion.Veterinaria.TurnoContab;;
+import gestorAplicacion.Veterinaria.TurnoContab;
 
 public class Interaccion {
 	
@@ -127,9 +128,10 @@ public static void registrarMascota() {
 			}
 			
 		}
+		
+		if(!Cliente.obtenerMascotasCliente(cedula).equals("Este cliente no tiene mascotas registradas")) {
 		System.out.println("\nLista de mascotas de este cliente");
 		System.out.print(Cliente.obtenerMascotasCliente(cedula));
-		if(!Cliente.obtenerMascotasCliente(cedula).equals("Este cliente no tiene mascotas registradas")) {
 		System.out.print("\n");
 		System.out.print("Ingrese la mascota para la cual quiere asignar el turno: ");
 		int opc = entrada.nextInt();
@@ -193,6 +195,8 @@ public static void registrarMascota() {
 		entrada.nextLine();
 		Medico.mapaMedico.get(cedulaDoctor).asignarTurno(fecha, turno-1, cedula, opc-1);
 		System.out.println("\nEl turno ha sido registrado");
+		}else {
+			System.out.print(Cliente.obtenerMascotasCliente(cedula));
 		}
 		try {
 			Thread.sleep(2000);
@@ -205,12 +209,46 @@ public static void registrarMascota() {
 	
 		@SuppressWarnings("resource")
 		Scanner entrada=new Scanner(System.in);
-		System.out.print("Ingrese la fecha de hoy (DD/MM/AAAA):");
+		String cedula = "";
+		boolean valido=false;
+		while(valido==false) {
+			
+			System.out.print("Ingrese la cédula del cliente que será atendido: ");
+			cedula = entrada.nextLine();
+			if(Cliente.validarCedula(cedula)) {
+				valido=true;
+			}else {
+				System.out.print("La cédula no existe en el sistema, por favor ingrese una válida\n\n");
+			}
+			
+		}
+		System.out.println("\nLista de mascotas de este cliente");
+		System.out.print(Cliente.obtenerMascotasCliente(cedula));
+		if(Cliente.mascotas.get(cedula)==null || Cliente.mascotas.get(cedula).size()==0) {
+			System.out.println("El cliente no tiene mascotas registradas");}
+		System.out.print("\n");
+		System.out.print("Ingrese la mascota que será atendida: ");
+		int mascota = entrada.nextInt();
+		entrada.nextLine();
+		String cedulaDoctor = "";
+		boolean valido2=false;
+		while(valido2==false) {
+			
+			System.out.print("Ingrese la cedula del médico que atenderá el turno: ");
+			cedulaDoctor = entrada.nextLine();
+			 if(Medico.validarCedula(cedulaDoctor)) {
+				 valido2=true;
+			 }else {
+				 System.out.print("La cédula no existe en el sistema, por favor ingrese una válida\n\n");
+			 }
+			
+		}
+		System.out.print("Ingrese la fecha de hoy (dd-mm-aaaa):");
 		String date = entrada.nextLine();
 		System.out.print("Ingrese el diagnóstico:");
 		String Justificacion = entrada.nextLine();
 		
-        Diagnostico Diagnostico1 = new Diagnostico(date, Medico1, Cliente1, Mascota1, Justificacion);
+        Diagnostico Diagnostico1 = new Diagnostico(date, Medico.mapaMedico.get(cedulaDoctor), Cliente.mapaClientes.get(cedula), Cliente.mascotas.get(cedula).get(mascota-1), Justificacion);
         Diagnostico1.Diagnos();
         Diagnostico1.recomendarMedicamentos();
         Diagnostico1.generarFormulaMedica();

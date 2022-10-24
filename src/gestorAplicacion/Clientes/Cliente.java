@@ -87,7 +87,7 @@ public class Cliente extends Persona implements Serializable{
 	
 	public static String obtenerMascotasCliente(String cedula) {
 		String cadena = "";
-		if(Cliente.mascotas.get(cedula)==null) {
+		if(Cliente.mascotas.get(cedula)==null || Cliente.mascotas.get(cedula).size()==0) {
 			return "Este cliente no tiene mascotas registradas";
 		}
 		for (int i=0;i<Cliente.mascotas.get(cedula).size();i++) {
