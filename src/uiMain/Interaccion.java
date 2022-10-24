@@ -212,11 +212,11 @@ public class Interaccion {
 		System.out.print("Ingrese el diagnóstico:");
 		String Justificacion = entrada.nextLine();
 		
-        //Diagnostico Diagnostico1 = new Diagnostico(date, Medico1, Cliente1, Mascota1, Justificacion);
-        //Diagnostico1.Diagnos();
-        //Diagnostico1.recomendarMedicamentos();
-        //Diagnostico1.generarFormulaMedica();
-        //System.out.println(Diagnostico1);
+        Diagnostico Diagnostico1 = new Diagnostico(date, Medico1, Cliente1, Mascota1, Justificacion);
+        Diagnostico1.Diagnos();
+        Diagnostico1.recomendarMedicamentos();
+        Diagnostico1.generarFormulaMedica();
+        System.out.println(Diagnostico1);
 			
 		try {
 			Thread.sleep(2000);
