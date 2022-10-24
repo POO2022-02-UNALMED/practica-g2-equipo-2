@@ -1,9 +1,15 @@
 package gestorAplicacion.Veterinaria;
+import java.io.Serializable;
+
 import gestorAplicacion.Clientes.Cliente;
 
 
-public class Factura {
-    public Medico medico;
+public class Factura implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	public Medico medico;
     public Cliente cliente;
     public Medicamento medicamento;
     public Turno turno;

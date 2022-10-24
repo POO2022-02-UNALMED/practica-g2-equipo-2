@@ -1,9 +1,8 @@
 package gestorAplicacion.Clientes;
 
 import java.io.Serializable;
-import gestorAplicacion.Veterinaria.Medico;
 
-public class Mascota implements Serializable{
+public class Mascota extends Animal implements Serializable{
 
 	/**
 	 * 
@@ -18,17 +17,17 @@ public class Mascota implements Serializable{
 	private Cliente duenno;
 	private int id;
 	public static int cantidadMascotas = 0;
-	
+
 	public Mascota(){
 		
 	}
-
+	
 	public Mascota(String nombreMascota, String especie, String raza, String sexo, int edad, int peso, Cliente duenno) {
 		super();
 		this.nombreMascota = nombreMascota;
 		this.especie = especie;
 		this.raza = raza;
-		this.sexo = sexo;
+		this.setSexo(sexo);
 		this.edad = edad;
 		this.peso = peso;
 		this.duenno = duenno;
@@ -37,11 +36,12 @@ public class Mascota implements Serializable{
 		//mapaMascotas.put(this.id, this);
 	}
 	
+	
 	public String getNombreMascota() {
 		return nombreMascota;
 	}
-	public void setNombre(String nombreMascota) {
-		this.nombreMascota = nombreMascota;
+	public void setNombre(String nombre) {
+		this.nombreMascota = nombre;
 	}
 	public String getEspecie() {
 		return especie;
@@ -54,12 +54,6 @@ public class Mascota implements Serializable{
 	}
 	public void setRaza(String raza) {
 		this.raza = raza;
-	}
-	public String getSexo() {
-		return sexo;
-	}
-	public void setSexo(String se) {
-		this.sexo = se;
 	}
 	public int getEdad() {
 		return edad;
@@ -79,7 +73,6 @@ public class Mascota implements Serializable{
 	public void setDuenno(Cliente duenno) {
 		this.duenno = duenno;
 	}
-	
 	public int getId() {
 		return id;
 	}
@@ -91,6 +84,25 @@ public class Mascota implements Serializable{
 	
 	public String toString() {
 		return "nombre: " + nombreMascota + "\n" + "especie: " + especie + "\n" + "raza: " + raza + "\n" + "edad: " + edad + "\n" + "peso: " + peso+ "\n" + "dueño:\n" + duenno;
+	}
+
+
+	public String getSexo() {
+		return sexo;
+	}
+
+
+	public void setSexo(String sexo) {
+		this.sexo = sexo;
+	}
+
+
+	protected String hablar() {
+		if(this.especie.equals("perro")) {
+			return "Ladrar";
+		}else {
+			return "Maullar";
+		}
 	}
 	
 }

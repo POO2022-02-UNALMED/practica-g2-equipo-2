@@ -91,7 +91,7 @@ public class Cliente extends Persona implements Serializable{
 			return "Este cliente no tiene mascotas registradas";
 		}
 		for (int i=0;i<Cliente.mascotas.get(cedula).size();i++) {
-			cadena = cadena + (i+1) + ". " + Cliente.mascotas.get(cedula).get(i).getNombreMascota()+"\n";      
+			cadena = cadena + (i+1) + ". " + Cliente.mascotas.get(cedula).get(i).getNombreMascota()+"\n";        
 		}
 		return cadena;
 	}

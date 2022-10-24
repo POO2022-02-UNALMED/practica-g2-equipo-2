@@ -9,7 +9,6 @@ import java.util.Map.Entry;
 
 import gestorAplicacion.Clientes.Cliente;
 import gestorAplicacion.Clientes.Mascota;
-import gestorAplicacion.Veterinaria.Diagnostico;
 import gestorAplicacion.Veterinaria.Factura;
 import gestorAplicacion.Veterinaria.Inventario;
 import gestorAplicacion.Veterinaria.Medicamento;
@@ -70,7 +69,7 @@ public class Interaccion {
 		}
 	}
 	
-	public static void registrarMascota() {
+public static void registrarMascota() {
 		
 		@SuppressWarnings("resource")
 		Scanner entrada=new Scanner(System.in);
@@ -202,7 +201,6 @@ public class Interaccion {
 			e.printStackTrace();
 		}
 	}
-	
 	public static void generarDiagnostico() {
 	
 		@SuppressWarnings("resource")
@@ -225,7 +223,7 @@ public class Interaccion {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static void generarFactura() {
 		
 		@SuppressWarnings("resource")
@@ -265,7 +263,7 @@ public class Interaccion {
 		int nombreMedicamento = entrada.nextInt();
 		entrada.nextLine();
 		System.out.print("Ingrese la cantidad (en unidades) del medicamento: ");
-        	int cantidadMedicamento = entrada.nextInt();
+        int cantidadMedicamento = entrada.nextInt();
 		entrada.nextLine();
 		System.out.print("Listado de turnos pendientes por pagar:\n");
 		for (int i=0;i<Cliente.mapaClientes.get(cedula).turnosPendientes.size();i++) {
@@ -339,7 +337,7 @@ public class Interaccion {
 		@SuppressWarnings("resource")
 		Scanner entrada=new Scanner(System.in);
 		System.out.println("1. Nuevo turno contable sin retiro de la caja");
-		System.out.println("2 Nuevo turno contable con retiro de la caja");
+		System.out.println("2. Nuevo turno contable con retiro de la caja");
 		int eleccion = entrada.nextInt();
 		entrada.nextLine();
 		if (eleccion==1)
@@ -383,9 +381,6 @@ public class Interaccion {
 	}
 
 	}
-
-
-
 	public static void Caja(){
 		int opcc=100;
 	
@@ -426,4 +421,40 @@ public class Interaccion {
 			}
 			System.out.println("\n\n"); 
 		}
+	public static void registros() {
+		int opc=100;
+		
+		while(opc != 0) {
+			System.out.println("\nAdministrador Veterinaria\n");
+			System.out.println("1. Registrar Cliente");
+			System.out.println("2. Registrar Mascota");
+			System.out.println("3. Registrar Doctor");
+			System.out.println("0. Salir\n");
+
+			System.out.print("Digite una opcion: ");
+			
+			@SuppressWarnings("resource")
+			Scanner entrada=new Scanner(System.in);
+			opc = entrada.nextInt();
+			entrada.nextLine();
+			
+			if(opc == 1) {
+				Interaccion.registrarCliente();
+			}
+			if(opc == 2) {
+				Interaccion.registrarMascota();
+			}
+			if(opc == 3) {
+				Interaccion.registrarMedico();
+			}
+			
+			System.out.println("\n\n"); 
+		}
+	}
+	
+	
 }
+
+	
+
+
