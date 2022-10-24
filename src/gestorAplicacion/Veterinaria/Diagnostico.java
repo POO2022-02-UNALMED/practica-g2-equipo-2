@@ -85,7 +85,6 @@ public class Diagnostico implements Serializable{
 		for(Map.Entry<String, Boolean> entry : Sintomas.entrySet()) {
 			if (entry.getValue()) {
 				sintomasDeterminados[numeroSintomas] = entry.getKey();
-				System.out.println(entry.getKey());
 				numeroSintomas++;
 			}
 		}
