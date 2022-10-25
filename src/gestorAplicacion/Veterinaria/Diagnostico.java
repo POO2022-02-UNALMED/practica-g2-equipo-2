@@ -91,9 +91,8 @@ public class Diagnostico implements Serializable{
 	
 	//Recomendacion de medicamentos
 
-	private String listaMedicamentosRecomendados[] = {"","",""};
+	private String listaMedicamentosRecomendados = "\n";
 	private String recomendacion = " los siguientes medicamentos según la dósis especificada: \n";
-	private String MedicinasFinales = "";
 
 	public HashMap<String,String> recomendarMedicamentos() {
 		
@@ -104,19 +103,19 @@ public class Diagnostico implements Serializable{
 		for(String e: sintomasDeterminados){
 			if (e == "dolor"){
 					medicinasDeterminadas.put(SintomasAMedicinas.get(e),"         Presentación: 6 mg  Tableta con o sin Recubrimiento Gatos o 20 mg Tableta con o sin Recubrimiento Perros." + "\n          Suministrar: Vía Oral 1 tableta cada 1 día(s) por 3 día(s).");
-					listaMedicamentosRecomendados[numeroMedicinasRecomendadas] = medicinaAComercial.get(SintomasAMedicinas.get(e));
+					listaMedicamentosRecomendados = listaMedicamentosRecomendados + "\n        - " + medicinaAComercial.get(SintomasAMedicinas.get(e));
 					sintomasFinales.append("\n     - Dolor");
 					numeroMedicinasRecomendadas++;
 			}
 			else if (e == "inflama"){
 					medicinasDeterminadas.put(SintomasAMedicinas.get(e),"         Presentación: 100 mg  Tabletas con o sin Recubrimiento  Perros y Gatos." + "\n          Suministrar: Vía Oral 11 a 22 mg/kg cada 12 a 24 hora(s) de 10 a 14 día(s).");
-					listaMedicamentosRecomendados[numeroMedicinasRecomendadas] = medicinaAComercial.get(SintomasAMedicinas.get(e));
+					listaMedicamentosRecomendados = listaMedicamentosRecomendados + "\n        - " + medicinaAComercial.get(SintomasAMedicinas.get(e));
 					sintomasFinales.append ("\n     - Inflamación");
 					numeroMedicinasRecomendadas++;
 			}	
 			else if (e == "parasito" || e == "parásito"){
 					medicinasDeterminadas.put(SintomasAMedicinas.get(e),"         Presentación: 100 mL  Jarábe  Perros y Gatos." + "\n          Suministrar: Vía Oral 5 mL / 10 lb según edad:\n           A. Cada 2 semana(s) hasta las 12 semanas de edad.\n           B. Cada 1 mes(es) hasta los 6 mes(es) de edad.\n           C. Después de los 6 mes(es) de edad en adelante: Cada 3 mes(es).");
-					listaMedicamentosRecomendados[numeroMedicinasRecomendadas] = medicinaAComercial.get(SintomasAMedicinas.get(e));
+					listaMedicamentosRecomendados = listaMedicamentosRecomendados + "\n        - " + medicinaAComercial.get(SintomasAMedicinas.get(e));
 					sintomasFinales.append ("\n     - Parásitos");
 					numeroMedicinasRecomendadas++;
 			}			
@@ -130,11 +129,7 @@ public class Diagnostico implements Serializable{
 				this.recomendacion = this.recomendacion + "\n        - " +entry.getKey() + "\n " + entry.getValue() + "\n";
 		}
 		
-		for(String MR: listaMedicamentosRecomendados) {
-			this.MedicinasFinales = this.MedicinasFinales+ "\n        -" + MR;
-		}
-		
-		this.diagnostico = "\nFecha: " + fecha + "\n" + "\n\nDatos del Prestador" + "\n--> Médico Veterinario: " + this.veterinario.getNombre() + "\n" + "\nDatos del Paciente" + "\n--> Cliente: " + this.duenno.getNombre() + "\n--> Nombre de la Mascota: " + this.mascota.getNombreMascota() + "\n--> Edad: " + this.mascota.getEdad()+ " año(s)" +"\n--> Peso: "+ this.mascota.getPeso() + " kg" + "\n--> Especie: " + this.mascota.getEspecie()+ "\n--> Raza: " + this.mascota.getRaza() + "\n--> Sexo: " + this.mascota.getSexo() + "\n" + "\n" + "\nFÓRMULA MÉDICA VETERINARIA" +"\n\nDiagnóstico" +"\n--> Justificación: " + justificacion + "\n--> Síntomas:" + sintomasFinales + "\n" + "\n" + "Medicamentos y Prescripción \n--> Recomendación: Suministrar a " + this.mascota.getNombreMascota() + recomendacion + "\n\nFORMULA MÉDICA VÁLIDA POR 30 DÍAS A PARTIR DE LA FECHA DE EXPEDICIÓN" +"\n\nPor favor, diríjase a su clínica veterinaria más cercana para adquirir los medicamentos en el tiempo establecido, de lo contrario podría requerir una nueva valoración por médicina veterinaria." + "\n" + "\n" + "Medicinas Comerciales Recomendadas" + MedicinasFinales + "\n" + "\n" + "\n";
+		this.diagnostico = "\nFecha: " + fecha + "\n" + "\n\nDatos del Prestador" + "\n--> Médico Veterinario: " + this.veterinario.getNombre() + "\n" + "\nDatos del Paciente" + "\n--> Cliente: " + this.duenno.getNombre() + "\n--> Nombre de la Mascota: " + this.mascota.getNombreMascota() + "\n--> Edad: " + this.mascota.getEdad()+ " año(s)" +"\n--> Peso: "+ this.mascota.getPeso() + " kg" + "\n--> Especie: " + this.mascota.getEspecie()+ "\n--> Raza: " + this.mascota.getRaza() + "\n--> Sexo: " + this.mascota.getSexo() + "\n" + "\n" + "\nFÓRMULA MÉDICA VETERINARIA" +"\n\nDiagnóstico" +"\n--> Justificación: " + justificacion + "\n--> Síntomas:" + sintomasFinales + "\n" + "\n" + "Medicamentos y Prescripción \n--> Recomendación: Suministrar a " + this.mascota.getNombreMascota() + recomendacion + "\n\nFORMULA MÉDICA VÁLIDA POR 30 DÍAS A PARTIR DE LA FECHA DE EXPEDICIÓN" +"\n\nPor favor, diríjase a su clínica veterinaria más cercana para adquirir los medicamentos en el tiempo establecido, de lo contrario podría requerir una nueva valoración por médicina veterinaria." + "\n" + "\n" + "Medicinas Comerciales Recomendadas" + listaMedicamentosRecomendados + "\n" + "\n" + "\n";
 		
 		return diagnostico;
 	}
