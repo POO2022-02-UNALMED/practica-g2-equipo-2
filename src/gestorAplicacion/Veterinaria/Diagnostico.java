@@ -139,8 +139,5 @@ public class Diagnostico implements Serializable{
 		return diagnostico;
 	}
 	
-	public void guardarDiagnostico() {
-		
-	}
 }
 
