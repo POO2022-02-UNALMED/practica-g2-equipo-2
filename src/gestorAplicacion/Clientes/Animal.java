@@ -39,8 +39,8 @@ public class Animal implements Serializable{
 		this.edad = edad;
 	}
 	
-	public int sobrecargoEdad() {
-		return this.edad*1000;
+	public int sobrecargoEdad() { //teniendo en cuenta la edad, se genererá un sobrecargo en la factura. Para Animal el sobrecargo será de $1000
+		return this.edad*1000; 
 	}
 	
 	

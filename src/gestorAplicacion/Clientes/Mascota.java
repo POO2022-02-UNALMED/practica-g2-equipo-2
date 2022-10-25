@@ -69,14 +69,14 @@ public class Mascota extends Animal implements Serializable{
 		this.sexo = sexo;
 	}
 
-	public int sobrecargoEdad() {
+	public int sobrecargoEdad() { //teniendo en cuenta la edad, se genererá un sobrecargo en la factura. Para Animal el sobrecargo será de $500
 		return this.edad*500;
 	}
 	
 	public String saludarDuenno() {
-		return "Soy callejero, yo no tengo dueño";
+		return "Soy callejero, yo no tengo dueño"; //sobrecarga de métodos, si no se le pasa ningún objeto de tipo Cliente al método, se supondrá que es callejero y retorna el mensaje 
 	}
-	public String saludarDuenno(Cliente cliente) {
+	public String saludarDuenno(Cliente cliente) { //sobrecarga de métodos, si se le pasa un objeto de tipo Cliente al método, retorna el mensaje y el nombre del dueño
 		return "Mi dueño es " + cliente.getNombre();
 	}
 	

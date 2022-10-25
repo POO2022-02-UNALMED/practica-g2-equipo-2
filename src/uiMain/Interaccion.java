@@ -221,7 +221,7 @@ public static void registrarMascota() {
 			
 			System.out.print("Ingrese la cédula del cliente al que se le generará la factura: ");
 			cedula = entrada.nextLine();
-			if(Cliente.validarCedula(cedula)) {
+			if(Cliente.validarCedula(cedula)) {// ciclo para leer la cedula del cliente, solo permite continuar al ingresar una cedula valida
 				valido=true;
 			}else {
 				System.out.print("La cédula no existe en el sistema, por favor ingrese una válida\n\n");
@@ -243,7 +243,7 @@ public static void registrarMascota() {
 		}
 		System.out.print("Listado disponible de Medicamentos:\n");
 		System.out.println("0. Ninguno");
-		for (int i=0;i<Inventario.getMedicamentos().size();i++) {
+		for (int i=0;i<Inventario.getMedicamentos().size();i++) { //se obtienen e imprimen los medicamentos disponibles
 			System.out.print ((i+1) + ". " + Inventario.getMedicamentos().get(i).getNombre()+"\n");     
 		}
 		System.out.print("Seleccione el número de Medicamento que desea ordenar:");
@@ -253,18 +253,18 @@ public static void registrarMascota() {
         short cantidadMedicamento = entrada.nextShort();
 		entrada.nextLine();
 		System.out.print("Listado de turnos pendientes por pagar:\n");
-		for (int i=0;i<Cliente.mapaClientes.get(cedula).turnosPendientes.size();i++) {
+		for (int i=0;i<Cliente.mapaClientes.get(cedula).turnosPendientes.size();i++) { //se obtienen e imprimen los turnos pendientes por pagar de cliente
 			System.out.print ((i+1) + ". " + Cliente.mapaClientes.get(cedula).turnosPendientes.get(i).getHoraInicio()+":00"+" en la fecha:"+Cliente.mapaClientes.get(cedula).turnosPendientes.get(i).getFecha()+"\n");     
 		}
 		System.out.print("Seleccione el número de turno que desea pagar:");
 		int turnoAPagar = entrada.nextInt();
 		entrada.nextLine();
-		if (nombreMedicamento == 0){
+		if (nombreMedicamento == 0){ //ciclo que se ejecuta si la cantidadMedicamento fue 0, para ejecutar el llamado a factura con el constructor sin el objeto Medicamento
 			Factura facturaSinMedicamento= new Factura(Medico.mapaMedico.get(cedulaDoctor), Cliente.mapaClientes.get(cedula), 0, Cliente.mapaClientes.get(cedula).turnosPendientes.get(turnoAPagar-1) );
 			Cliente.mapaClientes.get(cedula).turnosPendientes.remove(turnoAPagar-1);
 			System.out.println("\nEl cliente: " + Cliente.mapaClientes.get(cedula).getNombre()+ ", debe pagar un total de: $" + facturaSinMedicamento.calculoTotalFactura());
 		}
-		else {
+		else { //se ejecuta si la cantidadMedicamento fue diferente de 0, para ejecutar el llamado a factura con el constructor con el objeto Medicamento
 			Factura factura = new Factura(Medico.mapaMedico.get(cedulaDoctor), Cliente.mapaClientes.get(cedula), Inventario.getMedicamentos().get(nombreMedicamento-1), cantidadMedicamento,Cliente.mapaClientes.get(cedula).turnosPendientes.get(turnoAPagar-1) );
 			Cliente.mapaClientes.get(cedula).turnosPendientes.remove(turnoAPagar-1);
 			System.out.println("\nEl cliente: " + Cliente.mapaClientes.get(cedula).getNombre()+ ", debe pagar un total de: $" + factura.calculoTotalFactura());
