@@ -1,3 +1,9 @@
+// Autores:
+// Juan Alejandro Espinosa Caceres
+// Maria Camila Arias Betancur
+// Sebastian Aguinaga Velasquez
+// Hans Guillermo Garcia Vargas
+
 package uiMain;
 import java.util.Scanner;
 
@@ -54,3 +60,4 @@ public class Sistema {
 	
 	
 }
+

@@ -35,9 +35,8 @@ public class Factura implements Serializable{
         this.medicamento = medicamento;
         this.cantidadMedicamento = cantidadMedicamento;
         this.turno = turno;
-        this.valorTurno = this.calcularValorTurno(turno); 
-        Animal animal1 = turno.getMascota(); //implementación de ligadura dinámica
-        this.totalFactura = this.calculoTotalFactura() + animal1.sobrecargoEdad(); //adición de sobrecargo a la factura total
+        this.valorTurno = this.calcularValorTurno(turno);
+        this.totalFactura = this.calculoTotalFactura(); //adición de sobrecargo a la factura total
         medicamento.ModificarInventario(cantidadMedicamento); //llamada al método que le va restando la cantidad de medicamento ingresada por el usuario a la cantidad disponible total 
         TurnoContab.agregarFactura(this); //llamada al método que agrega las facturas realizadas
     }
@@ -48,8 +47,7 @@ public class Factura implements Serializable{
         this.cliente = cliente;
         this.turno = turno;
         this.cantidadMedicamento = 0; //sin importar el número que ingrese el usuario, la cantidad será 0.
-        Animal animal1 = turno.getMascota();
-        this.totalFactura = this.calculoTotalFactura() + animal1.sobrecargoEdad();
+        this.totalFactura = this.calculoTotalFactura();
         TurnoContab.agregarFactura(this);
     }
 
@@ -135,7 +133,8 @@ public class Factura implements Serializable{
         double totalFacturaDcto;
         if (cliente.isFrecuente() == true ){ //condición para verificar que el cliente es frecuente
             totalFacturaDcto = this.totalFacturasinDcto()-(this.totalFacturasinDcto()*DESCUENTO); //si el cliente es frecuente, se realiza el cálculo de la factura aplicando 10% de descuento
-            return totalFacturaDcto;
+            Animal animal1 = turno.getMascota(); //implentacion de la ligadura dinamica
+            return totalFacturaDcto + animal1.sobrecargoEdad();
         } 
         else
             return this.totalFacturasinDcto();

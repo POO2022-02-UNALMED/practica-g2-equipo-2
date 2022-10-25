@@ -26,9 +26,9 @@ public class Interaccion {
 		Scanner entrada=new Scanner(System.in);
 		System.out.print("Ingrese el nombre del cliente:");
 		String nombre = entrada.nextLine();
-		System.out.print("Ingrese la cedula del cliente:");
+		System.out.print("Ingrese la cédula del cliente:");
 		String cedula = entrada.nextLine();
-		System.out.print("Ingrese el telefono del cliente:");
+		System.out.print("Ingrese el teléfono del cliente:");
 		String telefono = entrada.nextLine();
 		Cliente cliente1 = new Cliente(nombre, cedula, telefono);
 		Cliente.mapaClientes.put(cedula, cliente1);
@@ -47,13 +47,13 @@ public class Interaccion {
 		
 		@SuppressWarnings("resource")
 		Scanner entrada=new Scanner(System.in);
-		System.out.print("Ingrese el nombre del medico:");
+		System.out.print("Ingrese el nombre del médico:");
 		String nombre = entrada.nextLine();
-		System.out.print("Ingrese la cedula del medico:");
+		System.out.print("Ingrese la cédula del médico:");
 		String cedula = entrada.nextLine();
-		System.out.print("Ingrese el telefono del medico:");
+		System.out.print("Ingrese el teléfono del médico:");
 		String telefono = entrada.nextLine();
-		System.out.print("Ingrese el cargo del medico (general/especialista):");
+		System.out.print("Ingrese el cargo del médico (general/especialista):");
 		String cargo = entrada.nextLine();
 		tipoMedico tipoMed;
 		if(cargo.equals("general")) {
@@ -122,12 +122,12 @@ public static void registrarMascota() {
 		boolean valido=false;
 		while(valido==false) { // ciclo para leer la cedula del cliente, solo permite continuar al ingresar una cedula valida
 			
-			System.out.print("Ingrese la cedula del cliente al que se le asignara la cita: ");
+			System.out.print("Ingrese la cédula del cliente al que se le asignará la cita: ");
 			cedula = entrada.nextLine();
 			if(Cliente.validarCedula(cedula)) {
 				valido=true;
 			}else {
-				System.out.print("La cedula no existe en el sistema, por favor ingrese una valida\n\n");
+				System.out.print("La cédula no existe en el sistema, por favor ingrese una válida\n\n");
 			}
 			
 		}
@@ -138,10 +138,10 @@ public static void registrarMascota() {
 			System.out.print(Cliente.obtenerMascotasCliente(cedula));  //se obtienen e imprimen las mascotas de cliente
 			System.out.print("\n");
 			
-		System.out.print("Ingrese el numero de la mascota para la cual quiere asignar el turno: ");
+		System.out.print("Ingrese el número de la lista de la mascota para la cual quiere asignar el turno: ");
 		int opc = entrada.nextInt();
 		entrada.nextLine();
-		System.out.print("Ingrese el tipo de medico para agendar el turno (general/especialista): ");
+		System.out.print("Ingrese el tipo de médico para agendar el turno (general/especialista): ");
 		String cargo = entrada.nextLine();
 		tipoMedico tipoMed;
 		if(cargo.equals("general")) {
@@ -149,19 +149,19 @@ public static void registrarMascota() {
 		}else {
 			tipoMed = tipoMedico.Especialista;
 		}
-		System.out.println("\nLista de medicos de este tipo");
+		System.out.println("\nLista de médicos de este tipo");
 		System.out.print(Medico.obtenerMedicos(tipoMed));  //imprime los medicos cuyo atributo tipomed concuerde con lo que ingreso el usuario
 		System.out.print("\n");
 		String cedulaDoctor="";
 		valido=false;
 		while(valido==false) { // ciclo para leer la cedula del medico, solo permite continuar al ingresar una cedula valida
 			
-			System.out.print("Ingrese la cedula del medico con el que quiere asignar la cita: ");
+			System.out.print("Ingrese la cédula del médico con el que quiere asignar la cita: ");
 			cedulaDoctor = entrada.nextLine();
 			if(Medico.validarCedula(cedulaDoctor)) {
 				valido=true;
 			}else {
-				System.out.print("La cedula no existe en el sistema, por favor ingrese una valida\n\n");
+				System.out.print("La cédula no existe en el sistema, por favor ingrese una válida\n\n");
 			}
 			
 		}
@@ -232,7 +232,7 @@ public static void registrarMascota() {
 		boolean valido2=false;
 		while(valido2==false) {
 			
-			System.out.print("Ingrese la cedula del médico que atendió el turno: ");
+			System.out.print("Ingrese la cédula del médico que atendió el turno: ");
 			cedulaDoctor = entrada.nextLine();
 			 if(Medico.validarCedula(cedulaDoctor)) {
 				 valido2=true;
@@ -278,7 +278,7 @@ public static void registrarMascota() {
 	}
 	public static void estadoCaja() {              //Este metodo imprime en pantalla el dinero que debe 
 												// haber en caja en el momento que se llama.
-		System.out.println("En caja debería haber "+ TurnoContab.TotalDiario());
+		System.out.println("En caja debería haber $"+ TurnoContab.TotalDiario());
 		try {
 			Thread.sleep(2000);
 		} catch (InterruptedException e) {
@@ -293,7 +293,8 @@ public static void registrarMascota() {
 		HashMap<String, Double> deudaMedicos = TurnoContab.TotalMedico(); //Metodo que calcula
 																			//lo que se le adeuda a cada doctor
 		for(Entry<String, Double> e: deudaMedicos.entrySet() ){				//impresion por pantalla
-			System.out.println("Al doctor" + e.getKey()+ " se le adeuda "+e.getValue());
+			System.out.println("Al médico " + e.getKey()+ " se le adeuda $"+e.getValue());
+			System.out.println("El dinero ha sido entregado al médico y retirado de la caja");
 		}
 		try {
 			Thread.sleep(2000);
@@ -329,6 +330,7 @@ public static void registrarMascota() {
 		Scanner entrada=new Scanner(System.in);                                //Captura si el ususario quiere hacer
 		System.out.println("1. Nuevo turno contable sin retiro de la caja");   //un retiro o no
 		System.out.println("2. Nuevo turno contable con retiro de la caja");
+		System.out.print("Ingrese una opción: ");
 		int eleccion = entrada.nextInt();                                       
 		entrada.nextLine();
 		if (eleccion==1)											//Realiza el cambio de turno sin retiro
@@ -338,14 +340,17 @@ public static void registrarMascota() {
 			TurnoContab.setTotalmedicosturno(0);
 		}
 		else{														//Realiza cambio de turno con retiro
-			System.out.println("Ingrese la cantidad que desea retirar");
+			System.out.print("Ingrese la cantidad que desea retirar:");
 			int retirar = entrada.nextInt();
 			entrada.nextLine();
+			System.out.println("Se ha retirado el dinero.");
 			TurnoContab.TotalMedico();
 			TurnoContab.setInicial(TurnoContab.calcularCaja(retirar));
 			TurnoContab.facturas.clear();
 			TurnoContab.setTotalmedicosturno(0);
 		}
+		
+		System.out.println("\nEl turno contable ha sido cambiado");
 		try {
 			Thread.sleep(2000);
 		} catch (InterruptedException e) {
@@ -500,5 +505,6 @@ public static void generarDiagnostico() {
 }
 
 	
+
 
 
