@@ -4,8 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import gestorAplicacion.Clientes.Cliente;
+import gestorAplicacion.Clientes.Comunicacion;
 
-public class Medico extends Persona implements Serializable{
+public class Medico extends Persona implements Comunicacion, Serializable{
     /**
 	 * 
 	 */
@@ -77,4 +78,22 @@ public class Medico extends Persona implements Serializable{
     public static boolean validarCedula(String cedula) {
 		return Medico.mapaMedico.containsKey(cedula);
 	}
+    public String toString() {
+		return "nombre: " + nombre + "\n" + "cedula: " + cedula + "\n" + "telefono: " + telefono;
+	}
+
+
+	@Override
+	public String saludar() {
+		return "Hola soy medico";
+	}
+	
+	public String presentarse() {
+		return "El medico " + this.nombre + " fue registrado";
+	}
+	@Override
+	public String llamar() {
+		return "Llamo desde mi telefono " + this.telefono;
+	}
+
 }

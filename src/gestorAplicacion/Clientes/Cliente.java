@@ -12,7 +12,7 @@ import gestorAplicacion.Veterinaria.Persona;
 import gestorAplicacion.Veterinaria.Turno;
 
 
-public class Cliente extends Persona implements Serializable{
+public class Cliente extends Persona implements Comunicacion, Serializable{
 
 	/**
 	 * 
@@ -91,7 +91,7 @@ public class Cliente extends Persona implements Serializable{
 			return "Este cliente no tiene mascotas registradas";
 		}
 		for (int i=0;i<Cliente.mascotas.get(cedula).size();i++) {
-			cadena = cadena + (i+1) + ". " + Cliente.mascotas.get(cedula).get(i).getNombreMascota()+"\n";        
+			cadena = cadena + (i+1) + ". " + Cliente.mascotas.get(cedula).get(i).getNombreMascota()+"\n";      
 		}
 		return cadena;
 	}
@@ -127,6 +127,23 @@ public class Cliente extends Persona implements Serializable{
 	    }
 		
 		return mayores;
+	}
+
+
+
+	@Override
+	public String saludar() {
+		return "Hola soy cliente";
+	}
+	public String presentarse() {
+		return "El cliente " + this.nombre + " fue registrado";
+	}
+
+
+
+	@Override
+	public String llamar() {
+		return "Llamo desde mi telefono " + this.telefono;
 	}
 	
 	

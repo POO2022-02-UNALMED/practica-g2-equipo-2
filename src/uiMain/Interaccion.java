@@ -7,7 +7,6 @@ import java.lang.Thread;
 import java.util.Scanner;
 import java.util.Map.Entry;
 
-import gestorAplicacion.Clientes.Animal;
 import gestorAplicacion.Clientes.Cliente;
 import gestorAplicacion.Clientes.Mascota;
 import gestorAplicacion.Veterinaria.Diagnostico;
@@ -15,8 +14,9 @@ import gestorAplicacion.Veterinaria.Factura;
 import gestorAplicacion.Veterinaria.Inventario;
 import gestorAplicacion.Veterinaria.Medicamento;
 import gestorAplicacion.Veterinaria.Medico;
+import gestorAplicacion.Veterinaria.Persona;
 import gestorAplicacion.Veterinaria.tipoMedico;
-import gestorAplicacion.Veterinaria.TurnoContab;
+import gestorAplicacion.Veterinaria.TurnoContab;;
 
 public class Interaccion {
 	
@@ -26,14 +26,15 @@ public class Interaccion {
 		Scanner entrada=new Scanner(System.in);
 		System.out.print("Ingrese el nombre del cliente:");
 		String nombre = entrada.nextLine();
-		System.out.print("Ingrese la cédula del cliente:");
+		System.out.print("Ingrese la cedula del cliente:");
 		String cedula = entrada.nextLine();
-		System.out.print("Ingrese el teléfono del cliente:");
+		System.out.print("Ingrese el telefono del cliente:");
 		String telefono = entrada.nextLine();
 		Cliente cliente1 = new Cliente(nombre, cedula, telefono);
 		Cliente.mapaClientes.put(cedula, cliente1);
 		Cliente.mascotas.put(cedula, new ArrayList<Mascota>());
-		System.out.println("\nEl cliente ha sido registrado");
+		Persona persona1 = cliente1;
+		System.out.println("\n"+persona1.presentarse());
 		try {
 			Thread.sleep(2000);
 		} catch (InterruptedException e) {
@@ -46,13 +47,13 @@ public class Interaccion {
 		
 		@SuppressWarnings("resource")
 		Scanner entrada=new Scanner(System.in);
-		System.out.print("Ingrese el nombre del médico:");
+		System.out.print("Ingrese el nombre del medico:");
 		String nombre = entrada.nextLine();
-		System.out.print("Ingrese la cedula del médico:");
+		System.out.print("Ingrese la cedula del medico:");
 		String cedula = entrada.nextLine();
-		System.out.print("Ingrese el teléfono del médico:");
+		System.out.print("Ingrese el telefono del medico:");
 		String telefono = entrada.nextLine();
-		System.out.print("Ingrese el cargo del médico (general/especialista):");
+		System.out.print("Ingrese el cargo del medico (general/especialista):");
 		String cargo = entrada.nextLine();
 		tipoMedico tipoMed;
 		if(cargo.equals("general")) {
@@ -62,7 +63,8 @@ public class Interaccion {
 		}
 		Medico medico1 = new Medico(nombre, cedula, telefono, tipoMed);
 		Medico.mapaMedico.put(cedula, medico1);
-		System.out.println("\nEl médico ha sido registrado");
+		Persona persona1 = medico1;
+		System.out.println("\n"+persona1.presentarse());
 		try {
 			Thread.sleep(2000);
 		} catch (InterruptedException e) {
@@ -71,43 +73,14 @@ public class Interaccion {
 		}
 	}
 	
-	public static void registrarMascota() {
+public static void registrarMascota() {
 		
 		@SuppressWarnings("resource")
 		Scanner entrada=new Scanner(System.in);
 		System.out.print("Ingrese el nombre de la mascota:");
 		String nombre = entrada.nextLine();
-		System.out.print("Ingrese la especie (perro/gato/otro):");
+		System.out.print("Ingrese la especie (perro/gato):");
 		String especie = entrada.nextLine();
-		if (especie.equals("otro")){
-			System.out.print("Ingrese la edad (años):");
-		int edad = entrada.nextInt();
-		String cedula="";
-		entrada.nextLine();
-		boolean valido=false;
-		while(valido==false) {
-			
-			System.out.print("Ingrese la cédula del dueño de la mascota: ");
-			cedula = entrada.nextLine();
-			if(Cliente.mapaClientes.containsKey(cedula)) {
-				valido=true;
-			}else {
-				System.out.print("La cédula no existe en el sistema, por favor ingrese una válida\n\n");
-			}
-			
-		}
-		Animal mascota1 = new Animal(Cliente.mapaClientes.get(cedula),edad,nombre);
-		Cliente.mascotas.get(cedula).add((Mascota)mascota1);
-		System.out.println("\nLa mascota ha sido registrada");
-		try {
-			Thread.sleep(2000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	
-		}
-		else{
 		System.out.print("Ingrese la raza:");
 		String raza = entrada.nextLine();
 		System.out.print("Ingrese el sexo:");
@@ -140,7 +113,6 @@ public class Interaccion {
 			e.printStackTrace();
 		}
 	}
-	}
 
 	public static void agendarTurno() {
 		
@@ -160,10 +132,12 @@ public class Interaccion {
 			
 		}
 		
+		
 		if(!Cliente.obtenerMascotasCliente(cedula).equals("Este cliente no tiene mascotas registradas")) {
-		System.out.println("\nLista de mascotas de este cliente");
-		System.out.print(Cliente.obtenerMascotasCliente(cedula));
-		System.out.print("\n");
+			System.out.println("\nLista de mascotas de este cliente");
+			System.out.print(Cliente.obtenerMascotasCliente(cedula));
+			System.out.print("\n");
+			
 		System.out.print("Ingrese la mascota para la cual quiere asignar el turno: ");
 		int opc = entrada.nextInt();
 		entrada.nextLine();
@@ -236,62 +210,6 @@ public class Interaccion {
 			e.printStackTrace();
 		}
 	}
-	public static void generarDiagnostico() {
-		
-		@SuppressWarnings("resource")
-		Scanner entrada=new Scanner(System.in);
-		String cedula = "";
-		boolean valido=false;
-		while(valido==false) {
-			
-			System.out.print("Ingrese la cédula del cliente que será atendido: ");
-			cedula = entrada.nextLine();
-			if(Cliente.validarCedula(cedula)) {
-				valido=true;
-			}else {
-				System.out.print("La cédula no existe en el sistema, por favor ingrese una válida\n\n");
-			}
-			
-		}
-		System.out.println("\nLista de mascotas de este cliente");
-		System.out.print(Cliente.obtenerMascotasCliente(cedula));
-		if(Cliente.mascotas.get(cedula)==null || Cliente.mascotas.get(cedula).size()==0) {
-			System.out.println("El cliente no tiene mascotas registradas");}
-		System.out.print("\n");
-		System.out.print("Ingrese el número de la mascota que será atendida: ");
-		int mascota = entrada.nextInt();
-		entrada.nextLine();
-		String cedulaDoctor = "";
-		boolean valido2=false;
-		while(valido2==false) {
-			
-			System.out.print("Ingrese la cedula del médico que atenderá el turno: ");
-			cedulaDoctor = entrada.nextLine();
-			 if(Medico.validarCedula(cedulaDoctor)) {
-				 valido2=true;
-			 }else {
-				 System.out.print("La cédula no existe en el sistema, por favor ingrese una válida\n\n");
-			 }
-			
-		}
-		System.out.print("Ingrese la fecha de hoy (dd-mm-aaaa):");
-		String date = entrada.nextLine();
-		System.out.print("Ingrese el diagnóstico:");
-		String Justificacion = entrada.nextLine();
-		
-        Diagnostico Diagnostico1 = new Diagnostico(date, Medico.mapaMedico.get(cedulaDoctor), Cliente.mapaClientes.get(cedula), Cliente.mascotas.get(cedula).get(mascota-1), Justificacion);
-        Diagnostico1.Diagnos();
-        Diagnostico1.recomendarMedicamentos();
-        Diagnostico1.generarFormulaMedica();
-        System.out.println(Diagnostico1);
-			
-		try {
-			Thread.sleep(2000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 
 	public static void generarFactura() {
 		
@@ -332,7 +250,7 @@ public class Interaccion {
 		int nombreMedicamento = entrada.nextInt();
 		entrada.nextLine();
 		System.out.print("Ingrese la cantidad (en unidades) del medicamento: ");
-        int cantidadMedicamento = entrada.nextInt();
+        short cantidadMedicamento = entrada.nextShort();
 		entrada.nextLine();
 		System.out.print("Listado de turnos pendientes por pagar:\n");
 		for (int i=0;i<Cliente.mapaClientes.get(cedula).turnosPendientes.size();i++) {
@@ -359,7 +277,7 @@ public class Interaccion {
 		}
 	}
 	public static void estadoCaja() {
-		System.out.println("En caja debería haber $"+ TurnoContab.TotalDiario());
+		System.out.println("En caja debería haber "+ TurnoContab.TotalDiario());
 		try {
 			Thread.sleep(2000);
 		} catch (InterruptedException e) {
@@ -372,7 +290,7 @@ public class Interaccion {
 	public static void mostrarDeudaMedicos() {
 		HashMap<String, Double> deudaMedicos = TurnoContab.TotalMedico(); 
 		for(Entry<String, Double> e: deudaMedicos.entrySet() ){
-			System.out.println("Al doctor  " + e.getKey()+ " se le adeuda  $"+e.getValue());
+			System.out.println("Al doctor" + e.getKey()+ " se le adeuda "+e.getValue());
 		}
 		try {
 			Thread.sleep(2000);
@@ -383,16 +301,16 @@ public class Interaccion {
 
 	}
 
+
 	public static void mostrarInventario() {
 		System.out.println("INVENTARIO\n");
 		ArrayList<Medicamento> medicamentos= Inventario.getMedicamentos();
 		for(Medicamento producto:medicamentos){
-			System.out.print("\n"+ producto.getNombre()+ " "+ producto.getCantidad());
+			System.out.println(producto.getNombre()+ " "+ producto.getCantidad());
 			if (producto.getCantidad()<10){
-				System.out.print("             Bajas unidades de " + producto.getNombre());
+				System.out.println("Bajas unidades de " + producto.getNombre());
 			}
 		}
-		System.out.println("\n-");
 		try {
 			Thread.sleep(2000);
 		} catch (InterruptedException e) {
@@ -405,9 +323,8 @@ public class Interaccion {
 	public static void cambiarTurno() {
 		@SuppressWarnings("resource")
 		Scanner entrada=new Scanner(System.in);
-		System.out.println("Elija la opcion que desee.");
-		System.out.println("1. Nuevo turno contable sin retiro de la caja.");
-		System.out.println("2. Nuevo turno contable con retiro de la caja.");
+		System.out.println("1. Nuevo turno contable sin retiro de la caja");
+		System.out.println("2. Nuevo turno contable con retiro de la caja");
 		int eleccion = entrada.nextInt();
 		entrada.nextLine();
 		if (eleccion==1)
@@ -425,7 +342,6 @@ public class Interaccion {
 			TurnoContab.facturas.clear();
 			TurnoContab.setTotalmedicosturno(0);
 		}
-		System.out.println("Cambio de turno realizado");
 		try {
 			Thread.sleep(2000);
 		} catch (InterruptedException e) {
@@ -438,14 +354,18 @@ public class Interaccion {
 		estadoCaja();
 		mostrarDeudaMedicos();
 		mostrarInventario();	
-		
+		System.out.println("INVENTARIO\n");
+		ArrayList<Medicamento> medicamentos= Inventario.getMedicamentos();
+		for(Medicamento producto:medicamentos){if (producto.getCantidad()<10){
+			System.out.println("Bajas unidades de " + producto.getNombre());
+		}
 		try {
 			Thread.sleep(4000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	
+	}
 
 	}
 	public static void Caja(){
@@ -516,6 +436,63 @@ public class Interaccion {
 			}
 			
 			System.out.println("\n\n"); 
+		}
+	}
+	
+public static void generarDiagnostico() {
+		
+		@SuppressWarnings("resource")
+		Scanner entrada=new Scanner(System.in);
+		String cedula = "";
+		boolean valido=false;
+		while(valido==false) {
+			
+			System.out.print("Ingrese la cédula del cliente que será atendido: ");
+			cedula = entrada.nextLine();
+			if(Cliente.validarCedula(cedula)) {
+				valido=true;
+			}else {
+				System.out.print("La cédula no existe en el sistema, por favor ingrese una válida\n\n");
+			}
+			
+		}
+		System.out.println("\nLista de mascotas de este cliente");
+		System.out.print(Cliente.obtenerMascotasCliente(cedula));
+		if(Cliente.mascotas.get(cedula)==null || Cliente.mascotas.get(cedula).size()==0) {
+			System.out.println("El cliente no tiene mascotas registradas");}
+		System.out.print("\n");
+		System.out.print("Ingrese el número de la mascota que será atendida: ");
+		int mascota = entrada.nextInt();
+		entrada.nextLine();
+		String cedulaDoctor = "";
+		boolean valido2=false;
+		while(valido2==false) {
+			
+			System.out.print("Ingrese la cedula del médico que atenderá el turno: ");
+			cedulaDoctor = entrada.nextLine();
+			 if(Medico.validarCedula(cedulaDoctor)) {
+				 valido2=true;
+			 }else {
+				 System.out.print("La cédula no existe en el sistema, por favor ingrese una válida\n\n");
+			 }
+			
+		}
+		System.out.print("Ingrese la fecha de hoy (dd-mm-aaaa):");
+		String date = entrada.nextLine();
+		System.out.print("Ingrese el diagnóstico:");
+		String Justificacion = entrada.nextLine();
+		
+        Diagnostico Diagnostico1 = new Diagnostico(date, Medico.mapaMedico.get(cedulaDoctor), Cliente.mapaClientes.get(cedula), Cliente.mascotas.get(cedula).get(mascota-1), Justificacion);
+        Diagnostico1.Diagnos();
+        Diagnostico1.recomendarMedicamentos();
+        Diagnostico1.generarFormulaMedica();
+        System.out.println(Diagnostico1);
+			
+		try {
+			Thread.sleep(4000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	

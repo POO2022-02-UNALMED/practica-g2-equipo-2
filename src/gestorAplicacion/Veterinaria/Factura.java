@@ -1,6 +1,7 @@
 package gestorAplicacion.Veterinaria;
 import java.io.Serializable;
 
+import gestorAplicacion.Clientes.Animal;
 import gestorAplicacion.Clientes.Cliente;
 
 
@@ -15,7 +16,7 @@ public class Factura implements Serializable{
     public Turno turno;
     private static final double DESCUENTO = 0.1;
     private double valorTurno; //dependiendo de la hora, el valor
-    private int cantidadMedicamento; //tableta mg
+    private short cantidadMedicamento; //tableta mg
     private double valorMedico; //general o especialista
     public double totalFactura;
   
@@ -27,14 +28,15 @@ public class Factura implements Serializable{
         this.totalFactura = totalFactura;
     }
 
-    public Factura(Medico medico, Cliente cliente, Medicamento medicamento, int cantidadMedicamento, Turno turno ) {
+    public Factura(Medico medico, Cliente cliente, Medicamento medicamento, short cantidadMedicamento, Turno turno ) {
         this.medico = medico;
         this.cliente = cliente;
         this.medicamento = medicamento;
         this.cantidadMedicamento = cantidadMedicamento;
         this.turno = turno;
         this.valorTurno = this.calcularValorTurno(turno); 
-        this.totalFactura = this.calculoTotalFactura();
+        Animal animal1 = turno.getMascota();
+        this.totalFactura = this.calculoTotalFactura() + animal1.sobrecargoEdad();
         medicamento.ModificarInventario(cantidadMedicamento); 
         TurnoContab.agregarFactura(this);
     }
@@ -45,7 +47,8 @@ public class Factura implements Serializable{
         this.turno = turno;
         this.cantidadMedicamento = 0;
         this.valorTurno = this.calcularValorTurno(turno); 
-        this.totalFactura = this.calculoTotalFactura();
+        Animal animal1 = turno.getMascota();
+        this.totalFactura = this.calculoTotalFactura() + animal1.sobrecargoEdad();
         TurnoContab.agregarFactura(this);
     }
 
@@ -81,11 +84,11 @@ public class Factura implements Serializable{
         this.valorTurno = valorTurno;
     }
 
-    public int getCantidadMedicamento() {
+    public short getCantidadMedicamento() {
         return cantidadMedicamento;
     }
 
-    public void setCantidadMedicamento(int cantidadMedicamento) {
+    public void setCantidadMedicamento(short cantidadMedicamento) {
         this.cantidadMedicamento = cantidadMedicamento;
     }
 
@@ -131,10 +134,10 @@ public class Factura implements Serializable{
         double totalFacturaDcto;
         if (cliente.isFrecuente() == true ){
             totalFacturaDcto = this.totalFacturasinDcto()-(this.totalFacturasinDcto()*DESCUENTO);
-            return totalFacturaDcto+this.turno.getMascota().Sobrecargo();
+            return totalFacturaDcto;
         } 
         else
-            return this.totalFacturasinDcto()+this.turno.getMascota().Sobrecargo();
+            return this.totalFacturasinDcto();
     }
 
 }

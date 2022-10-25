@@ -77,7 +77,8 @@ public class TurnoContab {
     
     public static HashMap<String, Double> TotalMedico(){      // Calcular cuanto es el total que se le debe pagar a los medicos
         double totalmeds=0;                                                    //Se usara para calcular el total que se debe pagar a todos los medicos
-        double auxiliar=0;                                                    //solo sirve para tener una variable double con valor cero
+        @SuppressWarnings("unused")
+		double auxiliar=0;                                                    //solo sirve para tener una variable double con valor cero
         ArrayList<String> medicost= new ArrayList<String>();                    //Array de todos los medicos que estuvieron en el turno
         HashMap<String, Double> medicos = new HashMap<String, Double>();    //HashMap para calcular lo que se le debe pagar al medico
         for (int i=0;i<TurnoContab.facturas.size(); i++){                                        //recorre array de todas las facturas

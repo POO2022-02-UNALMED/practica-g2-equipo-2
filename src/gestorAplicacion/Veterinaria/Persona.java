@@ -2,7 +2,7 @@ package gestorAplicacion.Veterinaria;
 
 import java.io.Serializable;
 
-public class Persona implements Serializable{
+public abstract class Persona implements Serializable{
 	
 	/**
 	 * 
@@ -37,6 +37,12 @@ public class Persona implements Serializable{
 
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
+	}
+	
+	public abstract String saludar();
+	
+	public String presentarse() {
+		return "La persona "+this.nombre + " fue registrada";
 	}
 
 }
