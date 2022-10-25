@@ -7,8 +7,8 @@ public class Mascota extends Animal implements Serializable{
 	/**
 	 * 
 	 */
+	final static double valorsobrecargo=1000;
 	private static final long serialVersionUID = 4L;
-	private String nombreMascota;
 	private String especie;
 	private String raza;
 	private String sexo;
@@ -23,27 +23,21 @@ public class Mascota extends Animal implements Serializable{
 	}
 	
 	public Mascota(String nombreMascota, String especie, String raza, String sexo, int edad, int peso, Cliente duenno) {
-		super();
-		this.nombreMascota = nombreMascota;
+		super(duenno , edad,  nombreMascota);
 		this.especie = especie;
 		this.raza = raza;
 		this.setSexo(sexo);
-		this.edad = edad;
 		this.peso = peso;
-		this.duenno = duenno;
 		this.id = cantidadMascotas;
 		cantidadMascotas++;
 		//mapaMascotas.put(this.id, this);
 	}
 	public Mascota(String nombreMascota, String especie, String raza, String sexo, int edad, int peso) {
-		super();
-		this.nombreMascota = nombreMascota;
+		super(Cliente.mapaClientes.get("0000"), edad, nombreMascota);
 		this.especie = especie;
 		this.raza = raza;
 		this.setSexo(sexo);
-		this.edad = edad;
 		this.peso = peso;
-		this.duenno = Cliente.mapaClientes.get("0000");
 		this.id = cantidadMascotas;
 		cantidadMascotas++;
 		Cliente.mascotas.get("0000").add(this);
@@ -110,12 +104,10 @@ public class Mascota extends Animal implements Serializable{
 	}
 
 
-	protected String hablar() {
-		if(this.especie.equals("perro")) {
-			return "Ladrar";
-		}else {
-			return "Maullar";
-		}
+	public double Sobrecargo(){
+		double valor= this.edad*Animal.valorsobrecargo;
+		return valor;
+
 	}
 	
 }

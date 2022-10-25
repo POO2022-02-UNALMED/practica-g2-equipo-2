@@ -131,10 +131,10 @@ public class Factura implements Serializable{
         double totalFacturaDcto;
         if (cliente.isFrecuente() == true ){
             totalFacturaDcto = this.totalFacturasinDcto()-(this.totalFacturasinDcto()*DESCUENTO);
-            return totalFacturaDcto;
+            return totalFacturaDcto+this.turno.getMascota().Sobrecargo();
         } 
         else
-            return this.totalFacturasinDcto();
+            return this.totalFacturasinDcto()+this.turno.getMascota().Sobrecargo();
     }
 
 }

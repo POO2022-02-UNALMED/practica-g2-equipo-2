@@ -7,6 +7,7 @@ import java.lang.Thread;
 import java.util.Scanner;
 import java.util.Map.Entry;
 
+import gestorAplicacion.Clientes.Animal;
 import gestorAplicacion.Clientes.Cliente;
 import gestorAplicacion.Clientes.Mascota;
 import gestorAplicacion.Veterinaria.Diagnostico;
@@ -76,8 +77,37 @@ public static void registrarMascota() {
 		Scanner entrada=new Scanner(System.in);
 		System.out.print("Ingrese el nombre de la mascota:");
 		String nombre = entrada.nextLine();
-		System.out.print("Ingrese la especie (perro/gato):");
+		System.out.print("Ingrese la especie (perro/gato/otro):");
 		String especie = entrada.nextLine();
+		if (especie.equals("otro")){
+			System.out.print("Ingrese la edad (años):");
+		int edad = entrada.nextInt();
+		String cedula="";
+		entrada.nextLine();
+		boolean valido=false;
+		while(valido==false) {
+			
+			System.out.print("Ingrese la cédula del dueño de la mascota: ");
+			cedula = entrada.nextLine();
+			if(Cliente.mapaClientes.containsKey(cedula)) {
+				valido=true;
+			}else {
+				System.out.print("La cédula no existe en el sistema, por favor ingrese una válida\n\n");
+			}
+			
+		}
+		Animal mascota1 = new Animal(Cliente.mapaClientes.get(cedula),edad,nombre);
+		Cliente.mascotas.get(cedula).add(mascota1);
+		System.out.println("\nLa mascota ha sido registrada");
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+		}
+		else{
 		System.out.print("Ingrese la raza:");
 		String raza = entrada.nextLine();
 		System.out.print("Ingrese el sexo:");
@@ -109,6 +139,7 @@ public static void registrarMascota() {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
 	}
 
 	public static void agendarTurno() {

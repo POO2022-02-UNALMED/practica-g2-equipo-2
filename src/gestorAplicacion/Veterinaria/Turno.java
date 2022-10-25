@@ -1,7 +1,7 @@
 package gestorAplicacion.Veterinaria;
 
 import java.io.Serializable;
-
+import gestorAplicacion.Clientes.Animal;
 import gestorAplicacion.Clientes.Cliente;
 import gestorAplicacion.Clientes.Mascota;
 
@@ -13,13 +13,13 @@ public class Turno implements Serializable{
 	private static final long serialVersionUID = 5L;
 	private int horaInicio;
 	private String fecha;
-	private Mascota mascota;
+	private Animal mascota;
 	private Cliente cliente;
 	private boolean disponibilidad;
 	private Persona veterinario;
 	
 	
-	public Turno(int horaInicio, String fecha, Mascota mascota, Cliente cliente, boolean disponibilidad,
+	public Turno(int horaInicio, String fecha, Animal mascota, Cliente cliente, boolean disponibilidad,
 			Persona veterinario) {
 		super();
 		this.horaInicio = horaInicio;
@@ -43,10 +43,10 @@ public class Turno implements Serializable{
 	public void setFecha(String fecha) {
 		this.fecha = fecha;
 	}
-	public Mascota getMascota() {
+	public Animal getMascota() {
 		return mascota;
 	}
-	public void setMascota(Mascota mascota) {
+	public void setMascota(Animal mascota) {
 		this.mascota = mascota;
 	}
 	public Cliente getCliente() {
