@@ -13,7 +13,7 @@ public class Serializar {
 
 	public static void guardarDatos(){
 		Base_Datos base = new Base_Datos();
-		base.mapaClientes = Cliente.mapaClientes;
+		base.mapaClientes = Cliente.mapaClientes; // se le pasan los datos de cada clase a los atributos de la instacia base_Datos que sera serializada
 		base.cantidadClientes = Cliente.cantidadClientes;
 		base.mapaMedico = Medico.mapaMedico;
 		base.mascotas = Cliente.mascotas;

@@ -16,7 +16,7 @@ public static void leerDatos() {
 		
 		try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream("src/baseDatos/temp/base.txt"))){
 			while(true) {
-				Base_Datos base = (Base_Datos) ois.readObject();
+				Base_Datos base = (Base_Datos) ois.readObject();  //se lee la copia de los atributos importantes guardada en la instacia de base y se le pasan los datos a cada clase
 				Cliente.cantidadClientes = base.cantidadClientes;
 				Cliente.mapaClientes = base.mapaClientes;
 				Cliente.mascotas = base.mascotas;

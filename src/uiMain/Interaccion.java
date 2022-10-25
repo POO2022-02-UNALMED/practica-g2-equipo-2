@@ -117,10 +117,10 @@ public static void registrarMascota() {
 	public static void agendarTurno() {
 		
 		@SuppressWarnings("resource")
-		Scanner entrada=new Scanner(System.in);
+		Scanner entrada=new Scanner(System.in);  
 		String cedula="";
 		boolean valido=false;
-		while(valido==false) {
+		while(valido==false) { // ciclo para leer la cedula del cliente, solo permite continuar al ingresar una cedula valida
 			
 			System.out.print("Ingrese la cedula del cliente al que se le asignara la cita: ");
 			cedula = entrada.nextLine();
@@ -135,26 +135,26 @@ public static void registrarMascota() {
 		
 		if(!Cliente.obtenerMascotasCliente(cedula).equals("Este cliente no tiene mascotas registradas")) {
 			System.out.println("\nLista de mascotas de este cliente");
-			System.out.print(Cliente.obtenerMascotasCliente(cedula));
+			System.out.print(Cliente.obtenerMascotasCliente(cedula));  //se obtienen e imprimen las mascotas de cliente
 			System.out.print("\n");
 			
-		System.out.print("Ingrese la mascota para la cual quiere asignar el turno: ");
+		System.out.print("Ingrese el numero de la mascota para la cual quiere asignar el turno: ");
 		int opc = entrada.nextInt();
 		entrada.nextLine();
 		System.out.print("Ingrese el tipo de medico para agendar el turno (general/especialista): ");
 		String cargo = entrada.nextLine();
 		tipoMedico tipoMed;
 		if(cargo.equals("general")) {
-			tipoMed = tipoMedico.General;
+			tipoMed = tipoMedico.General;  //se traduce lo ingresado por el usuario para manejar las constantes del enum
 		}else {
 			tipoMed = tipoMedico.Especialista;
 		}
 		System.out.println("\nLista de medicos de este tipo");
-		System.out.print(Medico.obtenerMedicos(tipoMed));
+		System.out.print(Medico.obtenerMedicos(tipoMed));  //imprime los medicos cuyo atributo tipomed concuerde con lo que ingreso el usuario
 		System.out.print("\n");
 		String cedulaDoctor="";
 		valido=false;
-		while(valido==false) {
+		while(valido==false) { // ciclo para leer la cedula del medico, solo permite continuar al ingresar una cedula valida
 			
 			System.out.print("Ingrese la cedula del medico con el que quiere asignar la cita: ");
 			cedulaDoctor = entrada.nextLine();
@@ -165,16 +165,16 @@ public static void registrarMascota() {
 			}
 			
 		}
-		System.out.print("Ingrese la fecha para agendar el turno (dd-mm-aaaa): ");
+		System.out.print("Ingrese la fecha para agendar el turno (dd-mm-aaaa): "); 
 		String fecha = entrada.nextLine();
 		Medico.mapaMedico.get(cedulaDoctor).crearFecha(fecha);
-		if(Cliente.mapaClientes.get(cedula).isFrecuente()) {
+		if(Cliente.mapaClientes.get(cedula).isFrecuente()) {  //se bifurca el codigo para realizar acciones diferentes dependiendo de si el cliente es frecuente
 			System.out.println("\nEl cliente ingresado es un cliente frecuente");
 			System.out.println("\nLista de turnos recomendados para este cliente");
 			Map<Integer, Integer> mayores = Cliente.mapaClientes.get(cedula).obtenerTurnosFrecuentes();
 			
 			for (Map.Entry<Integer, Integer> entry : mayores.entrySet()) {
-	    		if(Medico.mapaMedico.get(cedulaDoctor).agenda.get(fecha)[entry.getKey()-1].isDisponibilidad()) {
+	    		if(Medico.mapaMedico.get(cedulaDoctor).agenda.get(fecha)[entry.getKey()-1].isDisponibilidad()) {  // se imprime los turnos que mas frecuenta el usuario
 	    				
 	    			if(Medico.mapaMedico.get(cedulaDoctor).agenda.get(fecha)[entry.getKey()-1].getHoraInicio()<13) {
 	    				System.out.print("Turno "+(entry.getKey())+": "+Medico.mapaMedico.get(cedulaDoctor).agenda.get(fecha)[entry.getKey()-1].getHoraInicio()+":00 AM\n");
@@ -184,15 +184,15 @@ public static void registrarMascota() {
 	    		}
 		    }
 			
-			System.out.print("¿Desea ver la lista completa con los turnos disponibles? (S/N): ");
+			System.out.print("¿Desea ver la lista completa con los turnos disponibles? (S/N): "); //se pregunta si desea agendar un turno dentro de los frecuentes o desea ver la lista completa
 			String desc = entrada.nextLine();
 			if(desc.equals("S")) {
-				System.out.println("\nLista de turnos disponibles con este doctor");
+				System.out.println("\nLista de turnos disponibles con este doctor");  //se imprime la lista completa en caso de que el usuario desee verla
 				System.out.print(Medico.mapaMedico.get(cedulaDoctor).obtenerTurnosDisponibles(fecha));
 			}
 			
 		}else {
-			System.out.println("\nLista de turnos disponibles con este doctor");
+			System.out.println("\nLista de turnos disponibles con este doctor");  //imprime la lista completa para un cliente no frecuente
 			System.out.print(Medico.mapaMedico.get(cedulaDoctor).obtenerTurnosDisponibles(fecha));
 		}
 		System.out.print("Ingrese el numero del turno seleccionado: ");
@@ -201,7 +201,7 @@ public static void registrarMascota() {
 		Medico.mapaMedico.get(cedulaDoctor).asignarTurno(fecha, turno-1, cedula, opc-1);
 		System.out.println("\nEl turno ha sido registrado");
 		}else {
-			System.out.print(Cliente.obtenerMascotasCliente(cedula));
+			System.out.print(Cliente.obtenerMascotasCliente(cedula)); //si el cliente no tiene mascotas registradas, se imprime un mensaje de advertencia
 		}
 		try {
 			Thread.sleep(2000);
@@ -211,7 +211,7 @@ public static void registrarMascota() {
 		}
 	}
 
-	public static void generarFactura() {
+	public static void generarFactura() {            
 		
 		@SuppressWarnings("resource")
 		Scanner entrada=new Scanner(System.in);
@@ -276,7 +276,8 @@ public static void registrarMascota() {
 			e.printStackTrace();
 		}
 	}
-	public static void estadoCaja() {
+	public static void estadoCaja() {              //Este metodo imprime en pantalla el dinero que debe 
+												// haber en caja en el momento que se llama.
 		System.out.println("En caja debería haber "+ TurnoContab.TotalDiario());
 		try {
 			Thread.sleep(2000);
@@ -287,9 +288,11 @@ public static void registrarMascota() {
 
 	}
 
-	public static void mostrarDeudaMedicos() {
-		HashMap<String, Double> deudaMedicos = TurnoContab.TotalMedico(); 
-		for(Entry<String, Double> e: deudaMedicos.entrySet() ){
+	public static void mostrarDeudaMedicos() { //Este metodo muestra el capital que se le adeuda a cada medico
+											   //en el momento que se llama la metodo
+		HashMap<String, Double> deudaMedicos = TurnoContab.TotalMedico(); //Metodo que calcula
+																			//lo que se le adeuda a cada doctor
+		for(Entry<String, Double> e: deudaMedicos.entrySet() ){				//impresion por pantalla
 			System.out.println("Al doctor" + e.getKey()+ " se le adeuda "+e.getValue());
 		}
 		try {
@@ -302,13 +305,14 @@ public static void registrarMascota() {
 	}
 
 
-	public static void mostrarInventario() {
+	public static void mostrarInventario() {  //Este metodo imprime el inventario y notifica en caso de que hayan pocas unidades
+											// de un medicamento
 		System.out.println("INVENTARIO\n");
-		ArrayList<Medicamento> medicamentos= Inventario.getMedicamentos();
-		for(Medicamento producto:medicamentos){
+		ArrayList<Medicamento> medicamentos= Inventario.getMedicamentos(); //Accede a el inventario
+		for(Medicamento producto:medicamentos){								//Impresion en pantalla
 			System.out.println(producto.getNombre()+ " "+ producto.getCantidad());
 			if (producto.getCantidad()<10){
-				System.out.println("Bajas unidades de " + producto.getNombre());
+				System.out.println("Bajas unidades de " + producto.getNombre()); //Notificacion de bajas unidades
 			}
 		}
 		try {
@@ -320,20 +324,20 @@ public static void registrarMascota() {
 	}
 
 
-	public static void cambiarTurno() {
+	public static void cambiarTurno() {     //Este metodo realiza un cambio de turno y permite hacer retiros
 		@SuppressWarnings("resource")
-		Scanner entrada=new Scanner(System.in);
-		System.out.println("1. Nuevo turno contable sin retiro de la caja");
+		Scanner entrada=new Scanner(System.in);                                //Captura si el ususario quiere hacer
+		System.out.println("1. Nuevo turno contable sin retiro de la caja");   //un retiro o no
 		System.out.println("2. Nuevo turno contable con retiro de la caja");
-		int eleccion = entrada.nextInt();
+		int eleccion = entrada.nextInt();                                       
 		entrada.nextLine();
-		if (eleccion==1)
+		if (eleccion==1)											//Realiza el cambio de turno sin retiro
 		{
-			TurnoContab.setInicial(TurnoContab.calcularCaja(0));
+			TurnoContab.setInicial(TurnoContab.calcularCaja(0));       
 			TurnoContab.facturas.clear();
 			TurnoContab.setTotalmedicosturno(0);
 		}
-		else{
+		else{														//Realiza cambio de turno con retiro
 			System.out.println("Ingrese la cantidad que desea retirar");
 			int retirar = entrada.nextInt();
 			entrada.nextLine();
@@ -350,29 +354,25 @@ public static void registrarMascota() {
 		}
 
 	}
-	public static void informeTotal() {
-		estadoCaja();
+	public static void informeTotal() {      //Muestra un informe combinando las opciones 1,2 y 3
+		estadoCaja();                        //Metodos y codigos usados anteriormente (Opcion 1 2 y 3)
 		mostrarDeudaMedicos();
 		mostrarInventario();	
-		System.out.println("INVENTARIO\n");
-		ArrayList<Medicamento> medicamentos= Inventario.getMedicamentos();
-		for(Medicamento producto:medicamentos){if (producto.getCantidad()<10){
-			System.out.println("Bajas unidades de " + producto.getNombre());
-		}
+		
 		try {
 			Thread.sleep(4000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
+	
 
 	}
 	public static void Caja(){
 		int opcc=100;
 	
 		while(opcc != 0) {
-			System.out.println("Administrador Veterinaria\n");
+			System.out.println("Administrador Veterinaria\n");   //Imprime los mensajes del submenu
 			System.out.println("1. Mostrar dinero en caja");
 			System.out.println("2. Mostrar deuda medicos");
 			System.out.println("3. Mostrar inventario");
@@ -384,11 +384,11 @@ public static void registrarMascota() {
 			
 			@SuppressWarnings("resource")
 			Scanner entrada=new Scanner(System.in);
-			opcc = entrada.nextInt();
+			opcc = entrada.nextInt();                            //Captura la eleccion del usuario
 			entrada.nextLine();
 			
-			if(opcc == 1) {
-				Interaccion.estadoCaja();
+			if(opcc == 1) {                                        //Dependiendo de la opcion elegida
+				Interaccion.estadoCaja();         //Llama al metodo responsable de la opcion
 			}
 			if(opcc == 2) {
 				Interaccion.mostrarDeudaMedicos();
@@ -412,7 +412,7 @@ public static void registrarMascota() {
 		int opc=100;
 		
 		while(opc != 0) {
-			System.out.println("\nAdministrador Veterinaria\n");
+			System.out.println("\nAdministrador Veterinaria\n");  
 			System.out.println("1. Registrar Cliente");
 			System.out.println("2. Registrar Mascota");
 			System.out.println("3. Registrar Doctor");

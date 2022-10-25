@@ -30,7 +30,7 @@ public class Medico extends Persona implements Comunicacion, Serializable{
         this.tipoMed = tipoMed;
     } 
     
-    public void crearFecha(String fecha) {
+    public void crearFecha(String fecha) { // valida si la fecha ingresada ya esta contemplada en la agenda del doctor, si no lo esta crea un arreglo de 24 posiciones con turno vacios y lo ingresa a la agenda del doctor
     	
     	if(!this.agenda.containsKey(fecha)) {
     		Turno[] turnos = new Turno[24];
@@ -41,21 +41,21 @@ public class Medico extends Persona implements Comunicacion, Serializable{
 		}
 		
 	}
-    public static String obtenerMedicos(tipoMedico tipoMed) {
+    public static String obtenerMedicos(tipoMedico tipoMed) { //recibe una constante del enum y devuelve los medicos cuyo atributo tipoMed concuerda con la constante
     	String cadena = "";
     	
     	for (Map.Entry<String, Medico> entry : Medico.mapaMedico.entrySet()) {
     		if(entry.getValue().getTipoMed().equals(tipoMed)){
-    			cadena = cadena + (entry.getValue().getNombre()+" - Cedula: "+ entry.getValue().getCedula() +"\n");
+    			cadena = cadena + (entry.getValue().getNombre()+" - Cedula: "+ entry.getValue().getCedula() +"\n");// acumula en un string los datos de todos los medicos que cumplen con la condicion
     		}
 	    }
     	return cadena;
     }    
-    public String obtenerTurnosDisponibles(String fecha) {
+    public String obtenerTurnosDisponibles(String fecha) { //consulta la agenda del doctor en la fecha ingresada y devuelve un string con la acumulacion de todo los turnos cuyo atributo disponible es true
     	String cadena = "";
     	for(int i = 0; i<24; i++) {
 			if(this.agenda.get(fecha)[i].isDisponibilidad()) {
-				if(this.agenda.get(fecha)[i].getHoraInicio()<13) {
+				if(this.agenda.get(fecha)[i].getHoraInicio()<13) { //acumula un string diferente en cadena dependiendo de si el turno es AM o PM
 					cadena = cadena + "Turno "+(i+1)+": "+this.agenda.get(fecha)[i].getHoraInicio()+":00 AM\n";
 				}else {
 					cadena = cadena + "Turno "+(i+1)+": "+this.agenda.get(fecha)[i].getHoraInicio()+":00 PM\n";
@@ -65,26 +65,26 @@ public class Medico extends Persona implements Comunicacion, Serializable{
     	return cadena;
     	
     }
-    public void asignarTurno(String fecha, int turno, String cedulaCliente, int mascota) {
-    	this.agenda.get(fecha)[turno].setDisponibilidad(false);
+    public void asignarTurno(String fecha, int turno, String cedulaCliente, int mascota) { // recibe la informacion necesaria 
+    	this.agenda.get(fecha)[turno].setDisponibilidad(false); //el objeto turno ya esta instanciado en la agenda del medico, solo se usan los set para darle valor a sus atributos
 		this.agenda.get(fecha)[turno].setCliente(Cliente.mapaClientes.get(cedulaCliente));
 		this.agenda.get(fecha)[turno].setMascota(Cliente.mascotas.get(cedulaCliente).get(mascota));
-		Cliente.mapaClientes.get(cedulaCliente).registrarHora(turno+1);
-		if(Cliente.mapaClientes.get(cedulaCliente).sumaRegistros()>3) {
+		Cliente.mapaClientes.get(cedulaCliente).registrarHora(turno+1); //guarda la hora del turno en un hassmap que se usara despues para recomendar horarios
+		if(Cliente.mapaClientes.get(cedulaCliente).sumaRegistros()>3) { //si el numero de registro en el hasmap es mayor que 3, establece el cliente como un cliente frecuente
 			Cliente.mapaClientes.get(cedulaCliente).setFrecuente(true);
 		}
 		Cliente.mapaClientes.get(cedulaCliente).turnosPendientes.add(this.agenda.get(fecha)[turno]);
     }
-    public static boolean validarCedula(String cedula) {
+    public static boolean validarCedula(String cedula) { //valida si la cedula se encuentra registrada en el sistema
 		return Medico.mapaMedico.containsKey(cedula);
 	}
     public String toString() {
 		return "nombre: " + nombre + "\n" + "cedula: " + cedula + "\n" + "telefono: " + telefono;
 	}
 
-
+ 
 	@Override
-	public String saludar() {
+	public String saludar() {  //metodo abstracto que se hereda de personal
 		return "Hola soy medico";
 	}
 	
@@ -92,7 +92,7 @@ public class Medico extends Persona implements Comunicacion, Serializable{
 		return "El medico " + this.nombre + " fue registrado";
 	}
 	@Override
-	public String llamar() {
+	public String llamar() {//metodo que se hereda de comunicacion
 		return "Llamo desde mi telefono " + this.telefono;
 	}
 

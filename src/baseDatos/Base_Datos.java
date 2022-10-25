@@ -16,6 +16,8 @@ public class Base_Datos implements Serializable{
 	/**
 	 * 
 	 */
+	
+	// esta clase posee una copia de todos los atributos importantes de las otras clases que deseamos guardar
 	private static final long serialVersionUID = 1L;
 	public HashMap<String, Cliente> mapaClientes = new HashMap<>();
 	public int cantidadClientes = 0;

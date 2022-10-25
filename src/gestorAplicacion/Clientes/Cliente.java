@@ -28,9 +28,9 @@ public class Cliente extends Persona implements Comunicacion, Serializable{
 	public Cliente(String nombre, String cedula, String telefono) {
 		super(nombre, cedula, telefono);
 		cantidadClientes++;
-		this.registroHoras.put(1,0);
+		this.registroHoras.put(1,0); //agrega al hashmap registrohoras la clave correspondiente a cada turno
 		this.registroHoras.put(2,0);
-		this.registroHoras.put(3,0);
+		this.registroHoras.put(3,0); //el valor inicia en 0 e ira aumentando cada que un cliente pida un turno en cada horario
 		this.registroHoras.put(4,0);
 		this.registroHoras.put(5,0);
 		this.registroHoras.put(6,0);
@@ -85,9 +85,9 @@ public class Cliente extends Persona implements Comunicacion, Serializable{
 		return Cliente.mapaClientes.containsKey(cedula);
 	}
 	
-	public static String obtenerMascotasCliente(String cedula) {
+	public static String obtenerMascotasCliente(String cedula) { //este metodo recibe la cedula de un cliente y acumula en cadena la lista de sus mascotas
 		String cadena = "";
-		if(Cliente.mascotas.get(cedula)==null || Cliente.mascotas.get(cedula).size()==0) {
+		if(Cliente.mascotas.get(cedula)==null || Cliente.mascotas.get(cedula).size()==0) { //valida si el cliente si posee mascotas registradas
 			return "Este cliente no tiene mascotas registradas";
 		}
 		for (int i=0;i<Cliente.mascotas.get(cedula).size();i++) {
@@ -100,11 +100,11 @@ public class Cliente extends Persona implements Comunicacion, Serializable{
 		return "nombre: " + nombre + "\n" + "cedula: " + cedula + "\n" + "telefono: " + telefono;
 	}
 
-	public void registrarHora(int hora) {
+	public void registrarHora(int hora) {  //cuando el cliente pide un turno, se invoca este metodo y se le pasa la hora del turno que se pidio
 		int aumento = this.registroHoras.get(hora) + 1;
-		this.registroHoras.put(hora, aumento);
+		this.registroHoras.put(hora, aumento); // aunmenta en uno el registro correspodiente a la hora del turno para llevar la cuenta de cuantas veces ha pedido turno en dicha hora
 	}
-	public int sumaRegistros() {
+	public int sumaRegistros() { //suma todo los registros del cliente para saber cuantos turno ha pedido en total
 		int suma = 0;
 		for(int i=1; i<25; i++) {
 			suma = suma + this.registroHoras.get(i);
@@ -112,16 +112,16 @@ public class Cliente extends Persona implements Comunicacion, Serializable{
 		return suma;
 	}
 	
-	public Map<Integer, Integer> obtenerTurnosFrecuentes() {
+	public Map<Integer, Integer> obtenerTurnosFrecuentes() { //devuelve un mapa con los turno que mas frecuenta el usuario
 		
 		Map<Integer, Integer> result = this.registroHoras.entrySet().stream()
                 .sorted(Entry.comparingByValue(Collections.reverseOrder()))
-                .collect(Collectors.toMap(Entry::getKey, Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
+                .collect(Collectors.toMap(Entry::getKey, Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new)); //ordena el hashmap de registro hora segun sus valores de manera descendente para que las hras mas frecuentas queden en las primera posiciones
 		Map<Integer, Integer> mayores = new HashMap<>();
 		int i=0;
 		for (Map.Entry<Integer, Integer> entry : result.entrySet()) {
     		if(i<2) {
-    			mayores.put(entry.getKey(), entry.getValue());
+    			mayores.put(entry.getKey(), entry.getValue()); //crea un nuevo mapa solo con los registros de las horas mas frecuentadas
     			i++;
     		}
 	    }

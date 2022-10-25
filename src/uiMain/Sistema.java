@@ -17,7 +17,7 @@ public class Sistema {
 			System.out.println("2. Pedir Turno");
 			System.out.println("3. Recomendar medicamentos");
 			System.out.println("4. Generar Factura");
-			System.out.println("5. Datos contables");
+			System.out.println("5. Datos contables");         //Abre el submenu de datos contables
 			System.out.println("0. Salir\n");
 
 			System.out.print("Digite una opcion: ");

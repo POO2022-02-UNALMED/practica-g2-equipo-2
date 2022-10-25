@@ -16,7 +16,7 @@ public class Factura implements Serializable{
     public Turno turno;
     private static final double DESCUENTO = 0.1;
     private double valorTurno; //dependiendo de la hora, el valor
-    private short cantidadMedicamento; //tableta mg
+    private int cantidadMedicamento; //tableta mg
     private double valorMedico; //general o especialista
     public double totalFactura;
   
@@ -28,7 +28,7 @@ public class Factura implements Serializable{
         this.totalFactura = totalFactura;
     }
 
-    public Factura(Medico medico, Cliente cliente, Medicamento medicamento, short cantidadMedicamento, Turno turno ) {
+    public Factura(Medico medico, Cliente cliente, Medicamento medicamento, int cantidadMedicamento, Turno turno ) {
         this.medico = medico;
         this.cliente = cliente;
         this.medicamento = medicamento;
@@ -42,14 +42,7 @@ public class Factura implements Serializable{
     }
        
     public Factura(Medico medico, Cliente cliente, int cantidadMedicamento, Turno turno) {
-        this.medico = medico;
-        this.cliente = cliente;
-        this.turno = turno;
-        this.cantidadMedicamento = 0;
-        this.valorTurno = this.calcularValorTurno(turno); 
-        Animal animal1 = turno.getMascota();
-        this.totalFactura = this.calculoTotalFactura() + animal1.sobrecargoEdad();
-        TurnoContab.agregarFactura(this);
+    	this(medico, cliente, null, cantidadMedicamento, turno);
     }
 
     public Medico getMedico() {
@@ -84,7 +77,7 @@ public class Factura implements Serializable{
         this.valorTurno = valorTurno;
     }
 
-    public short getCantidadMedicamento() {
+    public int getCantidadMedicamento() {
         return cantidadMedicamento;
     }
 
