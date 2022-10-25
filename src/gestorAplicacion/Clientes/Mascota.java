@@ -38,6 +38,23 @@ public class Mascota extends Animal implements Serializable{
 	}
 	
 	
+	//Sobrecarga de métodos
+	public String accion() {
+		return this.getNombreMascota() + "\n te observa fijamente.";
+	}
+	
+	public String accion(int a) {
+		return this.getNombreMascota() + "\n se ha sentado.";
+	}
+	
+	public String accion(int a, int b) {
+		return this.getNombreMascota() + "\n quiere ir a dar un paseo y jugar con amigos.";
+	}
+	
+	public String accion(int a, int b, int c) {
+		return this.getNombreMascota() + "\n no soporta más estar contigo, por lo cual, se agacha, mueve su cola y huye despavoridamente del lugar.";
+	}
+	
 	
 	public String getRaza() {
 		return raza;
