@@ -4,7 +4,6 @@ import java.util.*;
 import java.io.Serializable;
 import gestorAplicacion.Clientes.Cliente;
 import gestorAplicacion.Clientes.Mascota;
-import baseDatos.Base_Datos;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -16,7 +15,6 @@ public class Diagnostico implements Serializable{
 	private Mascota mascota;
 	private String fecha;
 	private String justificacion = "";
-	private Base_Datos bDatos = new Base_Datos();
 	private String diagnostico = "";
 	private ArrayList<Medicamento> medicamentos = new ArrayList<>();
 	private String sintomasLista[] = {"dolor", "inflama", "parasito", "parásito"};
@@ -24,6 +22,7 @@ public class Diagnostico implements Serializable{
 	private StringBuilder sintomasFinales = new StringBuilder();
 	int numeroSintomas = 0;
 	public String medicamentosAprobados[] = {"Robenacoxib", "Amoxicilina", "Pyrantel pamoate"};
+	
 	private HashMap<String,String> SintomasAMedicinas = new HashMap<String,String>();
 	private HashMap<String, String> medicinasDeterminadas = new HashMap<String,String>();
 	int numeroMedicinasRecomendadas = 0;
@@ -97,9 +96,9 @@ public class Diagnostico implements Serializable{
 
 	public HashMap<String,String> recomendarMedicamentos() {
 		
-		medicinaAComercial.put(medicamentosAprobados[0], bDatos.Onsior.getNombre());
-		medicinaAComercial.put(medicamentosAprobados[1], bDatos.AmoxiTabs.getNombre());
-		medicinaAComercial.put(medicamentosAprobados[2], bDatos.Nemex2.getNombre());
+		medicinaAComercial.put(medicamentosAprobados[0],  Inventario.Medicamentos.get(0).getNombre());
+		medicinaAComercial.put(medicamentosAprobados[1],  Inventario.Medicamentos.get(1).getNombre());
+		medicinaAComercial.put(medicamentosAprobados[2],  Inventario.Medicamentos.get(2).getNombre());
 		
 		for(String e: sintomasDeterminados){
 			if (e == "dolor"){

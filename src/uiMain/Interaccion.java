@@ -71,7 +71,7 @@ public class Interaccion {
 		}
 	}
 	
-public static void registrarMascota() {
+	public static void registrarMascota() {
 		
 		@SuppressWarnings("resource")
 		Scanner entrada=new Scanner(System.in);
@@ -97,7 +97,7 @@ public static void registrarMascota() {
 			
 		}
 		Animal mascota1 = new Animal(Cliente.mapaClientes.get(cedula),edad,nombre);
-		Cliente.mascotas.get(cedula).add(mascota1);
+		Cliente.mascotas.get(cedula).add((Mascota)mascota1);
 		System.out.println("\nLa mascota ha sido registrada");
 		try {
 			Thread.sleep(2000);
@@ -237,7 +237,7 @@ public static void registrarMascota() {
 		}
 	}
 	public static void generarDiagnostico() {
-	
+		
 		@SuppressWarnings("resource")
 		Scanner entrada=new Scanner(System.in);
 		String cedula = "";
@@ -258,7 +258,7 @@ public static void registrarMascota() {
 		if(Cliente.mascotas.get(cedula)==null || Cliente.mascotas.get(cedula).size()==0) {
 			System.out.println("El cliente no tiene mascotas registradas");}
 		System.out.print("\n");
-		System.out.print("Ingrese la mascota que será atendida: ");
+		System.out.print("Ingrese el número de la mascota que será atendida: ");
 		int mascota = entrada.nextInt();
 		entrada.nextLine();
 		String cedulaDoctor = "";
@@ -382,7 +382,6 @@ public static void registrarMascota() {
 		}
 
 	}
-
 
 	public static void mostrarInventario() {
 		System.out.println("INVENTARIO\n");

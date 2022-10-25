@@ -22,6 +22,6 @@ public class Base_Datos implements Serializable{
 	public Map<String, ArrayList<Mascota>> mascotas = new HashMap<>();
 	public Map<String, Medico> mapaMedico = new HashMap<>();
 	public ArrayList<Medicamento> Medicamentos= new ArrayList<Medicamento>();
-	public ArrayList<Factura> facturas= new ArrayList<Factura>(); 
-	
+	public ArrayList<Factura> facturas= new ArrayList<Factura>();
+		
 }

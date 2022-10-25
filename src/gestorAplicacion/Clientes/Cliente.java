@@ -23,7 +23,7 @@ public class Cliente extends Persona implements Serializable{
 	public Map<Integer, Integer> registroHoras = new HashMap<>();
 	public static HashMap<String, Cliente> mapaClientes = new HashMap<>();
 	public static int cantidadClientes = 0;
-	public static Map<String, ArrayList<Animal>> mascotas = new HashMap<>();
+	public static Map<String, ArrayList<Mascota>> mascotas = new HashMap<>();
 	
 	public Cliente(String nombre, String cedula, String telefono) {
 		super(nombre, cedula, telefono);

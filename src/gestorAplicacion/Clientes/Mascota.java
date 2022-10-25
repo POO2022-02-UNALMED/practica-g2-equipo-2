@@ -18,10 +18,6 @@ public class Mascota extends Animal implements Serializable{
 	private int id;
 	public static int cantidadMascotas = 0;
 
-	public Mascota(){
-		
-	}
-	
 	public Mascota(String nombreMascota, String especie, String raza, String sexo, int edad, int peso, Cliente duenno) {
 		super(duenno , edad,  nombreMascota);
 		this.especie = especie;
