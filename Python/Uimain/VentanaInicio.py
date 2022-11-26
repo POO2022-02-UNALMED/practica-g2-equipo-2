@@ -1,6 +1,8 @@
 import tkinter as tk
 import os
 import pathlib
+from Uimain import VentanaPrincipal
+#from Uimain import VentanaPrincipal
 #from tkinter import ttk
 
 path = os.path.join(pathlib.Path(__file__).parent.absolute())
@@ -20,7 +22,7 @@ class VentanaInicio(tk.Tk):
         self.inicio = tk.Menu(self.menuBar)
         self.menuBar.add_cascade(label="Inicio", menu=self.inicio)
         
-        self.inicio.add_command(label="Salir", command=self.salir)
+        self.inicio.add_command(label="Salir", command=self.salirr)
         self.inicio.add_command(label="Descripcion", command=self.descripcion)
         
         #--- Panel p3 --------------------------------
@@ -36,7 +38,7 @@ class VentanaInicio(tk.Tk):
         self.prbl.config(image=self.prb) 
         self.prbl.bind("<Enter>",self.cambiarIcono)
         self.prbl.place(relx=0.5, rely=0.5, anchor="center")
-        self.ingresar = tk.Button(self.P4, text="Ingresar")
+        self.ingresar = tk.Button(self.P4, text="Ingresar", command=self.ingresar)
         self.ingresar.pack(side="bottom")
         
         #--- Panel p5 --------------------------------
@@ -125,7 +127,7 @@ class VentanaInicio(tk.Tk):
             self.label_f3['image'] = self.fotosCamila[2]
             self.label_f4['image'] = self.fotosCamila[3]
         
-    def salir(self):
+    def salirr(self):
         self.destroy()
         
     def descripcion(self):
@@ -144,5 +146,13 @@ class VentanaInicio(tk.Tk):
         else:
             self.icon = 0
             self.prb['file'] = path+"/fotos/sistema/1.png"
+    def ingresar(self):
         
-VentanaInicio()
+        self.destroy()
+        VentanaPrincipal.VentanaPrincipal()
+        
+        
+
+        
+if __name__ == "__main__":
+    VentanaInicio()
