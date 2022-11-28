@@ -1,4 +1,5 @@
 from TipoMedico import TipoMedico
+import Contabilidad
 
 
 class Factura:
@@ -11,13 +12,18 @@ class Factura:
         self.medicamento = medicamento
         self.cantidadMedicamento = cantidadMedicamento
         self.turno = turno
+        Contabilidad.agregarFactura(self)
 
-    def __init__(self,medico, cliente, cantidadMedicamento: int, turno):
+    def __init__(self,medico, cliente, turno):
         self.medico = medico
         self.cliente = cliente
-        self.cantidadMedicamento = 0
         self.turno = turno
         self.totalFactura= self.calculoTotalFactura
+        Contabilidad.agregarFactura(self)
+
+    
+    def getTotalFactura(self):
+        return self.totalFactura
 
     def getMedico(self):
         return self.medico
