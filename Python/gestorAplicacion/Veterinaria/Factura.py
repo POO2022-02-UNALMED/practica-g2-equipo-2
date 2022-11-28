@@ -12,12 +12,14 @@ class Factura:
         self.medicamento = medicamento
         self.cantidadMedicamento = cantidadMedicamento
         self.turno = turno
+        self.totalFactura= self.calculoTotalFactura
         Contabilidad.agregarFactura(self)
 
     def __init__(self,medico, cliente, turno):
         self.medico = medico
         self.cliente = cliente
         self.turno = turno
+        self.cantidadMedicamento = 0
         self.totalFactura= self.calculoTotalFactura
         Contabilidad.agregarFactura(self)
 
@@ -62,7 +64,7 @@ class Factura:
             valorMedico = 40000
 
     def calcularValorTurno(self,turno):
-        if(turno.getHoraInicio() >= 18) or (turno.getHora < 8):
+        if(turno.getHoraInicio() >= 18) or (turno.getHoraInicio() < 8):
             valorTurno = 40000   
         else: 
             valorMedico = 25000        
