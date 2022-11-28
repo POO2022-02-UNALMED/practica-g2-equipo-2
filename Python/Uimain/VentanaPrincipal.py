@@ -5,6 +5,7 @@ from Uimain import FieldFrame
 from Clientes.Cliente import Cliente
 from Clientes.Mascota import Mascota
 from Veterinaria.Medico import Medico
+from Uimain.fotos.excepciones import *
 
 class VentanaPrincipal(tk.Tk):
     
@@ -98,7 +99,7 @@ class registrarMascota(tk.Frame):
           
         tk.Frame.__init__(self, parent) 
         
-        self.formulario = FieldFrame.FieldFrame(self,"Registrar Mascota",["Nombre","Especie","Raza","Sexo","Edad","Peso","Cedula dueño"],None,["entry","combo","entry","combo","entry","entry","entry"])
+        self.formulario = FieldFrame.FieldFrame(self,"Registrar Mascota",["Nombre","Especie","Raza","Sexo","Edad","Peso","Cedula dueño"],["Ingrese un nombre","","Ingrese una raza","","Ingrese una edad","Ingrese un peso","Ingrese una cedula"],["entry","combo","entry","combo","entero","entero","entero"])
         self.formulario.entradas[1]['values']=["Perro", "Gato"]
         self.formulario.entradas[1].set("Perro")
         self.formulario.entradas[3]['values']=["Macho", "Hembra"]
@@ -112,16 +113,50 @@ class registrarMascota(tk.Frame):
         raza = self.formulario.entradas[2].get()
         sexo = self.formulario.entradas[3].get()
         edad = self.formulario.entradas[4].get()
-        peso = int(self.formulario.entradas[5].get())
-        cedulaDuenno = int(self.formulario.entradas[6].get())
-        if((cedulaDuenno not in Cliente.mapaClientes)):
-            messagebox.showerror("Cedula invalida", "La cedula ingresada no se encuentra registrada,\npor favor registrela antes de continuar")
-        else:
+        peso = self.formulario.entradas[5].get()
+        cedulaDuenno = self.formulario.entradas[6].get()
+        
+        try:
+            
+            if(len(nombre)==0 or len(raza)==0 or len(edad)==0 or len(peso)==0 or len(cedulaDuenno)==0 or nombre==self.formulario.valores[0] or raza==self.formulario.valores[2] or edad==self.formulario.valores[4] or peso==self.formulario.valores[5] or cedulaDuenno==self.formulario.valores[6]):
+                lista = []
+                for i in range(len(self.formulario.criterios)):
+                    if(len(self.formulario.entradas[i].get())==0 or self.formulario.entradas[i].get()==self.formulario.valores[i]):
+                        lista.append(self.formulario.criterios[i])
+                
+                error = campoVacio(lista)
+                raise error
+            elif((not edad.isdecimal()) or (not peso.isdecimal()) or (not cedulaDuenno.isdecimal())):
+                lista = []
+                for i in range(len(self.formulario.criterios)):
+                    if((not self.formulario.entradas[i].get().isdecimal()) and self.formulario.tipos[i]=="entero"):
+                        lista.append(self.formulario.criterios[i])
+                error = tipoInt(lista)
+                raise error
+            elif((not nombre.isalpha()) or (not raza.isalpha())):
+                lista = []
+                for i in range(len(self.formulario.criterios)):
+                    if((not self.formulario.entradas[i].get().isalpha()) and self.formulario.tipos[i]=="entry"):
+                        lista.append(self.formulario.criterios[i])
+                error = tipoString(lista)
+                raise error
+            elif((cedulaDuenno not in Cliente.mapaClientes)):
+                error = cedulaInvalida(cedulaDuenno)
+                raise error
+        
             mascota1 = Mascota(nombre, especie, raza, sexo, edad, peso, Cliente.mapaClientes[cedulaDuenno])
             Cliente.mascotas[cedulaDuenno].append(mascota1)
             messagebox.showinfo("Regristros", "La mascota ha sido registrada")
             self.formulario.borrarCampos()
-        
+            
+        except campoVacio as error:
+            messagebox.showwarning("Regristros", error.error)
+        except tipoInt as error:
+            messagebox.showwarning("Regristros", error.error)
+        except tipoString as error:
+            messagebox.showwarning("Regristros", error.error)
+        except cedulaInvalida as error:
+            messagebox.showwarning("Regristros", error.error)
         #button1 = tk.Button(self, text ="StartPage", command = lambda : controller.show_frame(StartPage)) 
    
    
@@ -130,7 +165,7 @@ class registrarCliente(tk.Frame):
     def __init__(self, parent, controller): 
         tk.Frame.__init__(self, parent) 
         
-        self.formulario = FieldFrame.FieldFrame(self,"Registrar Cliente",["Nombre","Cedula","Telefono"],["Pedro","100","300"],["entry","entry","entry"])
+        self.formulario = FieldFrame.FieldFrame(self,"Registrar Cliente",["Nombre","Cedula","Telefono"],["Ingrese un nombre","Ingrese una cedula","Ingrese un telefono"],["entry","entero","entero"])
         self.formulario.place(relx=0.5, rely=0.5, anchor="center")
         self.formulario.aceptar['command'] = self.registrar
         
@@ -139,28 +174,53 @@ class registrarCliente(tk.Frame):
         cedula = self.formulario.entradas[1].get()
         telefono = self.formulario.entradas[2].get()
         
-        if(len(nombre)==0 or len(cedula)==0 or len(telefono)==0):
-            messagebox.showerror("Regristros", "Debe llenar todos los campos")
-        elif(not cedula.isdecimal()):
-            messagebox.showerror("Regristros", "El campo cedula debe contener un numero")
-        elif(not telefono.isdecimal()):
-            messagebox.showerror("Regristros", "El campo telefono debe contener un numero")
-        else:
-            cliente1 = Cliente(nombre, int(cedula), int(telefono))
+        try:
+        
+            if(len(nombre)==0 or len(cedula)==0 or len(telefono)==0 or nombre==self.formulario.valores[0] or cedula==self.formulario.valores[1] or telefono==self.formulario.valores[2]):
+                lista = []
+                for i in range(len(self.formulario.criterios)):
+                    if(len(self.formulario.entradas[i].get())==0 or self.formulario.entradas[i].get()==self.formulario.valores[i]):
+                        lista.append(self.formulario.criterios[i])
+                
+                error = campoVacio(lista)
+                raise error
+            elif((not cedula.isdecimal()) or (not telefono.isdecimal())):
+                lista = []
+                for i in range(len(self.formulario.criterios)):
+                    if((not self.formulario.entradas[i].get().isdecimal()) and self.formulario.tipos[i]=="entero"):
+                        lista.append(self.formulario.criterios[i])
+                error = tipoInt(lista)
+                raise error
+            elif(not nombre.isalpha()):
+                lista = []
+                for i in range(len(self.formulario.criterios)):
+                    if((not self.formulario.entradas[i].get().isalpha()) and self.formulario.tipos[i]=="entry"):
+                        lista.append(self.formulario.criterios[i])
+                error = tipoString(lista)
+                raise error
+        
+            cedula = int(cedula)
+            telefono = int(cedula)
+            cliente1 = Cliente(nombre, cedula, telefono)
             Cliente.mapaClientes[cedula] = cliente1
             Cliente.mascotas[cedula] = []
             print(Cliente.mapaClientes[cedula])
             messagebox.showinfo("Regristros", "El cliente ha sido registrado")
             self.formulario.borrarCampos()
             
-        
+        except campoVacio as error:
+            messagebox.showwarning("Regristros", error.error)
+        except tipoInt as error:
+            messagebox.showwarning("Regristros", error.error)
+        except tipoString as error:
+            messagebox.showwarning("Regristros", error.error)
         
         
 class registrarMedico(tk.Frame):  
     def __init__(self, parent, controller): 
         tk.Frame.__init__(self, parent) 
         
-        self.formulario = FieldFrame.FieldFrame(self,"Registrar Medico",["Nombre","Cedula","Telefono","Cargo"],None,["entry","entry","entry","combo"])
+        self.formulario = FieldFrame.FieldFrame(self,"Registrar Medico",["Nombre","Cedula","Telefono","Cargo"],["Ingrese un nombre", "Ingrese una cedula", "Ingrese un telefono", ""],["entry","entero","entero","combo"])
         self.formulario.entradas[3]['values']=["General", "Especialista"]
         self.formulario.entradas[3].set("General")
         self.formulario.place(relx=0.5, rely=0.5, anchor="center")
@@ -168,10 +228,43 @@ class registrarMedico(tk.Frame):
         
     def registrar(self):
         nombre = self.formulario.entradas[0].get()
-        cedula = int(self.formulario.entradas[1].get())
-        telefono = int(self.formulario.entradas[2].get())
+        cedula = self.formulario.entradas[1].get()
+        telefono = self.formulario.entradas[2].get()
         cargo = self.formulario.entradas[3].get()
-        medico1 = Medico(nombre, cedula, telefono, cargo)
-        Medico.mapaMedico[cedula] = medico1
-        messagebox.showinfo("Regristros", "El medico ha sido registrado")
-        self.formulario.borrarCampos()
+        
+        try:
+        
+            if(len(nombre)==0 or len(cedula)==0 or len(telefono)==0 or nombre==self.formulario.valores[0] or cedula==self.formulario.valores[1] or telefono==self.formulario.valores[2]):
+                lista = []
+                for i in range(len(self.formulario.criterios)):
+                    if(len(self.formulario.entradas[i].get())==0 or self.formulario.entradas[i].get()==self.formulario.valores[i]):
+                        lista.append(self.formulario.criterios[i])
+                
+                error = campoVacio(lista)
+                raise error
+            elif((not cedula.isdecimal()) or (not telefono.isdecimal())):
+                lista = []
+                for i in range(len(self.formulario.criterios)):
+                    if((not self.formulario.entradas[i].get().isdecimal()) and self.formulario.tipos[i]=="entero"):
+                        lista.append(self.formulario.criterios[i])
+                error = tipoInt(lista)
+                raise error
+            elif(not nombre.isalpha()):
+                lista = []
+                for i in range(len(self.formulario.criterios)):
+                    if((not self.formulario.entradas[i].get().isalpha()) and self.formulario.tipos[i]=="entry"):
+                        lista.append(self.formulario.criterios[i])
+                error = tipoString(lista)
+                raise error
+        
+            medico1 = Medico(nombre, int(cedula), int(telefono), cargo)
+            Medico.mapaMedico[cedula] = medico1
+            messagebox.showinfo("Regristros", "El medico ha sido registrado")
+            self.formulario.borrarCampos()
+        
+        except campoVacio as error:
+            messagebox.showwarning("Regristros", error.error)
+        except tipoInt as error:
+            messagebox.showwarning("Regristros", error.error)
+        except tipoString as error:
+            messagebox.showwarning("Regristros", error.error)
