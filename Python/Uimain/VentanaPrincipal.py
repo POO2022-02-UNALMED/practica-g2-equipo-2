@@ -5,7 +5,7 @@ from Uimain import FieldFrame
 from Clientes.Cliente import Cliente
 from Clientes.Mascota import Mascota
 from Veterinaria.Medico import Medico
-from Uimain.fotos.excepciones import *
+from Uimain.excepciones import *
 
 class VentanaPrincipal(tk.Tk):
     
@@ -30,12 +30,10 @@ class VentanaPrincipal(tk.Tk):
         self.registros.add_command(label="Registrar Cliente",command = lambda : self.show_frame(registrarCliente))
         self.registros.add_command(label="Registrar Mascota",command = lambda : self.show_frame(registrarMascota))
         self.registros.add_command(label="Registrar Medico",command = lambda : self.show_frame(registrarMedico))
-        
+        self.pyc.add_command(label="Agendar Turno",command = lambda : self.show_frame(agendarTurno))
         
         self.ayuda = tk.Menu(self.menuBar)
         self.menuBar.add_command(label="Ayuda", command=self.msg_ayuda)
-        
-        
         
         container = tk.Frame(self)   
         container.pack(side = "top", fill = "both", expand = True)  
@@ -43,24 +41,15 @@ class VentanaPrincipal(tk.Tk):
         container.grid_rowconfigure(0, weight = 1) 
         container.grid_columnconfigure(0, weight = 1) 
    
-        
         self.frames = {}   
-   
         
-        
-        for F in (StartPage, registrarMascota, registrarCliente, registrarMedico): 
+        for F in (StartPage, registrarMascota, registrarCliente, registrarMedico, agendarTurno): 
    
             frame = F(container, self) 
-   
-            
-            
-            
             self.frames[F] = frame  
-   
             frame.grid(row=0, column=0,sticky = 'nsew')
    
         self.show_frame(StartPage) 
-   
         self.mainloop()
     
     
@@ -140,10 +129,11 @@ class registrarMascota(tk.Frame):
                         lista.append(self.formulario.criterios[i])
                 error = tipoString(lista)
                 raise error
-            elif((cedulaDuenno not in Cliente.mapaClientes)):
+            elif((int(cedulaDuenno) not in Cliente.mapaClientes)):
                 error = cedulaInvalida(cedulaDuenno)
                 raise error
-        
+            
+            cedulaDuenno = int(cedulaDuenno)
             mascota1 = Mascota(nombre, especie, raza, sexo, edad, peso, Cliente.mapaClientes[cedulaDuenno])
             Cliente.mascotas[cedulaDuenno].append(mascota1)
             messagebox.showinfo("Regristros", "La mascota ha sido registrada")
@@ -258,7 +248,7 @@ class registrarMedico(tk.Frame):
                 raise error
         
             medico1 = Medico(nombre, int(cedula), int(telefono), cargo)
-            Medico.mapaMedico[cedula] = medico1
+            Medico.mapaMedico[int(cedula)] = medico1
             messagebox.showinfo("Regristros", "El medico ha sido registrado")
             self.formulario.borrarCampos()
         
@@ -268,3 +258,130 @@ class registrarMedico(tk.Frame):
             messagebox.showwarning("Regristros", error.error)
         except tipoString as error:
             messagebox.showwarning("Regristros", error.error)
+            
+class agendarTurno(tk.Frame): 
+    def __init__(self, parent, controller):  
+        tk.Frame.__init__(self, parent) 
+          
+        self.formulario = FieldFrame.FieldFrame(self, "Agendar turno", ["Cedula Cliente", "Lista de Mascotas","Tipo de medico", "Lista de medicos","Fecha"],["Ingrese la cedula del cliente","","","",""],["entry","combo","combo","combo","calendar"])
+        
+        buscarMascotas = tk.Button(self.formulario, text="Buscar mascotas", command=self.obtenerMascotas)
+        buscarMascotas.grid(row=1,column=2, padx=5, pady=10)
+        buscarMedicos = tk.Button(self.formulario, text="Buscar medicos", command=self.obtenerMedicos)
+        buscarMedicos.grid(row=3,column=2, padx=5, pady=10)
+        self.formulario.entradas[2]['values']=["General", "Especialista"]
+        self.formulario.entradas[2].set("General")
+        self.formulario.entradas[1]['values']=["Debe buscar mascotas"]
+        self.formulario.entradas[1].set("Debe buscar mascotas")
+        self.formulario.entradas[3]['values']=["Debe buscar medicos"]
+        self.formulario.entradas[3].set("Debe buscar medicos")
+        
+        self.formulario.aceptar['command'] = self.asignarTurno
+        self.formulario.place(relx=0.5, rely=0.5, anchor="center")
+        
+    def obtenerMascotas(self):
+        cedulaCliente = self.formulario.entradas[0].get()
+        
+        try:
+            if(len(cedulaCliente)==0 or cedulaCliente == self.formulario.valores[0]):
+                error = campoVacio(["Cedula Cliente"])
+                raise error
+            elif(not cedulaCliente.isdecimal()):
+                error = tipoInt(["Cedula Cliente"])
+                raise error
+            elif((int(cedulaCliente) not in Cliente.mapaClientes)):
+                error = cedulaInvalida(cedulaCliente)
+                raise error
+            mascotas = Cliente.obtenerMascotas(int(cedulaCliente))
+            if(mascotas == 0):
+                messagebox.showwarning("Agendar Turno", "El cliente ingresado no posee mascotas")
+            else:
+                self.formulario.entradas[1]['values'] = mascotas
+                self.formulario.entradas[1].current(0)
+                messagebox.showinfo("Agendar Turno", "Se han obtenido las mascotas de este cliente,\npor favor seleccione una en la lista desplegable")
+        
+        except campoVacio as error:
+            messagebox.showwarning("Agendar Turno", error.error)
+        except tipoInt as error:
+            messagebox.showwarning("Agendar Turno", error.error)
+        except cedulaInvalida as error:
+            messagebox.showwarning("Agendar Turno", error.error)
+        
+    def obtenerMedicos(self):
+        tipo = self.formulario.entradas[2].get()
+        medicos = Medico.obtenerNombresMedicos(tipo)
+        if(medicos == 0):
+            messagebox.showwarning("Agendar Turno", "No hay medicos registrados del tipo seleccionado")
+        else:
+            self.formulario.entradas[3]['values'] = medicos
+            self.formulario.entradas[3].current(0)
+            messagebox.showinfo("Agendar Turno", "Se han obtenido los medicos de este tipo,\npor favor seleccione uno en la lista desplegable")
+    
+    def asignarTurno(self):
+        cedulaCliente = self.formulario.entradas[0].get()
+        mascota = self.formulario.entradas[1].current()
+        nombreMascota = self.formulario.entradas[1].get()
+        tipo = self.formulario.entradas[2].get()
+        medico = self.formulario.entradas[3].current()
+        nombreMedico = self.formulario.entradas[3].get()
+        cedulasMedicos = Medico.obtenerCedulasMedicos(tipo)
+        fecha = self.formulario.entradas[4].get_date()
+        
+        try:
+            if(len(cedulaCliente)==0 or cedulaCliente == self.formulario.valores[0]):
+                error = campoVacio(["Cedula Cliente"])
+                raise error
+            elif(not cedulaCliente.isdecimal()):
+                error = tipoInt(["Cedula Cliente"])
+                raise error
+            elif((int(cedulaCliente) not in Cliente.mapaClientes)):
+                error = cedulaInvalida(cedulaCliente)
+                raise error
+            elif(nombreMascota == "Debe buscar mascotas" or nombreMedico == "Debe buscar medicos"):
+                lista = []
+                if(nombreMascota == "Debe buscar mascotas"):
+                    lista.append("Mascota")
+                if(nombreMedico == "Debe buscar medicos"):
+                    lista.append("Medico")
+                error = comboInvalido(lista)
+                raise error
+            
+            Medico.mapaMedico[cedulasMedicos[medico]].crearFecha(fecha)
+            disponibles = Medico.mapaMedico[cedulasMedicos[medico]].obtenerTurnosDisponibles(fecha)
+            result = self.askComboValue(disponibles)
+            print(result)
+            for i in range(24):
+                if(result==("Turno "+str(i+1)+": "+str(i)+":00 AM") or result==("Turno "+str(i+1)+": "+str(i)+":00 PM")):
+                    res = i
+                    print(res)            
+            Medico.mapaMedico[cedulasMedicos[medico]].asignarTurno(fecha, res, int(cedulaCliente), mascota)
+            messagebox.showinfo("Turno asignado", "El turno ha sido asignado")
+            self.formulario.entradas[1]['values']=["Debe buscar mascotas"]
+            self.formulario.entradas[3]['values']=["Debe buscar medicos"]
+            self.formulario.borrarCampos()
+        
+        except campoVacio as error:
+            messagebox.showwarning("Agendar Turno", error.error)
+        except tipoInt as error:
+            messagebox.showwarning("Agendar Turno", error.error)
+        except cedulaInvalida as error:
+            messagebox.showwarning("Agendar Turno", error.error)
+        except comboInvalido as error:
+            messagebox.showwarning("Agendar Turno", error.error)
+    
+    def askComboValue(self, values):
+        top = tk.Toplevel() # use Toplevel() instead of Tk()
+        top.geometry("200x90")
+        tk.Label(top, text='Seleccione un turno').pack(pady=10)
+        box_value = tk.StringVar()
+        combo = tk.ttk.Combobox(top, textvariable=box_value, values=values)
+        combo.current(0)
+        combo.pack()
+        combo.bind('<<ComboboxSelected>>', lambda _: top.destroy())
+        top.grab_set()
+        top.wait_window(top)  # wait for itself destroyed, so like a modal dialog
+        return box_value.get()
+        
+        
+        
+        

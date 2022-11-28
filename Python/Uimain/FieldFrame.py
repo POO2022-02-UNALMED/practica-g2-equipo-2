@@ -50,8 +50,9 @@ class FieldFrame(tk.Frame):
                 self.entradas[i].set_date(now)
             if(self.tipos[i]=="combo"):
                 self.entradas[i].current(0)
-            if(self.tipos[i]=="entry"):
+            if((self.tipos[i]=="entry" or self.tipos[i]=="entero") and self.entradas[i].get()!=self.valores[i]):
                 self.entradas[i].delete(0,last=len(self.entradas[i].get()))
+                
                 
     
 #Esto es para probar si la clase quedo bien
