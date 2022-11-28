@@ -5,6 +5,7 @@ from Uimain import FieldFrame
 from Clientes.Cliente import Cliente
 from Clientes.Mascota import Mascota
 from Veterinaria.Medico import Medico
+from Veterinaria.Factura import Factura
 from Uimain.excepciones import *
 
 class VentanaPrincipal(tk.Tk):
@@ -25,13 +26,17 @@ class VentanaPrincipal(tk.Tk):
         self.pyc = tk.Menu(self.menuBar)
         self.menuBar.add_cascade(label="Procesos y Consultas", menu=self.pyc)
         self.registros = tk.Menu(self.pyc)
+        self.factura = tk.Menu(self.pyc)
         self.pyc.add_command(label="Startpage",command = lambda : self.show_frame(StartPage))
         self.pyc.add_cascade(label="Registros", menu=self.registros)
         self.registros.add_command(label="Registrar Cliente",command = lambda : self.show_frame(registrarCliente))
         self.registros.add_command(label="Registrar Mascota",command = lambda : self.show_frame(registrarMascota))
         self.registros.add_command(label="Registrar Medico",command = lambda : self.show_frame(registrarMedico))
         self.pyc.add_command(label="Agendar Turno",command = lambda : self.show_frame(agendarTurno))
-        
+        self.pyc.add_cascade(label="Facturación", menu=self.factura)
+        self.factura.add_command(label="Facturación con medicamento",command = lambda : self.show_frame(facturaConMed))
+        self.factura.add_command(label="Facturación sin medicamento",command = lambda : self.show_frame(facturaSinMed))
+
         self.ayuda = tk.Menu(self.menuBar)
         self.menuBar.add_command(label="Ayuda", command=self.msg_ayuda)
         
@@ -381,6 +386,53 @@ class agendarTurno(tk.Frame):
         top.grab_set()
         top.wait_window(top)  # wait for itself destroyed, so like a modal dialog
         return box_value.get()
+
+class facturaConMed(tk.Frame):  
+    def __init__(self, parent, controller): 
+        tk.Frame.__init__(self, parent) 
+        
+        self.formulario = FieldFrame.FieldFrame(self,"Generar factura con medicamento",["Cédula Cliente","Cédula Médico","Turno a pagar","Medicamento","Cantidad medicamento"],None,["entry","entry","combo","combo","entry"])
+        self.formulario.entradas[3]['values']=["Onsior", "Amoxi-Tabs C","Nemex-2"]
+        self.formulario.entradas[3].set("Onsior")
+        self.formulario.place(relx=0.5, rely=0.5, anchor="center")
+        self.formulario.aceptar['command'] = self.factura
+
+    def obtenerTurnosAPagar(self):
+        tipo = self.formulario.entradas[2].get()
+        turnosPendientes = Turno.obtenerNombresMedicos(tipo)
+        if(medicos == 0):
+            messagebox.showwarning("Agendar Turno", "No hay medicos registrados del tipo seleccionado")
+        else:
+            self.formulario.entradas[3]['values'] = medicos
+            self.formulario.entradas[3].current(0)
+            messagebox.showinfo("Agendar Turno", "Se han obtenido los medicos de este tipo,\npor favor seleccione uno en la lista desplegable")
+
+    def factura(self):
+        cedulaCliente = int(self.formulario.entradas[0].get())
+        cedulaMedico = int(self.formulario.entradas[1].get())
+        cantidadMed= int(self.formulario.entradas[4].get())
+        turnoAPagar = int(self.formulario.entradas[2].get())
+        medicamento = self.formulario.entradas[3].get()
+        FacturaConMedicamento= Factura(Medico.mapaClientes[cedulaMedico], Cliente.mapaClientes[cedulaCliente], cantidadMed ,turnoAPagar, medicamento)
+        messagebox.showinfo("Facturación", "El total ha pagar es de: $" + FacturaConMedicamento.calculoTotalFactura())
+        self.formulario.borrarCampos()
+
+       
+class facturaSinMed(tk.Frame):  
+    def __init__(self, parent, controller): 
+        tk.Frame.__init__(self, parent) 
+        
+        self.formulario = FieldFrame.FieldFrame(self,"Generar factura sin medicamento",["Cédula Cliente","Cédula Médico","Turno a pagar"],None,["entry","entry","combo"])
+        self.formulario.place(relx=0.5, rely=0.5, anchor="center")
+        self.formulario.aceptar['command'] = self.factura
+        
+    def factura(self):
+        cedulaCliente = int(self.formulario.entradas[0].get())
+        cedulaMedico = int(self.formulario.entradas[1].get())
+        turnoAPagar = int(self.formulario.entradas[2].get())
+        FacturaSinMedicamento= Factura(Medico.mapaClientes[cedulaMedico], Cliente.mapaClientes[cedulaCliente], turnoAPagar)
+        messagebox.showinfo("Facturación", "El total ha pagar es de: $" + FacturaSinMedicamento.calculoTotalFactura())
+        self.formulario.borrarCampos()
         
         
         
