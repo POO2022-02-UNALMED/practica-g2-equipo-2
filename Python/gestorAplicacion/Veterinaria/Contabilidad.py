@@ -1,4 +1,4 @@
-import Factura
+from Veterinaria import Factura
 
 class Contabilidad:
     facturas=[]
@@ -46,9 +46,14 @@ class Contabilidad:
     
     def setCaja(cls,nuevo):
         cls.caja= nuevo
-    
-    def calcularCaja(cls, retiro):
-        termina=cls.TotalDiario()-cls.getTotalMedicosTurno-retiro
+    def CambioTurno(cls, retiro=0):
+        cls.setInicial(cls.calcularCaja-retiro)
+        cls.setFacturas([])
+        cls.SetTotalMedicosTurno(0)
+
+    def calcularCaja(cls):
+        termina=cls.getInicial+cls.TotalDiario()-cls.getTotalMedicosTurno
+        cls.setCaja(termina)
         return termina
     
     def totalDiario(cls):

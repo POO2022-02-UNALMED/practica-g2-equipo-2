@@ -1,3 +1,4 @@
+from Veterinaria import Inventario
 class Medicamento:
     def __init__(self, idMed,nombre,presentacion,cantidadDisponible,precio):
         self.idMed = idMed
@@ -5,6 +6,8 @@ class Medicamento:
         self.presentacion = presentacion
         self.cantidadDisponible = cantidadDisponible
         self.precio = precio
+        Inventario.AñadirMedicamento(self)
+
 
     def getIdMed(self):
         return self.idMed

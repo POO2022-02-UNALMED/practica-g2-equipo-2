@@ -23,6 +23,7 @@ class Factura:
         self.totalFactura= self.calculoTotalFactura
         Contabilidad.agregarFactura(self)
 
+
     
     def getTotalFactura(self):
         return self.totalFactura

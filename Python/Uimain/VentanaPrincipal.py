@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import simpledialog
 from tkinter import messagebox
 from Uimain import VentanaInicio
 from Uimain import FieldFrame
@@ -7,7 +8,8 @@ from Clientes.Mascota import Mascota
 from Veterinaria.Medico import Medico
 from Veterinaria.Factura import Factura
 from Uimain.excepciones import *
-
+from Veterinaria.Contabilidad import Contabilidad
+from Veterinaria.Inventario import Inventario
 class VentanaPrincipal(tk.Tk):
     
     def __init__(self):
@@ -36,6 +38,16 @@ class VentanaPrincipal(tk.Tk):
         self.pyc.add_cascade(label="Facturación", menu=self.factura)
         self.factura.add_command(label="Facturación con medicamento",command = lambda : self.show_frame(facturaConMed))
         self.factura.add_command(label="Facturación sin medicamento",command = lambda : self.show_frame(facturaSinMed))
+        self.contabilidad=tk.Menu(self.pyc)
+        self.pyc.add_cascade(label="Contabiliad",menu=self.contabilidad)
+        self.contabilidad.add_command(label="Mostrar dinero en caja", command=self.DineroCaja)
+        self.contabilidad.add_command(label="Mostar pago a veterinarios", command=self.DeudMed)
+        self.contabilidad.add_command(label="Mostrar inventario", command=self.Inven)
+        self.cambioturno=tk.Menu(self.contabilidad)
+        self.contabilidad.add_cascade("Cambio de turno",menu=self.cambioturno)
+        self.cambioturno.add_command("Cambio de turno sin retiro", command=self.CamTurn)
+        self.cambioturno.add_command("Cambio de turno con retiro", command=self.CamTurnR)
+
 
         self.ayuda = tk.Menu(self.menuBar)
         self.menuBar.add_command(label="Ayuda", command=self.msg_ayuda)
@@ -57,6 +69,42 @@ class VentanaPrincipal(tk.Tk):
         self.show_frame(StartPage) 
         self.mainloop()
     
+    def DineroCaja(self):
+        Contabilidad.calcularCaja()
+        messagebox.showinfo("Dinero en caja",Contabilidad.getCaja())
+    
+    def DeudMed(self):
+        cad=Contabilidad.TotalMedico()
+        mess=""
+        for i in cad:
+            mess+="A el veterinario "+i+"se le audeuda: "+cad[i]+"\n"
+        messagebox.showinfo("Deuda veterinarios", mess)
+    
+    def Inven(self):
+        mess=""
+        for i in Inventario.getMedicamentos:
+            if i.getCantidadDisponible()>10:
+                mess+= i.getNombre()+": "+ i.getCantidadDisponible()+" bajas unidades " "\n"
+            else:
+                mess+= i.getNombre()+": "+ i.getCantidadDisponible()+"\n"
+        messagebox.showinfo("Inventario", mess)
+    
+    def CamTurn(self):
+        Contabilidad.CambioTurno()
+        messagebox.showinfo("Cambio de turno", "Cambio de turno exitoso")
+    
+    def CamTurnR(self):
+        inp=simpledialog.askinteger("Cambio de turno", "Ingrese el dinero que desee retirar",self)
+        try:
+            if inp>0:
+                error=tipoIntNeg()
+                raise error
+        except tipoIntNeg as error:
+            messagebox.showwarning("Error",error.error)
+
+
+        Contabilidad.CambioTurno(inp)
+        messagebox.showinfo("Cambio de turno",  "Cambio de turno exitoso")
     
     def show_frame(self, cont): 
         frame = self.frames[cont] 
@@ -91,7 +139,7 @@ class registrarMascota(tk.Frame):
       
     def __init__(self, parent, controller): 
           
-        tk.Frame.__init__(self, parent) 
+        tk.Frame.__init__(self, parent)
         
         self.formulario = FieldFrame.FieldFrame(self,"Registrar Mascota",["Nombre","Especie","Raza","Sexo","Edad","Peso","Cedula dueño"],["Ingrese un nombre","","Ingrese una raza","","Ingrese una edad","Ingrese un peso","Ingrese una cedula"],["entry","combo","entry","combo","entero","entero","entero"])
         self.formulario.entradas[1]['values']=["Perro", "Gato"]
@@ -154,7 +202,13 @@ class registrarMascota(tk.Frame):
             messagebox.showwarning("Regristros", error.error)
         #button1 = tk.Button(self, text ="StartPage", command = lambda : controller.show_frame(StartPage)) 
    
-   
+
+class MenuCont(tk.Frame):
+    def __init__(self,parent):
+        tk.Frame.__init__(self,parent)
+
+        self.formulario=FieldFrame.FieldFrame(self, "Mostrar dinero en caja","Mostrar deuda medicos","Mostrar in")
+        
    
 class registrarCliente(tk.Frame):  
     def __init__(self, parent, controller): 
@@ -434,6 +488,7 @@ class facturaSinMed(tk.Frame):
         messagebox.showinfo("Facturación", "El total ha pagar es de: $" + FacturaSinMedicamento.calculoTotalFactura())
         self.formulario.borrarCampos()
         
-        
+
+
         
         
