@@ -54,9 +54,9 @@ class Cliente(Persona):
         lista = []
         for i in range(len(self.turnosPendientes)):
             if(self.turnosPendientes[i].getHoraInicio()<13):
-                lista.append("Turno "+str(self.turnosPendientes[i].getHoraInicio()+1)+": "+str(self.turnosPendientes[i].getHoraInicio())+":00 AM")
+                lista.append("Turno "+str(self.turnosPendientes[i].getHoraInicio()+1)+": "+str(self.turnosPendientes[i].getHoraInicio())+":00 AM" + " - " + self.turnosPendientes[i].getFecha())
             else:
-                lista.append("Turno "+str(self.turnosPendientes[i].getHoraInicio()+1)+": "+str(self.turnosPendientes[i].getHoraInicio())+":00 PM")
+                lista.append("Turno "+str(self.turnosPendientes[i].getHoraInicio()+1)+": "+str(self.turnosPendientes[i].getHoraInicio())+":00 PM" + " - " + self.turnosPendientes[i].getFecha())
         return lista
     
         
