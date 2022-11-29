@@ -1,6 +1,6 @@
 from Veterinaria.Persona import Persona
 from Veterinaria.Turno import Turno
-from Clientes.Cliente import Cliente
+from Clientes import Cliente
 class Medico(Persona):
     mapaMedico= dict()
     
@@ -38,14 +38,14 @@ class Medico(Persona):
         
     def asignarTurno(self, fecha, turno, cedulaCliente, mascota): # recibe la informacion necesaria 
         self.agenda[fecha][turno].setDisponibilidad(False); #el objeto turno ya esta instanciado en la agenda del medico, solo se usan los set para darle valor a sus atributos
-        self.agenda[fecha][turno].setCliente(Cliente.mapaClientes[cedulaCliente])
-        self.agenda[fecha][turno].setMascota(Cliente.mascotas[cedulaCliente][mascota])
-        Cliente.mapaClientes.get(cedulaCliente).registrarHora(turno+1) #guarda la hora del turno en un hassmap que se usara despues para recomendar horarios
+        self.agenda[fecha][turno].setCliente(Cliente.Cliente.mapaClientes[cedulaCliente])
+        self.agenda[fecha][turno].setMascota(Cliente.Cliente.mascotas[cedulaCliente][mascota])
+        Cliente.Cliente.mapaClientes.get(cedulaCliente).registrarHora(turno) #guarda la hora del turno en un hassmap que se usara despues para recomendar horarios
         
-        if(Cliente.mapaClientes.get(cedulaCliente).sumaRegistros()>3): #si el numero de registro en el hasmap es mayor que 3, establece el cliente como un cliente frecuente
-            Cliente.mapaClientes[cedulaCliente].setFrecuente(True)
+        if(Cliente.Cliente.mapaClientes.get(cedulaCliente).sumaRegistros()>3): #si el numero de registro en el hasmap es mayor que 3, establece el cliente como un cliente frecuente
+            Cliente.Cliente.mapaClientes[cedulaCliente].setFrecuente(True)
             
-        Cliente.mapaClientes[cedulaCliente].turnosPendientes.append(self.agenda[fecha][turno])
+        Cliente.Cliente.mapaClientes[cedulaCliente].turnosPendientes.append(self.agenda[fecha][turno])
         
     
         

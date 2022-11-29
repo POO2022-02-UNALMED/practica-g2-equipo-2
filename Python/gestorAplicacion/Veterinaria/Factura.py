@@ -1,11 +1,11 @@
-from TipoMedico import TipoMedico
-import Contabilidad
+from Veterinaria import TipoMedico
+from Veterinaria import Contabilidad
 
 
 class Factura:
     DESCUENTO = 0.1
     
-    def __init__(self, medico, cliente, cantidadMedicamento: int, turno, medicamento) -> None:
+    def __init__(self, medico, cliente, turno, cantidadMedicamento = 0, medicamento = None):
         # Constructor para factura con venta de Medicamento
         self.medico = medico
         self.cliente = cliente
@@ -13,15 +13,8 @@ class Factura:
         self.cantidadMedicamento = cantidadMedicamento
         self.turno = turno
         self.totalFactura= self.calculoTotalFactura
-        Contabilidad.agregarFactura(self)
+        Contabilidad.Contabilidad.agregarFactura(self)
 
-    def __init__(self,medico, cliente, turno):
-        self.medico = medico
-        self.cliente = cliente
-        self.turno = turno
-        self.cantidadMedicamento = 0
-        self.totalFactura= self.calculoTotalFactura
-        Contabilidad.agregarFactura(self)
 
 
     
@@ -58,29 +51,30 @@ class Factura:
     def setCantidadMedicamento(self, cantidadMedicamento):
         self.cantidadMedicamento = cantidadMedicamento
 
-    def calcularValorMedico(self,medico):
-        if(medico.getTipoMedico() == TipoMedico.ESPECIALISTA.value):
-            valorMedico = 80000   
+    def calcularValorMedico(self):
+        if(self.medico.getTipoMedico() == TipoMedico.TipoMedico.ESPECIALISTA.value):
+            return 80000   
         else: 
-            valorMedico = 40000
+            return 40000
 
-    def calcularValorTurno(self,turno):
-        if(turno.getHoraInicio() >= 18) or (turno.getHoraInicio() < 8):
-            valorTurno = 40000   
+    def calcularValorTurno(self):
+        if(self.turno.getHoraInicio() >= 18) or (self.turno.getHoraInicio() < 8):
+            return 40000   
         else: 
-            valorMedico = 25000        
+            return 25000        
 
-    def totalFacturasinDcto(self,cantidadMedicamento,calcularValorTurno,calcularValorMedico,medicamento):
-        self.calculoValorTotal = calculoValorTotal
+    def totalFacturasinDcto(self):
+        
         if(self.cantidadMedicamento == 0):
-            self.calculoValorTotal = calcularValorTurno() + calcularValorMedico() 
+            self.calculoValorTotal = self.calcularValorTurno() + self.calcularValorMedico() 
         else: 
-            self.calculoTotalMedicamento = cantidadMedicamento * medicamento.getPrecio()
-            self.calculoTotalTurno = calcularValorTurno() + calcularValorMedico()
+            self.calculoTotalMedicamento = self.cantidadMedicamento * self.medicamento.getPrecio()
+            self.calculoTotalTurno = self.calcularValorTurno() + self.calcularValorMedico()
             calculoValorTotal = self.calculoTotalMedicamento + self.calculoTotalTurno
+        self.calculoValorTotal = calculoValorTotal
 
-    def calculoTotalFactura(self,cliente,totalFacturasinDcto, DESCUENTO):
-        if(cliente.isFrecuente() == True):
-            self.totalFacturaDcto = self.totalFacturasinDcto-(self.totalFacturasinDcto*DESCUENTO)
+    def calculoTotalFactura(self):
+        if(self.cliente.isFrecuente() == True):
+            self.totalFacturaDcto = self.totalFacturasinDcto-(self.totalFacturasinDcto*Factura.DESCUENTO)
         else:
-            self.totalFacturasinDcto   
+            self.totalFacturasinDcto
