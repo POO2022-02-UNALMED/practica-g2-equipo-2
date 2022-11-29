@@ -19,11 +19,8 @@ class VentanaPrincipal(tk.Tk):
     def __init__(self):
         super().__init__()
         
-        Medicamento(0,"Onsior","pastillas",50,5000)
-        Medicamento(0,"Amoxi-tabs","tabletas",9,5000)
-        Medicamento(0,"Nemex-2","pastillas",50,5000)
-        
-        #Serializacion.deserializar()
+       
+        Serializacion.deserializar()
         
         self.protocol("WM_DELETE_WINDOW", self.on_closing)
         
