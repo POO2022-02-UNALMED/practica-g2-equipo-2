@@ -1,7 +1,7 @@
 import tkinter as tk
 import tkcalendar as tkc
 from datetime import datetime
-from Uimain.Placeholder_Entry import Placeholder_Entry
+from uiMain.Placeholder_Entry import Placeholder_Entry
 #from _datetime import date
 
 class FieldFrame(tk.Frame):
@@ -54,13 +54,4 @@ class FieldFrame(tk.Frame):
                 self.entradas[i].delete(0,last=len(self.entradas[i].get()))
                 
                 
-    
-#Esto es para probar si la clase quedo bien
-
-#root = tk.Tk()
-#root.geometry("500x400")
-#formulario = FieldFrame("TITULOS",["Nombre","Fecha","Genero"],"ENTRADAS",["Pedro","300","Colombiano"],["entry","calendar","combo"])
-#formulario.entradas[2]['values']=["Macho", "Hembra"]
-#formulario.entradas[2].set("Macho")
-#formulario.pack()
-#root.mainloop()
+ 

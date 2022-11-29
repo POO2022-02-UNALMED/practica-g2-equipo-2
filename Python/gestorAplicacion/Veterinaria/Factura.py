@@ -1,5 +1,5 @@
-from Veterinaria import TipoMedico
-from Veterinaria import Contabilidad
+from gestorAplicacion.Veterinaria import TipoMedico
+from gestorAplicacion.Veterinaria import Contabilidad
 
 
 class Factura:
@@ -12,7 +12,7 @@ class Factura:
         self.medicamento = medicamento
         self.cantidadMedicamento = cantidadMedicamento
         self.turno = turno
-        self.totalFactura= self.calculoTotalFactura
+        self.totalFactura= self.calculoTotalFactura()
         Contabilidad.Contabilidad.agregarFactura(self)
 
 
@@ -76,7 +76,7 @@ class Factura:
     def calculoTotalFactura(self):
         if(self.cliente.isFrecuente() == True):
             self.totalFacturaDcto = self.totalFacturasinDcto()-(self.totalFacturasinDcto()*Factura.DESCUENTO)
-            return self.totalFacturaDcto
+            return int(self.totalFacturaDcto)
         else:
-            return self.totalFacturasinDcto()
+            return int(self.totalFacturasinDcto())
         

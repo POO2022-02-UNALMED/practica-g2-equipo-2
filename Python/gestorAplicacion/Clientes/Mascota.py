@@ -1,4 +1,4 @@
-from Clientes.Animal import Animal
+from gestorAplicacion.Clientes.Animal import Animal
 class Mascota(Animal):
     
     cantidadMascotas = 0
@@ -37,6 +37,4 @@ class Mascota(Animal):
         
     def getId(self):
         return self.id
-    
-    
     

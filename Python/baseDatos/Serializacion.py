@@ -1,8 +1,8 @@
-from Clientes.Cliente import Cliente
-from Veterinaria.Medico import Medico
+from gestorAplicacion.Clientes.Cliente import Cliente
+from gestorAplicacion.Veterinaria.Medico import Medico
 import pickle
-from Veterinaria.Contabilidad import Contabilidad
-from Veterinaria.Inventario import Inventario
+from gestorAplicacion.Veterinaria.Contabilidad import Contabilidad
+from gestorAplicacion.Veterinaria.Inventario import Inventario
 
 class Serializacion():
     
@@ -14,11 +14,11 @@ class Serializacion():
         facturas = Contabilidad.facturas
         medicamentos = Inventario.Medicamentos
         
-        mapaClientes_file = open("../baseDatos/mapaClientes.pkl","wb")
-        mapaMedicos_file = open("../baseDatos/mapaMedicos.pkl","wb")
-        mascota_file = open("../baseDatos/mascota.pkl","wb")
-        facturas_file = open("../baseDatos/facturas.pkl","wb")
-        medicamentos_file = open("../baseDatos/medicamentos.pkl","wb")
+        mapaClientes_file = open("baseDatos/mapaClientes.pkl","wb")
+        mapaMedicos_file = open("baseDatos/mapaMedicos.pkl","wb")
+        mascota_file = open("baseDatos/mascota.pkl","wb")
+        facturas_file = open("baseDatos/facturas.pkl","wb")
+        medicamentos_file = open("baseDatos/medicamentos.pkl","wb")
         
         pickle.dump(mapaClientes, mapaClientes_file)
         pickle.dump(mapaMedicos, mapaMedicos_file)
@@ -34,12 +34,16 @@ class Serializacion():
     
     @classmethod   
     def deserializar(cls):
+
         
-        mapaClientes_file = open("../baseDatos/mapaClientes.pkl","rb")
-        mapaMedicos_file = open("../baseDatos/mapaMedicos.pkl","rb")
-        mascota_file = open("../baseDatos/mascota.pkl","rb")
-        facturas_file = open("../baseDatos/facturas.pkl","rb")
-        medicamentos_file = open("../baseDatos/medicamentos.pkl","rb")
+        
+        mapaClientes_file = open("baseDatos/mapaClientes.pkl","rb")
+        mapaMedicos_file = open("baseDatos/mapaMedicos.pkl","rb")
+        mascota_file = open("baseDatos/mascota.pkl","rb")
+        facturas_file = open("baseDatos/facturas.pkl","rb")
+        medicamentos_file = open("baseDatos/medicamentos.pkl","rb")
+
+
         
         Cliente.mapaClientes = pickle.load(mapaClientes_file)
         Medico.mapaMedico = pickle.load(mapaMedicos_file)

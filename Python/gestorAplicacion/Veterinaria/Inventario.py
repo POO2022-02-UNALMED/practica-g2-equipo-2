@@ -1,4 +1,4 @@
-from Veterinaria import Medicamento
+from gestorAplicacion.Veterinaria import Medicamento
 
 class Inventario:
     

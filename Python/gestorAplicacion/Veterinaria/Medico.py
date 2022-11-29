@@ -1,6 +1,6 @@
-from Veterinaria.Persona import Persona
-from Veterinaria.Turno import Turno
-from Clientes import Cliente
+from gestorAplicacion.Veterinaria.Persona import Persona
+from gestorAplicacion.Veterinaria.Turno import Turno
+from gestorAplicacion.Clientes import Cliente
 class Medico(Persona):
     mapaMedico= dict()
     

@@ -1,4 +1,4 @@
-from Veterinaria import Inventario
+from gestorAplicacion.Veterinaria import Inventario
 class Medicamento:
     def __init__(self, idMed,nombre,presentacion,cantidadDisponible,precio):
         self.idMed = idMed

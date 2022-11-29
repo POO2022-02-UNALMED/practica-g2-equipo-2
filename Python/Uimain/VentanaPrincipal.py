@@ -1,25 +1,26 @@
 import tkinter as tk
 from tkinter import messagebox
-from Uimain import VentanaInicio
-from Uimain import FieldFrame
-from Clientes.Cliente import Cliente
-from Clientes.Mascota import Mascota
-from Veterinaria.Medico import Medico
-from Veterinaria.Factura import Factura
-from Uimain.excepciones import *
+import VentanaInicio
+from uiMain import FieldFrame
+from gestorAplicacion.Clientes.Cliente import Cliente
+from gestorAplicacion.Clientes.Mascota import Mascota
+from gestorAplicacion.Veterinaria.Medico import Medico
+from gestorAplicacion.Veterinaria.Factura import Factura
+from uiMain.excepciones import *
 from baseDatos.Serializacion import Serializacion
 from tkinter import simpledialog
-from Veterinaria.Contabilidad import Contabilidad
-from Veterinaria.Inventario import Inventario
-from Veterinaria.Medicamento import Medicamento
-from Veterinaria.TipoMedico import TipoMedico
+from gestorAplicacion.Veterinaria.Contabilidad import Contabilidad
+from gestorAplicacion.Veterinaria.Inventario import Inventario
+from gestorAplicacion.Veterinaria.Medicamento import Medicamento
+from gestorAplicacion.Veterinaria.TipoMedico import TipoMedico
 
 class VentanaPrincipal(tk.Tk):
     
     def __init__(self):
         super().__init__()
         
-       
+        
+
         Serializacion.deserializar()
         
         self.protocol("WM_DELETE_WINDOW", self.on_closing)
@@ -636,7 +637,4 @@ class factura(tk.Frame):
        
 
 
-        
-        
-        
-        
+      

@@ -1,3 +1,3 @@
 @echo off
-py.exe -3 "%~dp0\Uimain\ventanaInicio.py"
+py.exe -3 "%~dp0\VentanaInicio.py"
 pause

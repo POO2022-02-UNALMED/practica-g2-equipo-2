@@ -45,3 +45,4 @@ class tipoString(excepcionC2):
 class tipoIntNeg(excepcionC2):
     def __init__(self):
         super().__init__("Por favor ingrese un numero entero positivo")
+        

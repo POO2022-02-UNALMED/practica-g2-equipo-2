@@ -1,4 +1,4 @@
-from Veterinaria import Factura
+from gestorAplicacion.Veterinaria import Factura
 
 class Contabilidad:
     facturas=[]
@@ -95,4 +95,3 @@ class Contabilidad:
         cls.SetTotalMedicosTurno(acum)
 
         return medicos
-    
