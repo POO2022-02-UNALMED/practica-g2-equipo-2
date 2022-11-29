@@ -27,7 +27,7 @@ class VentanaPrincipal(tk.Tk):
         self.menuBar.add_cascade(label="Procesos y Consultas", menu=self.pyc)
         self.registros = tk.Menu(self.pyc)
         self.factura = tk.Menu(self.pyc)
-        self.pyc.add_command(label="Startpage",command = lambda : self.show_frame(StartPage))
+        self.pyc.add_command(label="Pagina Inicio",command = lambda : self.show_frame(StartPage))
         self.pyc.add_cascade(label="Registros", menu=self.registros)
         self.registros.add_command(label="Registrar Cliente",command = lambda : self.show_frame(registrarCliente))
         self.registros.add_command(label="Registrar Mascota",command = lambda : self.show_frame(registrarMascota))
@@ -35,8 +35,7 @@ class VentanaPrincipal(tk.Tk):
         self.pyc.add_command(label="Agendar Turno",command = lambda : self.show_frame(agendarTurno))
         self.pyc.add_cascade(label="Facturación", menu=self.factura)
         self.factura.add_command(label="Facturación con medicamento",command = lambda : self.show_frame(facturaConMed))
-        self.factura.add_command(label="Facturación sin medicamento",command = lambda : self.show_frame(facturaSinMed))
-
+        
         self.ayuda = tk.Menu(self.menuBar)
         self.menuBar.add_command(label="Ayuda", command=self.msg_ayuda)
         
@@ -48,7 +47,7 @@ class VentanaPrincipal(tk.Tk):
    
         self.frames = {}   
         
-        for F in (StartPage, registrarMascota, registrarCliente, registrarMedico, agendarTurno): 
+        for F in (StartPage, registrarMascota, registrarCliente, registrarMedico, agendarTurno, facturaConMed): 
    
             frame = F(container, self) 
             self.frames[F] = frame  
@@ -68,7 +67,7 @@ class VentanaPrincipal(tk.Tk):
         VentanaInicio.VentanaInicio()
        
     def descripcion(self):
-        messagebox.showinfo("Descripcion", "Este es un administrador para veterinarias")
+        messagebox.showinfo("Descripcion", "Sistema administrativo para veterinaria, en el cual el administrador tendrá la posibilidad de llevar el control de los registros de usuarios y personal. Podrá agendar turnos a los usuarios verificando la disponibilidad y para clientes frecuentes, recomendará horarios frecuentes. El sistema tiene la opción de generar factura por servicios y productos, y de ver los datos contables (ventas totales del día, dinero en caja,etc).")
 
     def msg_ayuda(self):
         messagebox.showinfo("Ayuda", "Autores:\n- Juan Alejandro Espinosa\n- Maria Camila Arias\n- Sebastian Aguinaga\n- Hans Garcia")
@@ -83,7 +82,6 @@ class StartPage(tk.Frame):
         
         label = tk.Label(self, text ="¡Bienvenido!",font=("Verdana", 20)) 
         label.place(relx=0.5, rely=0.5, anchor="center")
-        
            
    
    
@@ -264,6 +262,8 @@ class registrarMedico(tk.Frame):
         except tipoString as error:
             messagebox.showwarning("Regristros", error.error)
             
+            
+            
 class agendarTurno(tk.Frame): 
     def __init__(self, parent, controller):  
         tk.Frame.__init__(self, parent) 
@@ -352,14 +352,41 @@ class agendarTurno(tk.Frame):
                 raise error
             
             Medico.mapaMedico[cedulasMedicos[medico]].crearFecha(fecha)
-            disponibles = Medico.mapaMedico[cedulasMedicos[medico]].obtenerTurnosDisponibles(fecha)
-            result = self.askComboValue(disponibles)
-            print(result)
-            for i in range(24):
-                if(result==("Turno "+str(i+1)+": "+str(i)+":00 AM") or result==("Turno "+str(i+1)+": "+str(i)+":00 PM")):
-                    res = i
-                    print(res)            
-            Medico.mapaMedico[cedulasMedicos[medico]].asignarTurno(fecha, res, int(cedulaCliente), mascota)
+            if(Cliente.mapaClientes[int(cedulaCliente)].isFrecuente()):
+                respuesta = messagebox.askyesno("Cliente frecuente", "El cliente ingresado es frecuente,\n¿Desea ver los turnos recomendados para este cliente?")
+                if(respuesta):
+                    frecuentes = Cliente.mapaClientes[int(cedulaCliente)].obtenerTurnosFrecuentes(fecha, cedulasMedicos[medico])
+                    if(len(frecuentes)==0):
+                        messagebox.showwarning("Cliente frecuente","Los turno recomendados para este cliente no se encuentran disponibles en esta fecha, se mostraran los demas turnos dispobiles")
+                        result = "Ver todos los disponibles"
+                    else:
+                        frecuentes.append("Ver todos los disponibles")
+                        result = self.askComboValue(frecuentes)
+                    if(result == "Ver todos los disponibles"):
+                        disponibles = Medico.mapaMedico[cedulasMedicos[medico]].obtenerTurnosDisponibles(fecha)
+                        result = self.askComboValue(disponibles)
+                    for i in range(24):
+                        if(result==("Turno "+str(i+1)+": "+str(i)+":00 AM") or result==("Turno "+str(i+1)+": "+str(i)+":00 PM")):
+                            res = i
+                            print(res)
+                    Medico.mapaMedico[cedulasMedicos[medico]].asignarTurno(fecha, res, int(cedulaCliente), mascota)
+                else:
+                    disponibles = Medico.mapaMedico[cedulasMedicos[medico]].obtenerTurnosDisponibles(fecha)
+                    result = self.askComboValue(disponibles)
+                    for i in range(24):
+                        if(result==("Turno "+str(i+1)+": "+str(i)+":00 AM") or result==("Turno "+str(i+1)+": "+str(i)+":00 PM")):
+                            res = i
+                            print(res)            
+                    Medico.mapaMedico[cedulasMedicos[medico]].asignarTurno(fecha, res, int(cedulaCliente), mascota)
+            else:                 
+                disponibles = Medico.mapaMedico[cedulasMedicos[medico]].obtenerTurnosDisponibles(fecha)
+                result = self.askComboValue(disponibles)
+                print(result)
+                for i in range(24):
+                    if(result==("Turno "+str(i+1)+": "+str(i)+":00 AM") or result==("Turno "+str(i+1)+": "+str(i)+":00 PM")):
+                        res = i
+                        print(res)            
+                        Medico.mapaMedico[cedulasMedicos[medico]].asignarTurno(fecha, res, int(cedulaCliente), mascota)
             messagebox.showinfo("Turno asignado", "El turno ha sido asignado")
             self.formulario.entradas[1]['values']=["Debe buscar mascotas"]
             self.formulario.entradas[3]['values']=["Debe buscar medicos"]
@@ -379,33 +406,34 @@ class agendarTurno(tk.Frame):
         top.geometry("200x90")
         tk.Label(top, text='Seleccione un turno').pack(pady=10)
         box_value = tk.StringVar()
-        combo = tk.ttk.Combobox(top, textvariable=box_value, values=values)
+        combo = tk.ttk.Combobox(top, textvariable=box_value, values=values, state="readonly")
         combo.current(0)
         combo.pack()
         combo.bind('<<ComboboxSelected>>', lambda _: top.destroy())
         top.grab_set()
         top.wait_window(top)  # wait for itself destroyed, so like a modal dialog
         return box_value.get()
+    
 
 class facturaConMed(tk.Frame):  
     def __init__(self, parent, controller): 
         tk.Frame.__init__(self, parent) 
         
-        self.formulario = FieldFrame.FieldFrame(self,"Generar factura con medicamento",["Cédula Cliente","Cédula Médico","Turno a pagar","Medicamento","Cantidad medicamento"],None,["entry","entry","combo","combo","entry"])
+        self.formulario = FieldFrame.FieldFrame(self,"Generar factura",["Cédula Cliente","Cédula Médico","Turno a pagar","Medicamento","Cantidad medicamento"],None,["entry","entry","combo","combo","entry"])
         self.formulario.entradas[3]['values']=["Onsior", "Amoxi-Tabs C","Nemex-2"]
         self.formulario.entradas[3].set("Onsior")
         self.formulario.place(relx=0.5, rely=0.5, anchor="center")
         self.formulario.aceptar['command'] = self.factura
 
-    def obtenerTurnosAPagar(self):
-        tipo = self.formulario.entradas[2].get()
-        turnosPendientes = Turno.obtenerNombresMedicos(tipo)
-        if(medicos == 0):
-            messagebox.showwarning("Agendar Turno", "No hay medicos registrados del tipo seleccionado")
-        else:
-            self.formulario.entradas[3]['values'] = medicos
-            self.formulario.entradas[3].current(0)
-            messagebox.showinfo("Agendar Turno", "Se han obtenido los medicos de este tipo,\npor favor seleccione uno en la lista desplegable")
+    #def obtenerTurnosAPagar(self):
+     #   tipo = self.formulario.entradas[2].get()
+      #  turnosPendientes = Turno.obtenerNombresMedicos(tipo)
+       # if(medicos == 0):
+        #    messagebox.showwarning("Agendar Turno", "No hay medicos registrados del tipo seleccionado")
+        #else:
+         #   self.formulario.entradas[3]['values'] = medicos
+          #  self.formulario.entradas[3].current(0)
+           # messagebox.showinfo("Agendar Turno", "Se han obtenido los medicos de este tipo,\npor favor seleccione uno en la lista desplegable")
 
     def factura(self):
         cedulaCliente = int(self.formulario.entradas[0].get())
@@ -413,26 +441,12 @@ class facturaConMed(tk.Frame):
         cantidadMed= int(self.formulario.entradas[4].get())
         turnoAPagar = int(self.formulario.entradas[2].get())
         medicamento = self.formulario.entradas[3].get()
-        FacturaConMedicamento= Factura(Medico.mapaClientes[cedulaMedico], Cliente.mapaClientes[cedulaCliente], cantidadMed ,turnoAPagar, medicamento)
+        FacturaConMedicamento= Factura(Medico.mapaMedico[cedulaMedico], Cliente.mapaClientes[cedulaCliente], cantidadMed ,turnoAPagar, medicamento)
         messagebox.showinfo("Facturación", "El total ha pagar es de: $" + FacturaConMedicamento.calculoTotalFactura())
         self.formulario.borrarCampos()
-
        
-class facturaSinMed(tk.Frame):  
-    def __init__(self, parent, controller): 
-        tk.Frame.__init__(self, parent) 
-        
-        self.formulario = FieldFrame.FieldFrame(self,"Generar factura sin medicamento",["Cédula Cliente","Cédula Médico","Turno a pagar"],None,["entry","entry","combo"])
-        self.formulario.place(relx=0.5, rely=0.5, anchor="center")
-        self.formulario.aceptar['command'] = self.factura
-        
-    def factura(self):
-        cedulaCliente = int(self.formulario.entradas[0].get())
-        cedulaMedico = int(self.formulario.entradas[1].get())
-        turnoAPagar = int(self.formulario.entradas[2].get())
-        FacturaSinMedicamento= Factura(Medico.mapaClientes[cedulaMedico], Cliente.mapaClientes[cedulaCliente], turnoAPagar)
-        messagebox.showinfo("Facturación", "El total ha pagar es de: $" + FacturaSinMedicamento.calculoTotalFactura())
-        self.formulario.borrarCampos()
+
+
         
         
         

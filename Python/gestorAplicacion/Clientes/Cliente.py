@@ -1,4 +1,5 @@
 from Veterinaria.Persona import Persona
+from Veterinaria import Medico
 
 class Cliente(Persona):
     mapaClientes = dict()
@@ -31,7 +32,33 @@ class Cliente(Persona):
         
         return suma
     
-
+    def obtenerTurnosFrecuentes(self, fecha, cedulaMedico): #devuelve un mapa con los turno que mas frecuenta el usuario
+        
+        #ordena el hashmap de registro hora segun sus valores de manera descendente para que las hras mas frecuentas queden en las primera posiciones
+        result = dict(sorted(self.registroHoras.items(), key=lambda item:item[1], reverse=True))
+        i=0
+        lista = []
+        for clave in result:
+            if(i<2):
+                if(Medico.Medico.mapaMedico[cedulaMedico].agenda[fecha][clave-1].isDisponibilidad()):
+                    if(clave<13):
+                        lista.append("Turno "+str(clave+1)+": "+str(clave)+":00 AM")
+                    else:
+                        lista.append("Turno "+str(clave+1)+": "+str(clave)+":00 PM")
+                #crea un nuevo mapa solo con los registros de las horas mas frecuentadas
+                i+=1
+        
+        return lista
+    
+    def obtenerTurnosPendiente(self):
+        lista = []
+        for i in range(len(self.turnosPendientes)):
+            if(self.turnosPendientes[i].getHoraInicio()<13):
+                lista.append("Turno "+str(self.turnosPendientes[i].getHoraInicio()+1)+": "+str(self.turnosPendientes[i].getHoraInicio())+":00 AM")
+            else:
+                lista.append("Turno "+str(self.turnosPendientes[i].getHoraInicio()+1)+": "+str(self.turnosPendientes[i].getHoraInicio())+":00 PM")
+        return lista
+    
         
     def __str__(self):
         return "nombre: " + self.nombre + "\ncedula: " + str(self.cedula) + "\ntelefono: " + str(self.telefono)
