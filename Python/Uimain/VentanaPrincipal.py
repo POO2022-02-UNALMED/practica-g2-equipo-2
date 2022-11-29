@@ -415,7 +415,7 @@ class agendarTurno(tk.Frame):
         return box_value.get()
     
 
-class facturaConMed(tk.Frame):  
+class factura(tk.Frame):  
     def __init__(self, parent, controller): 
         tk.Frame.__init__(self, parent) 
         
@@ -425,25 +425,45 @@ class facturaConMed(tk.Frame):
         self.formulario.place(relx=0.5, rely=0.5, anchor="center")
         self.formulario.aceptar['command'] = self.factura
 
-    #def obtenerTurnosAPagar(self):
-     #   tipo = self.formulario.entradas[2].get()
-      #  turnosPendientes = Turno.obtenerNombresMedicos(tipo)
-       # if(medicos == 0):
-        #    messagebox.showwarning("Agendar Turno", "No hay medicos registrados del tipo seleccionado")
-        #else:
-         #   self.formulario.entradas[3]['values'] = medicos
-          #  self.formulario.entradas[3].current(0)
-           # messagebox.showinfo("Agendar Turno", "Se han obtenido los medicos de este tipo,\npor favor seleccione uno en la lista desplegable")
-
+    def obtenerTurnosAPagar(self):
+        cedulaCliente = int(self.formulario.entradas[0].get())
+        pendientes = Cliente.mapaClientes[int(cedulaCliente)].obtenerTurnosPendiente()
+        result = self.askComboValue(pendientes)
+        print(result)
+        if(pendientes == 0):
+            messagebox.showwarning("Pagar Turno", "No hay turnos pendientes por pagar")
+        else:
+            for i in range(24):
+                if(result==("Turno "+str(i+1)+": "+str(i)+":00 AM") or result==("Turno "+str(i+1)+": "+str(i)+":00 PM")):
+                    res = i
+                    print(res)            
+                    Medico.mapaMedico[cedulasMedicos[medico]].asignarTurno(fecha, res, int(cedulaCliente), mascota)
+            self.formulario.entradas[2]['values'] = pendientes
+            self.formulario.entradas[2].current(0)
+            messagebox.showinfo("Pagar Turno", "Se han obtenido siguientes turnos pendientes por pagar,\npor favor seleccione uno en la lista desplegable")
+   
     def factura(self):
         cedulaCliente = int(self.formulario.entradas[0].get())
         cedulaMedico = int(self.formulario.entradas[1].get())
         cantidadMed= int(self.formulario.entradas[4].get())
         turnoAPagar = int(self.formulario.entradas[2].get())
         medicamento = self.formulario.entradas[3].get()
-        FacturaConMedicamento= Factura(Medico.mapaMedico[cedulaMedico], Cliente.mapaClientes[cedulaCliente], cantidadMed ,turnoAPagar, medicamento)
-        messagebox.showinfo("Facturación", "El total ha pagar es de: $" + FacturaConMedicamento.calculoTotalFactura())
+        Factura1= Factura(Medico.mapaMedico[cedulaMedico], Cliente.mapaClientes[cedulaCliente], cantidadMed ,turnoAPagar, medicamento)
+        messagebox.showinfo("Facturación", "El total ha pagar es de: $" + Factura1.calculoTotalFactura())
         self.formulario.borrarCampos()
+
+    def askComboValue(self, values):
+        top = tk.Toplevel() # use Toplevel() instead of Tk()
+        top.geometry("200x90")
+        tk.Label(top, text='Seleccione el turno que desea pagar').pack(pady=10)
+        box_value = tk.StringVar()
+        combo = tk.ttk.Combobox(top, textvariable=box_value, values=values, state="readonly")
+        combo.current(0)
+        combo.pack()
+        combo.bind('<<ComboboxSelected>>', lambda _: top.destroy())
+        top.grab_set()
+        top.wait_window(top)  # wait for itself destroyed, so like a modal dialog
+        return box_value.get()
        
 
 
