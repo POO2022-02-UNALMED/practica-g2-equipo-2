@@ -50,14 +50,17 @@ class Cliente(Persona):
         
         return lista
     
-    def obtenerTurnosPendiente(self):
+    def obtenerTurnosPendientes(self):
         lista = []
         for i in range(len(self.turnosPendientes)):
             if(self.turnosPendientes[i].getHoraInicio()<13):
-                lista.append("Turno "+str(self.turnosPendientes[i].getHoraInicio()+1)+": "+str(self.turnosPendientes[i].getHoraInicio())+":00 AM" + " - " + self.turnosPendientes[i].getFecha())
+                lista.append("Turno "+str(self.turnosPendientes[i].getHoraInicio()+1)+": "+str(self.turnosPendientes[i].getHoraInicio())+":00 AM" + " - " + str(self.turnosPendientes[i].getFecha()))
             else:
-                lista.append("Turno "+str(self.turnosPendientes[i].getHoraInicio()+1)+": "+str(self.turnosPendientes[i].getHoraInicio())+":00 PM" + " - " + self.turnosPendientes[i].getFecha())
-        return lista
+                lista.append("Turno "+str(self.turnosPendientes[i].getHoraInicio()+1)+": "+str(self.turnosPendientes[i].getHoraInicio())+":00 PM" + " - " + str(self.turnosPendientes[i].getFecha()))
+        if(len(lista)==0):
+            return 0
+        else:
+            return lista
     
         
     def __str__(self):

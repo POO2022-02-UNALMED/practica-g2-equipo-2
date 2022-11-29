@@ -61,13 +61,16 @@ class Contabilidad:
     @classmethod
     def setCaja(cls,nuevo):
         cls.caja= nuevo
+        
+    @classmethod
     def CambioTurno(cls, retiro=0):
-        cls.setInicial(cls.calcularCaja-retiro)
+        cls.setInicial(cls.calcularCaja()-retiro)
         cls.setFacturas([])
         cls.SetTotalMedicosTurno(0)
-
+    
+    @classmethod
     def calcularCaja(cls):
-        termina=cls.getInicial+cls.TotalDiario()-cls.getTotalMedicosTurno
+        termina=cls.getInicial()+cls.totalDiario()-cls.getTotalMedicosTurno()
         cls.setCaja(termina)
         return termina
     
@@ -81,14 +84,14 @@ class Contabilidad:
     @classmethod
     def TotalMedico(cls):
         acum=0
-        medicos={}
+        medicos=dict()
         for i in cls.facturas:
             if i.getMedico() in medicos:
-                medicos[i.getMedico()]+=i.calcularValorMedico(i.getMedico().medico)
-                acum+=i.calcularValorMedico(i.getMedico().medico)
+                medicos[i.getMedico()]+=i.calcularValorMedico()
+                acum+=i.calcularValorMedico()
             else:
-                medicos[i.getMedico]=i.calcularValorMedico(i.getMedico().medico)
-                acum+=i.calcularValorMedico(i.getMedico().medico)
+                medicos[i.getMedico()]=i.calcularValorMedico()
+                acum+=i.calcularValorMedico()
         cls.SetTotalMedicosTurno(acum)
 
         return medicos

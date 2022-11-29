@@ -1,14 +1,17 @@
 from Veterinaria import Medicamento
 
 class Inventario:
+    
     Medicamentos=[]
     
-    def  getMedicamentos(cls):
-        return Medicamento
+    @classmethod
+    def getMedicamentos(cls):
+        return cls.Medicamentos
+    
+    @classmethod
     def AñadirMedicamento(cls, nuevo):
         cls.Medicamentos.append(nuevo)
 
     
     
-
 

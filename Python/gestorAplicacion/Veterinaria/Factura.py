@@ -16,7 +16,6 @@ class Factura:
         Contabilidad.Contabilidad.agregarFactura(self)
 
 
-
     
     def getTotalFactura(self):
         return self.totalFactura
@@ -72,9 +71,12 @@ class Factura:
             self.calculoTotalTurno = self.calcularValorTurno() + self.calcularValorMedico()
             calculoValorTotal = self.calculoTotalMedicamento + self.calculoTotalTurno
         self.calculoValorTotal = calculoValorTotal
+        return self.calculoValorTotal
 
     def calculoTotalFactura(self):
         if(self.cliente.isFrecuente() == True):
-            self.totalFacturaDcto = self.totalFacturasinDcto-(self.totalFacturasinDcto*Factura.DESCUENTO)
+            self.totalFacturaDcto = self.totalFacturasinDcto()-(self.totalFacturasinDcto()*Factura.DESCUENTO)
+            return self.totalFacturaDcto
         else:
-            self.totalFacturasinDcto
+            return self.totalFacturasinDcto()
+        

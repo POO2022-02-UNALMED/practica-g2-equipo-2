@@ -41,6 +41,7 @@ class tipoString(excepcionC2):
         for i in campos:
             lista = lista +"- "+ i + "\n"
         super().__init__("Los siguientes campos deben tener solo caracteres alfabeticos:\n"+lista)
+        
 class tipoIntNeg(excepcionC2):
-    def __init__(self, campos):
+    def __init__(self):
         super().__init__("Por favor ingrese un numero entero positivo")

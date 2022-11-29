@@ -6,7 +6,7 @@ class Medicamento:
         self.presentacion = presentacion
         self.cantidadDisponible = cantidadDisponible
         self.precio = precio
-        Inventario.AñadirMedicamento(self)
+        Inventario.Inventario.AñadirMedicamento(self)
 
 
     def getIdMed(self):
@@ -40,5 +40,3 @@ class Medicamento:
         self.precio = precio          
 
              
-
-        

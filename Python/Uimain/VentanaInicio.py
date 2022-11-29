@@ -10,7 +10,7 @@ path = os.path.join(pathlib.Path(__file__).parent.absolute())
 class VentanaInicio(tk.Tk):
     def __init__(self):
         super().__init__()
-        self.title("Ventana inicio")
+        self.title("Vet-Admin")
         self.geometry("500x400")
         #self.config(bg="skyblue")
         self.configure(bg="gray")
@@ -43,7 +43,7 @@ class VentanaInicio(tk.Tk):
         
         #--- Panel p5 --------------------------------
         self.P5 = tk.Frame(self)
-        self.hv = tk.Label(self.P5, text="Juan Alejandro Espinosa\nIngenieria de sistemas e informatica")
+        self.hv = tk.Label(self.P5, text="Maria Camila Arias\nIngeniera en semana,\nrockstar los fines de semana")
         self.hv.place(relx=0.5, rely=0.5, anchor="center")
         self.P5.bind("<Button>", self.cambiarFotos)
         self.hv.bind("<Button>", self.cambiarFotos)
@@ -121,7 +121,7 @@ class VentanaInicio(tk.Tk):
             self.label_f4['image'] = self.fotosAlejandro[3]
         else:
             self.fotos=0
-            self.hv['text']="Maria Camila Arias\nIngenieria de sistemas e informatica"
+            self.hv['text']="Maria Camila Arias\nIngeniera en semana,\nrockstar los fines de semana"
             self.label_f1['image'] = self.fotosCamila[0]
             self.label_f2['image'] = self.fotosCamila[1]
             self.label_f3['image'] = self.fotosCamila[2]

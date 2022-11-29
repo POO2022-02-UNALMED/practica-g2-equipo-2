@@ -9,15 +9,16 @@ class Medico(Persona):
         self.cargo = cargo
         self.agenda = dict()
     
-    def getTipoMed(self):
+    def getTipoMedico(self):
         return self.cargo
     
-    def setTipoMed(self, cargo):
+    def setTipoMedico(self, cargo):
         self.cargo = cargo
         
     def crearFecha(self, fecha):
         if(fecha not in self.agenda):
             turnos = []
+            
             for i in range(24):
                 turnos.append(Turno(i, fecha, None, None, True, self))
             self.agenda[fecha] = turnos
@@ -53,7 +54,7 @@ class Medico(Persona):
     def obtenerNombresMedicos(cls, tipo):
         lista=[]
         for cedula in Medico.mapaMedico:
-            if(Medico.mapaMedico[cedula].getTipoMed()==tipo):
+            if(Medico.mapaMedico[cedula].getTipoMedico()==tipo):
                 lista.append(Medico.mapaMedico[cedula].getNombre())
         if(len(lista)==0):
             return 0
@@ -64,7 +65,7 @@ class Medico(Persona):
     def obtenerCedulasMedicos(cls, tipo):
         lista=[]
         for cedula in Medico.mapaMedico:
-            if(Medico.mapaMedico[cedula].getTipoMed()==tipo):
+            if(Medico.mapaMedico[cedula].getTipoMedico()==tipo):
                 lista.append(Medico.mapaMedico[cedula].getCedula())
         if(len(lista)==0):
             return 0
